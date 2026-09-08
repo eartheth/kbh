@@ -1,0 +1,4268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School Navigation | KBH</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --purple: #A16BD3;
+            --purple-dark: #8450b5;
+            --purple-soft: rgba(161, 107, 211, 0.11);
+            --text: #303036;
+            --muted: #77727d;
+            --border: rgba(103, 77, 126, 0.14);
+            --page: #f7f5fa;
+            --card: #ffffff;
+            --route-purple: #8d4bc2;
+            --route-yellow: #f1c232;
+            --route-green: #2baa62;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: Arial, Helvetica, sans-serif;
+            background: var(--page);
+            color: var(--text);
+        }
+
+        button,
+        input,
+        select {
+            font: inherit;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        /* =========================================================
+           NAVBAR
+        ========================================================= */
+
+        .top-nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            box-shadow: 0 4px 18px rgba(56, 38, 72, 0.06);
+        }
+
+        .top-nav-inner {
+            width: 100%;
+            max-width: 1240px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+
+        .top-nav-inner::-webkit-scrollbar {
+            display: none;
+        }
+
+        .top-nav a {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            min-height: 58px;
+            padding: 0 16px;
+            color: #666;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 700;
+            white-space: nowrap;
+            transition: 0.2s ease;
+        }
+
+        .top-nav a:hover {
+            color: var(--purple-dark);
+            background: rgba(161, 107, 211, 0.06);
+        }
+
+        .top-nav a.active {
+            color: var(--purple-dark);
+        }
+
+        .top-nav a.active::after {
+            content: "";
+            position: absolute;
+            left: 16px;
+            right: 16px;
+            bottom: 0;
+            height: 3px;
+            border-radius: 3px 3px 0 0;
+            background: var(--purple);
+        }
+
+        /* =========================================================
+           PAGE
+        ========================================================= */
+
+        .page-header {
+            background:
+                radial-gradient(circle at 85% 15%, rgba(161, 107, 211, 0.18), transparent 27%),
+                linear-gradient(135deg, #221b2c, #372942);
+            color: white;
+            padding: 42px 22px 72px;
+        }
+
+        .page-header-inner {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .eyebrow {
+            color: #d9c1ec;
+            font-size: 12px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1.1px;
+            margin-bottom: 8px;
+        }
+
+        .page-header h1 {
+            font-size: clamp(30px, 5vw, 46px);
+            line-height: 1.08;
+            margin-bottom: 10px;
+        }
+
+        .page-header h1 span {
+            color: #c28ce9;
+        }
+
+        .page-header p {
+            max-width: 720px;
+            color: rgba(255, 255, 255, 0.75);
+            line-height: 1.6;
+            font-size: 15px;
+        }
+
+        .main {
+            width: 100%;
+            max-width: 1240px;
+            margin: -42px auto 0;
+            padding: 0 20px 70px;
+        }
+
+        .panel {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            box-shadow: 0 14px 40px rgba(50, 33, 65, 0.09);
+        }
+
+        /* =========================================================
+           SEARCH / ROUTING CONTROLS
+        ========================================================= */
+
+        .route-panel {
+            padding: 22px;
+            margin-bottom: 18px;
+        }
+
+        .route-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1.65fr) minmax(220px, 0.85fr) auto;
+            gap: 13px;
+            align-items: end;
+        }
+
+        .field label {
+            display: block;
+            margin-bottom: 7px;
+            color: #67606b;
+            font-size: 12px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.45px;
+        }
+
+        .field input,
+        .field select {
+            width: 100%;
+            min-height: 48px;
+            border: 1px solid #ded8e4;
+            border-radius: 11px;
+            background: white;
+            padding: 0 13px;
+            color: #333;
+            outline: none;
+            transition: 0.2s ease;
+        }
+
+        .field input:focus,
+        .field select:focus {
+            border-color: var(--purple);
+            box-shadow: 0 0 0 4px rgba(161, 107, 211, 0.11);
+        }
+
+        .route-btn {
+            min-height: 48px;
+            border: 0;
+            border-radius: 11px;
+            padding: 0 22px;
+            background: var(--purple);
+            color: white;
+            font-weight: 800;
+            box-shadow: 0 7px 17px rgba(161, 107, 211, 0.23);
+            transition: 0.2s ease;
+        }
+
+        .route-btn:hover {
+            background: var(--purple-dark);
+            transform: translateY(-1px);
+        }
+
+        .route-help {
+            margin-top: 15px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 10px 18px;
+            color: #746e78;
+            font-size: 13px;
+        }
+
+        .legend-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+        }
+
+        .legend-line {
+            width: 30px;
+            height: 5px;
+            border-radius: 99px;
+        }
+
+        .legend-line.purple { background: var(--route-purple); }
+        .legend-line.yellow { background: var(--route-yellow); }
+        .legend-line.green { background: var(--route-green); }
+
+        .route-message {
+            margin-top: 14px;
+            min-height: 20px;
+            color: #665b6c;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .route-message.error {
+            color: #b44343;
+        }
+
+        /* =========================================================
+           MAP CARD
+        ========================================================= */
+
+        .map-panel {
+            position: relative;
+            padding: 18px;
+            overflow: hidden;
+        }
+
+        .map-toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 14px;
+        }
+
+        .map-toolbar h2 {
+            font-size: 20px;
+        }
+
+        .map-toolbar p {
+            color: var(--muted);
+            font-size: 12px;
+            margin-top: 4px;
+        }
+
+        .clear-route-btn {
+            border: 1px solid #ded8e4;
+            border-radius: 9px;
+            background: white;
+            color: #655d68;
+            padding: 9px 12px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .clear-route-btn:hover {
+            background: #faf8fc;
+            color: var(--purple-dark);
+        }
+
+        .map-frame {
+            position: relative;
+            overflow: auto;
+            border-radius: 16px;
+            background: #fdfdfd;
+            border: 1px solid #ebe7ee;
+            min-height: 520px;
+        }
+
+        #schoolMap {
+            display: block;
+            width: 100%;
+            min-width: 900px;
+            height: auto;
+            background: #fff;
+        }
+
+        .map-building {
+            cursor: pointer;
+            outline: none;
+        }
+
+        .map-building .building-shape {
+            fill: #c4cac8;
+            stroke: #a9b0ae;
+            stroke-width: 2;
+            transition: 0.22s ease;
+        }
+
+        .map-building:hover .building-shape,
+        .map-building:focus .building-shape {
+            fill: #b8bebe;
+            stroke: var(--purple);
+            stroke-width: 4;
+            filter: drop-shadow(0 8px 10px rgba(52, 39, 63, 0.15));
+        }
+
+        .map-building .building-label {
+            fill: #161419;
+            font-size: 22px;
+            font-weight: 800;
+            pointer-events: none;
+        }
+
+        .small-map-label {
+            fill: #272229;
+            font-size: 16px;
+            font-weight: 800;
+            pointer-events: none;
+        }
+
+        .map-note {
+            fill: #615a65;
+            font-size: 12px;
+            font-weight: 700;
+            pointer-events: none;
+        }
+
+        .entrance-label {
+            fill: #161419;
+            font-size: 15px;
+            font-weight: 800;
+            pointer-events: none;
+        }
+
+        .entrance-box {
+            fill: #efa8d2;
+            stroke: #e591c3;
+            stroke-width: 1.5;
+        }
+
+        .grass {
+            fill: #9cc568;
+        }
+
+        .court-border {
+            fill: #ff9e49;
+        }
+
+        .court {
+            fill: #52956e;
+            stroke: white;
+            stroke-width: 2;
+        }
+
+        .court-line {
+            fill: none;
+            stroke: white;
+            stroke-width: 2;
+        }
+
+        .court-key {
+            fill: #ff9e49;
+            stroke: white;
+            stroke-width: 2;
+        }
+
+        .house-wall {
+            fill: #d44c19;
+            stroke: #ad3512;
+            stroke-width: 2;
+        }
+
+        .house-roof {
+            fill: #af2f13;
+            stroke: #8f2811;
+            stroke-width: 2;
+        }
+
+        .walkway {
+            fill: none;
+            stroke: #e8e5eb;
+            stroke-width: 12;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .walkway-center {
+            fill: none;
+            stroke: #ffffff;
+            stroke-width: 2;
+            stroke-dasharray: 7 10;
+            stroke-linecap: round;
+            opacity: 0.95;
+        }
+
+        .route-underlay {
+            fill: none;
+            stroke: rgba(255, 255, 255, 0.95);
+            stroke-width: 13;
+            stroke-linejoin: round;
+            stroke-linecap: round;
+        }
+
+        .route-line {
+            fill: none;
+            stroke-width: 7;
+            stroke-linejoin: round;
+            stroke-linecap: round;
+            opacity: 0.95;
+            vector-effect: non-scaling-stroke;
+        }
+
+        .route-purple { stroke: var(--route-purple); }
+        .route-yellow { stroke: var(--route-yellow); }
+        .route-green { stroke: var(--route-green); }
+
+        /* Only one alternative route is shown. It is dotted so the
+           main solid route is always visually dominant. */
+        .route-alternative {
+            stroke-width: 5;
+            stroke-dasharray: 11 12;
+            opacity: 0.72;
+            animation: alternativeRouteFlow 1.25s linear infinite;
+        }
+
+        @keyframes alternativeRouteFlow {
+            to {
+                stroke-dashoffset: -46;
+            }
+        }
+
+        .route-underlay.route-underlay-alternative {
+            stroke-width: 9;
+            opacity: 0.75;
+        }
+
+        .destination-pulse {
+            fill: #ffffff;
+            stroke: var(--purple);
+            stroke-width: 4;
+            transform-box: fill-box;
+            transform-origin: center;
+            animation: destinationPulse 1.35s ease-out infinite;
+        }
+
+        @keyframes destinationPulse {
+            0% { transform: scale(0.75); opacity: 1; }
+            75% { transform: scale(1.55); opacity: 0.08; }
+            100% { transform: scale(1.55); opacity: 0; }
+        }
+
+        .destination-dot {
+            fill: var(--purple);
+            stroke: white;
+            stroke-width: 3;
+        }
+
+        .destination-tag rect {
+            fill: #2c2432;
+            opacity: 0.94;
+        }
+
+        .destination-tag text {
+            fill: white;
+            font-size: 13px;
+            font-weight: 800;
+        }
+
+        /* =========================================================
+           BUILDING VIEW OVERLAY
+        ========================================================= */
+
+        .building-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 2200;
+            display: none;
+            align-items: flex-start;
+            justify-content: center;
+            overflow-y: auto;
+            padding: 32px 18px;
+            background: rgba(28, 22, 33, 0.78);
+            backdrop-filter: blur(7px);
+            -webkit-backdrop-filter: blur(7px);
+            perspective: 1400px;
+        }
+
+        .building-overlay.open {
+            display: flex;
+            animation: overlayFade 0.28s ease both;
+        }
+
+        @keyframes overlayFade {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .building-card {
+            width: min(980px, 100%);
+            background: #f8f6fa;
+            border-radius: 22px;
+            border: 1px solid rgba(255,255,255,.25);
+            box-shadow: 0 35px 90px rgba(0,0,0,.30);
+            overflow: hidden;
+            transform-origin: center top;
+            animation: buildingDive 0.58s cubic-bezier(.16,.76,.3,1) both;
+        }
+
+        @keyframes buildingDive {
+            0% {
+                opacity: 0;
+                transform: translateY(90px) translateZ(-420px) rotateX(15deg) scale(0.72);
+            }
+            65% {
+                opacity: 1;
+                transform: translateY(-7px) translateZ(18px) rotateX(-1.5deg) scale(1.015);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) translateZ(0) rotateX(0) scale(1);
+            }
+        }
+
+        .building-card-header {
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            align-items: flex-start;
+            padding: 25px 25px 22px;
+            color: white;
+            background:
+                linear-gradient(135deg, rgba(161,107,211,.92), rgba(88,52,116,.96));
+        }
+
+        .building-card-header h2 {
+            font-size: 28px;
+            margin-bottom: 5px;
+        }
+
+        .building-card-header p {
+            color: rgba(255,255,255,.76);
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .close-building {
+            flex: 0 0 auto;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            border: 1px solid rgba(255,255,255,.35);
+            background: rgba(255,255,255,.12);
+            color: white;
+            font-size: 20px;
+            line-height: 1;
+        }
+
+        .close-building:hover {
+            background: rgba(255,255,255,.23);
+        }
+
+        .building-body {
+            padding: 22px;
+        }
+
+        .building-front {
+            position: relative;
+            margin: 0 auto;
+            width: min(800px, 100%);
+            border: 8px solid #6f6675;
+            border-radius: 8px 8px 14px 14px;
+            background: #ede9f0;
+            box-shadow:
+                inset 0 0 0 2px rgba(255,255,255,.8),
+                0 18px 35px rgba(70, 54, 84, .13);
+        }
+
+        .building-roof {
+            height: 36px;
+            margin: -28px 18px 0;
+            border-radius: 8px 8px 3px 3px;
+            background: #554d59;
+            transform: perspective(220px) rotateX(5deg);
+            box-shadow: 0 -7px 0 #69606e inset;
+        }
+
+        .floor-row,
+        .landing-row {
+            display: grid;
+            grid-template-columns: 84px minmax(0, 1fr);
+            min-height: 118px;
+            border-top: 5px solid #6f6675;
+        }
+
+        .landing-row {
+            min-height: 76px;
+            background: #f1eef3;
+        }
+
+        .floor-label {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 8px;
+            border-right: 4px solid #6f6675;
+            background: #dad4de;
+            text-align: center;
+            font-weight: 900;
+            font-size: 13px;
+            color: #49404d;
+        }
+
+        .floor-label small {
+            display: block;
+            margin-top: 3px;
+            color: #7b717e;
+            font-size: 10px;
+            font-weight: 700;
+        }
+
+        .floor-content {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 8px;
+            padding: 10px;
+            align-items: stretch;
+        }
+
+        .floor-content.two {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .floor-content.four {
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+        }
+
+        .floor-content.five {
+            grid-template-columns: repeat(5, minmax(0, 1fr));
+        }
+
+        .room-card {
+            position: relative;
+            min-height: 84px;
+            border: 1px solid #cfc7d4;
+            border-radius: 9px;
+            background:
+                linear-gradient(180deg, #ffffff, #f3f0f5);
+            padding: 12px 10px 10px;
+            text-align: left;
+            transition: 0.18s ease;
+        }
+
+        button.room-card {
+            width: 100%;
+            color: inherit;
+        }
+
+        button.room-card:hover {
+            border-color: var(--purple);
+            transform: translateY(-2px);
+            box-shadow: 0 7px 15px rgba(80,58,96,.11);
+        }
+
+        .room-number {
+            display: inline-block;
+            margin-bottom: 7px;
+            padding: 4px 6px;
+            border-radius: 6px;
+            background: #302936;
+            color: #fff;
+            font-size: 11px;
+            font-weight: 900;
+            letter-spacing: .35px;
+        }
+
+        .room-name {
+            font-size: 13px;
+            font-weight: 800;
+            line-height: 1.3;
+        }
+
+        .room-description {
+            margin-top: 5px;
+            color: #807785;
+            font-size: 10px;
+            line-height: 1.35;
+        }
+
+        .special-card {
+            background: #efeaf3;
+        }
+
+        .restricted-card {
+            background: #f3e7e7;
+            border-color: #d7b5b5;
+        }
+
+        .landing-content {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+            padding: 9px 12px;
+        }
+
+        .landing-pill {
+            border-radius: 9px;
+            border: 1px solid #d3cbd8;
+            background: white;
+            padding: 9px 11px;
+            font-size: 12px;
+            font-weight: 800;
+        }
+
+        .landing-pill.restricted {
+            background: #f4e6e6;
+            color: #8e4545;
+            border-color: #dec2c2;
+        }
+
+        .entrance-strip {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
+            padding: 14px;
+            border-top: 5px solid #6f6675;
+            background: #d9d3dd;
+        }
+
+        .entrance-chip {
+            padding: 8px 11px;
+            border-radius: 8px;
+            background: #5b5360;
+            color: white;
+            font-size: 11px;
+            font-weight: 800;
+        }
+
+        .building-hint {
+            margin-top: 16px;
+            color: #77707b;
+            font-size: 12px;
+            line-height: 1.55;
+            text-align: center;
+        }
+
+
+        /* =========================================================
+           ANNOTATED CAMPUS MAP DETAILS
+        ========================================================= */
+
+        .campus-building {
+            fill: #c4cac8;
+            stroke: #aeb6b4;
+            stroke-width: 1.5;
+        }
+
+        .campus-building-click {
+            cursor: pointer;
+            outline: none;
+        }
+
+        .campus-building-click:hover .campus-building,
+        .campus-building-click:focus .campus-building {
+            fill: #b9c0be;
+            stroke: #A16BD3;
+            stroke-width: 4;
+        }
+
+        .campus-label {
+            fill: #111;
+            font-size: 19px;
+            font-weight: 900;
+            pointer-events: none;
+        }
+
+        .campus-label-small {
+            fill: #111;
+            font-size: 13px;
+            font-weight: 900;
+            pointer-events: none;
+        }
+
+        .door-marker {
+            fill: #fff6b5;
+            stroke: #dfc037;
+            stroke-width: 1.5;
+            filter: drop-shadow(0 2px 2px rgba(60, 45, 25, 0.10));
+        }
+
+        .door-frame {
+            fill: #fffdf5;
+            stroke: #c8a927;
+            stroke-width: 1.4;
+        }
+
+        .door-opening {
+            fill: #f5d34d;
+            stroke: #bfa11f;
+            stroke-width: 1.2;
+        }
+
+        .door-step {
+            stroke: #cbaa24;
+            stroke-width: 2;
+            stroke-linecap: round;
+        }
+
+        .poi-badge rect {
+            fill: rgba(255,255,255,.93);
+            stroke: rgba(56,45,65,.17);
+            stroke-width: 1.5;
+        }
+
+        .poi-badge text {
+            fill: #322a36;
+            font-size: 11px;
+            font-weight: 900;
+            pointer-events: none;
+        }
+
+
+        .poi-clickable {
+            cursor: pointer;
+            outline: none;
+        }
+
+        .poi-clickable rect {
+            transition: 0.18s ease;
+        }
+
+        .poi-clickable:hover rect,
+        .poi-clickable:focus rect {
+            stroke: #A16BD3;
+            stroke-width: 2.5;
+            filter: drop-shadow(0 5px 7px rgba(68, 45, 86, 0.16));
+        }
+
+        .route-line,
+        .route-underlay,
+        .destination-pulse,
+        .destination-dot,
+        .destination-tag {
+            pointer-events: none;
+        }
+
+        .poi-badge .poi-code {
+            fill: #A16BD3;
+            font-size: 16px;
+        }
+.map-grass {
+            fill: #9bc666;
+        }
+
+        .map-court-border {
+            fill: #ff9e49;
+        }
+
+        .map-court {
+            fill: #55986f;
+            stroke: #fff;
+            stroke-width: 2;
+        }
+
+        .map-court-line {
+            fill: none;
+            stroke: #fff;
+            stroke-width: 2;
+        }
+
+        .map-court-key {
+            fill: #ff9e49;
+            stroke: #fff;
+            stroke-width: 2;
+        }
+
+        .house-outline {
+            stroke: #ab3613;
+            stroke-width: 2;
+        }
+
+        .map-entrance-box {
+            fill: #eba5cf;
+            stroke: #df92bf;
+            stroke-width: 1.5;
+        }
+
+        .map-entrance-text {
+            fill: #111;
+            font-size: 12px;
+            font-weight: 900;
+        }
+
+        .bridge-shape {
+            fill: #a8b4bf;
+        }
+
+        /* =========================================================
+           RESPONSIVE
+        ========================================================= */
+
+        @media (max-width: 780px) {
+            .route-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .route-btn {
+                width: 100%;
+            }
+
+            .map-toolbar {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .building-overlay {
+                padding: 15px 9px;
+            }
+
+            .building-body {
+                padding: 13px;
+            }
+
+            .building-card-header {
+                padding: 20px 17px;
+            }
+
+            .building-card-header h2 {
+                font-size: 23px;
+            }
+
+            .floor-row,
+            .landing-row {
+                grid-template-columns: 64px minmax(0, 1fr);
+            }
+
+            .floor-content,
+            .floor-content.two,
+            .floor-content.four,
+            .floor-content.five {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 520px) {
+            .main {
+                padding: 0 10px 50px;
+            }
+
+            .route-panel,
+            .map-panel {
+                border-radius: 15px;
+            }
+
+            .top-nav-inner {
+                padding: 0 9px;
+            }
+
+            .top-nav a {
+                min-height: 52px;
+                padding: 0 12px;
+                font-size: 12px;
+            }
+
+            .floor-content,
+            .floor-content.two,
+            .floor-content.four,
+            .floor-content.five {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.001ms !important;
+                animation-iteration-count: 1 !important;
+                scroll-behavior: auto !important;
+                transition-duration: 0.001ms !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="top-nav" aria-label="Main navigation">
+        <div class="top-nav-inner">
+            <a href="portal.html">Home</a>
+            <a href="map.html" class="active" aria-current="page">School Navigation</a>
+            <a href="budget.html">Personal Budget Tracker</a>
+            <a href="planner.html">School Planner</a>
+        </div>
+    </nav>
+
+    <header class="page-header">
+        <div class="page-header-inner">
+            <div class="eyebrow">Knightsbridge House International School Nonthaburi</div>
+            <h1>School <span>Navigation</span></h1>
+            <p>
+                Search for a room or school location. The map shows one main route
+                and one alternative route. Without a custom start, Year 9 is the main route.
+                If you choose a starting point, that becomes the green main route.
+                The solid purple alternative always starts from the left school gate.
+            </p>
+        </div>
+    </header>
+
+    <main class="main">
+
+        <section class="panel route-panel">
+            <div class="route-grid">
+
+                <div class="field">
+                    <label for="destinationInput">Where do you want to go?</label>
+                    <input
+                        id="destinationInput"
+                        list="destinationSuggestions"
+                        type="text"
+                        autocomplete="off"
+                        placeholder="Search a room number, room name, nurse, library..."
+                    >
+                    <datalist id="destinationSuggestions"></datalist>
+                </div>
+
+                <div class="field">
+                    <label for="customStart">Optional starting point</label>
+                    <select id="customStart">
+                        <option value="">No custom start</option>
+                    </select>
+                </div>
+
+                <button class="route-btn" type="button" id="findRouteBtn">
+                    Show routes
+                </button>
+
+            </div>
+
+            <div class="route-help">
+                <span class="legend-item">
+                    <span class="legend-line yellow"></span>
+                    Solid main route: Year 9
+                </span>
+
+                <span class="legend-item">
+                    <span class="legend-line green"></span>
+                    Solid main route: custom start
+                </span>
+
+                <span class="legend-item">
+                    <span class="legend-line purple" style="background: repeating-linear-gradient(90deg, var(--route-purple) 0 8px, transparent 8px 13px);"></span>
+                    Dotted alternative: School gate
+                </span>
+            </div>
+
+            <div class="route-message" id="routeMessage" aria-live="polite">
+                Search for a destination to draw the routes.
+            </div>
+        </section>
+
+        <section class="panel map-panel">
+
+            <div class="map-toolbar">
+                <div>
+                    <h2>Campus map</h2>
+                    <p>Redrawn from your annotated school map. Doorways and Building 1 facilities follow your marked positions.</p>
+                </div>
+
+                <button class="clear-route-btn" type="button" id="clearRouteBtn">
+                    Clear routes
+                </button>
+            </div>
+
+            <div class="map-frame" id="mapFrame">
+
+                <svg
+                    id="schoolMap"
+                    viewBox="0 0 1180 840"
+                    role="img"
+                    aria-label="Interactive top-down school map based on the annotated school plan"
+                >
+                    <defs>
+                        <pattern id="roofDark" width="16" height="16" patternUnits="userSpaceOnUse">
+                            <rect width="16" height="16" fill="#ac2e11"></rect>
+                            <path d="M15 0V16" stroke="#81220d" stroke-width="1"></path>
+                        </pattern>
+
+                        <pattern id="roofMid" width="16" height="16" patternUnits="userSpaceOnUse">
+                            <rect width="16" height="16" fill="#d84b18"></rect>
+                            <path d="M15 0V16" stroke="#b53a13" stroke-width="1"></path>
+                        </pattern>
+
+                        <pattern id="roofLight" width="16" height="16" patternUnits="userSpaceOnUse">
+                            <rect width="16" height="16" fill="#ff7c3a"></rect>
+                            <path d="M15 0V16" stroke="#dc5b29" stroke-width="1"></path>
+                        </pattern>
+</defs>
+
+                    <rect x="0" y="0" width="1180" height="840" fill="#fff"></rect>
+
+
+                    <!-- =====================================================
+                         TOP BUILDINGS
+                    ====================================================== -->
+
+                    <!-- BUILDING 3 -->
+                    <g class="campus-building-click map-building"
+                       data-building="B3"
+                       tabindex="0"
+                       role="button"
+                       aria-label="Open Building 3">
+
+                        <rect class="campus-building"
+                              x="105" y="10" width="580" height="105"></rect>
+
+                        <text class="campus-label"
+                              x="395" y="78"
+                              text-anchor="middle">
+                            Building 3
+                        </text>
+                    </g>
+
+                    <!-- B3 doorway exactly where marked -->
+                    <g aria-label="Building 3 entrance">
+                        <rect x="126" y="105" width="31" height="11" fill="#fff"></rect>
+                        <rect class="door-marker" x="128" y="84" width="27" height="23" rx="5"></rect>
+                        <rect class="door-frame" x="133" y="89" width="17" height="18" rx="3"></rect>
+                        <path class="door-opening" d="M141.5 92 A6 6 0 0 1 147.5 98 V107 H141.5 Z"></path>
+                        <line class="door-step" x1="131" y1="109" x2="152" y2="109"></line>
+                    </g>
+
+
+                    <!-- BUILDING 2 -->
+                    <g class="campus-building-click map-building"
+                       data-building="B2"
+                       tabindex="0"
+                       role="button"
+                       aria-label="Open Building 2">
+
+                        <rect class="campus-building"
+                              x="700" y="10" width="425" height="60"></rect>
+
+                        <text class="campus-label"
+                              x="912" y="50"
+                              text-anchor="middle">
+                            Building 2
+                        </text>
+                    </g>
+
+                    <!-- B2 left doorway -->
+                    <g aria-label="Building 2 left entrance">
+                        <rect x="730" y="60" width="31" height="11" fill="#fff"></rect>
+                        <rect class="door-marker" x="732" y="39" width="27" height="23" rx="5"></rect>
+                        <rect class="door-frame" x="737" y="44" width="17" height="18" rx="3"></rect>
+                        <path class="door-opening" d="M745.5 47 A6 6 0 0 1 751.5 53 V62 H745.5 Z"></path>
+                        <line class="door-step" x1="735" y1="64" x2="756" y2="64"></line>
+                    </g>
+
+                    <!-- B2 right doorway -->
+                    <g aria-label="Building 2 right entrance">
+                        <rect x="1082" y="60" width="31" height="11" fill="#fff"></rect>
+                        <rect class="door-marker" x="1084" y="39" width="27" height="23" rx="5"></rect>
+                        <rect class="door-frame" x="1089" y="44" width="17" height="18" rx="3"></rect>
+                        <path class="door-opening" d="M1097.5 47 A6 6 0 0 1 1103.5 53 V62 H1097.5 Z"></path>
+                        <line class="door-step" x1="1087" y1="64" x2="1108" y2="64"></line>
+                    </g>
+
+
+                    <!-- BRIDGE -->
+                    <rect class="bridge-shape"
+                          x="655" y="19" width="77" height="42"></rect>
+
+                    <text class="campus-label-small"
+                          x="693.5" y="46"
+                          text-anchor="middle">
+                        Bridge
+                    </text>
+
+
+                    <!-- =====================================================
+                         BUILDING 1 / OLD CANTEEN
+                    ====================================================== -->
+
+                    <g class="campus-building-click map-building"
+                       data-building="B1"
+                       tabindex="0"
+                       role="button"
+                       aria-label="Open Building 1">
+
+                        <rect class="campus-building"
+                              x="140" y="120" width="545" height="125"></rect>
+
+                        <text class="campus-label"
+                              x="412" y="194"
+                              text-anchor="middle">
+                            Building 1
+                        </text>
+                    </g>
+
+                    <!-- B1 lower-left doorway -->
+                    <g aria-label="Building 1 lower-left entrance">
+                        <rect x="166" y="235" width="31" height="11" fill="#fff"></rect>
+                        <rect class="door-marker" x="168" y="214" width="27" height="23" rx="5"></rect>
+                        <rect class="door-frame" x="173" y="219" width="17" height="18" rx="3"></rect>
+                        <path class="door-opening" d="M181.5 222 A6 6 0 0 1 187.5 228 V237 H181.5 Z"></path>
+                        <line class="door-step" x1="171" y1="239" x2="192" y2="239"></line>
+                    </g>
+
+                    <!-- B1 upper-right doorway -->
+                    <g aria-label="Building 1 upper-right entrance">
+                        <rect x="642" y="116" width="31" height="11" fill="#fff"></rect>
+                        <rect class="door-marker" x="644" y="95" width="27" height="23" rx="5"></rect>
+                        <rect class="door-frame" x="649" y="100" width="17" height="18" rx="3"></rect>
+                        <path class="door-opening" d="M657.5 103 A6 6 0 0 1 663.5 109 V118 H657.5 Z"></path>
+                        <line class="door-step" x1="647" y1="120" x2="668" y2="120"></line>
+                    </g>
+
+
+                    <!-- Building 1 POIs from the user's annotations -->
+                    <g class="poi-badge poi-clickable"
+                       data-location-id="B1-CANTEEN"
+                       tabindex="0"
+                       role="button"
+                       aria-label="Route to Canteen"
+                       transform="translate(607 143)">
+                        <rect width="66" height="58" rx="9"></rect>
+                        <text class="poi-code" x="33" y="23" text-anchor="middle">C</text>
+                        <text x="33" y="43" text-anchor="middle">Canteen</text>
+                    </g>
+
+                    <g class="poi-badge poi-clickable"
+                       data-location-id="B1-STAFF"
+                       tabindex="0"
+                       role="button"
+                       aria-label="Route to Staff Room"
+                       transform="translate(564 247)">
+                        <rect width="67" height="48" rx="9"></rect>
+                        <text class="poi-code" x="18" y="22">S</text>
+                        <text x="39" y="21">Staff</text>
+                        <text x="39" y="36">Room</text>
+                    </g>
+
+                    <g class="poi-badge poi-clickable"
+                       data-location-id="B1-NURSE"
+                       tabindex="0"
+                       role="button"
+                       aria-label="Route to Nurse Room"
+                       transform="translate(633 247)">
+                        <rect width="67" height="48" rx="9"></rect>
+                        <text class="poi-code" x="17" y="22">N</text>
+                        <text x="39" y="21">Nurse</text>
+                        <text x="39" y="36">Room</text>
+                    </g>
+<!-- Grass strip below Building 1 -->
+                    <rect class="map-grass"
+                          x="177" y="245" width="350" height="55"></rect>
+
+
+                    <!-- OLD CANTEEN -->
+                    <rect class="campus-building"
+                          x="740" y="115" width="368" height="68"></rect>
+
+                    <text class="campus-label-small"
+                          x="924" y="155"
+                          text-anchor="middle">
+                        Old canteen
+                    </text>
+
+
+                    <!-- =====================================================
+                         COURT
+                    ====================================================== -->
+
+                    <g aria-label="Sports court">
+                        <rect class="map-court-border"
+                              x="140" y="300" width="312" height="490"></rect>
+
+                        <rect class="map-court"
+                              x="162" y="325" width="267" height="439"></rect>
+
+                        <!-- center line + circle -->
+                        <line class="map-court-line"
+                              x1="162" y1="544.5" x2="429" y2="544.5"></line>
+                        <circle class="map-court-line"
+                                cx="295.5" cy="544.5" r="34"></circle>
+
+                        <!-- upper key -->
+                        <rect class="map-court-key"
+                              x="260" y="325" width="70" height="98"></rect>
+                        <path class="map-court-line"
+                              d="M260 389 A35 35 0 0 0 330 389"></path>
+                        <circle class="map-court-line" cx="295" cy="345" r="9"></circle>
+
+                        <!-- lower key -->
+                        <rect class="map-court-key"
+                              x="260" y="666" width="70" height="98"></rect>
+                        <path class="map-court-line"
+                              d="M260 704 A35 35 0 0 1 330 704"></path>
+                        <circle class="map-court-line" cx="295" cy="741" r="9"></circle>
+
+                        <!-- big arcs -->
+                        <path class="map-court-line"
+                              d="M191 325 L191 366
+                                 A104 104 0 0 0 400 366
+                                 L400 325"></path>
+
+                        <path class="map-court-line"
+                              d="M191 764 L191 723
+                                 A104 104 0 0 1 400 723
+                                 L400 764"></path>
+
+                        <!-- key tick marks -->
+                        <g stroke="#fff" stroke-width="2">
+                            <line x1="255" y1="348" x2="262" y2="348"></line>
+                            <line x1="255" y1="367" x2="262" y2="367"></line>
+                            <line x1="255" y1="386" x2="262" y2="386"></line>
+                            <line x1="328" y1="348" x2="335" y2="348"></line>
+                            <line x1="328" y1="367" x2="335" y2="367"></line>
+                            <line x1="328" y1="386" x2="335" y2="386"></line>
+
+                            <line x1="255" y1="698" x2="262" y2="698"></line>
+                            <line x1="255" y1="717" x2="262" y2="717"></line>
+                            <line x1="255" y1="736" x2="262" y2="736"></line>
+                            <line x1="328" y1="698" x2="335" y2="698"></line>
+                            <line x1="328" y1="717" x2="335" y2="717"></line>
+                            <line x1="328" y1="736" x2="335" y2="736"></line>
+                        </g>
+                    </g>
+
+
+                    <!-- =====================================================
+                         HOUSE + GRASS
+                    ====================================================== -->
+
+                    <!-- Organic grass boundary matching the annotated area -->
+                    <path class="map-grass"
+                          d="
+                            M621 330
+                            Q623 282 668 274
+                            Q734 265 804 267
+                            Q867 269 913 279
+                            Q977 287 1018 291
+                            Q1068 295 1073 341
+                            L1073 621
+                            Q1071 677 1016 686
+                            Q925 692 832 690
+                            Q741 695 670 688
+                            Q621 683 619 632
+                            L619 516
+                            L746 516
+                            L746 442
+                            L621 442
+                            Z
+                          ">
+                    </path>
+
+                    <!-- White access notch beside the house wing -->
+                    <path d="
+                            M620 444
+                            H742
+                            V516
+                            H620
+                            Z
+                          "
+                          fill="#ffffff"></path>
+
+
+                    <g class="campus-building-click map-building"
+                       data-building="H"
+                       tabindex="0"
+                       role="button"
+                       aria-label="Open the House">
+
+                        <!-- Main house body / roof -->
+                        <rect class="house-outline"
+                              x="782" y="346" width="224" height="294"
+                              fill="url(#roofMid)"></rect>
+
+                        <path class="house-outline"
+                              d="M782 346 L894 444 L1006 346 Z"
+                              fill="url(#roofDark)"></path>
+
+                        <path class="house-outline"
+                              d="M782 640 L894 534 L1006 640 Z"
+                              fill="url(#roofLight)"></path>
+
+                        <!-- left wing -->
+                        <path class="house-outline"
+                              d="M739 423 H782 L851 490 L782 563 H739 Z"
+                              fill="url(#roofDark)"></path>
+
+                        <rect class="house-outline"
+                              x="739" y="493" width="43" height="69"
+                              fill="url(#roofLight)"></rect>
+
+                        <!-- roof seams -->
+                        <path d="
+                                M782 346 L894 444 L1006 346
+                                M782 640 L894 534 L1006 640
+                                M894 444 L894 534
+                                M739 493 H851
+                              "
+                              fill="none"
+                              stroke="#a33412"
+                              stroke-width="3"
+                              opacity=".8"></path>
+                    </g>
+
+
+                    <!-- =====================================================
+                         SCHOOL ENTRANCES FROM THE ANNOTATED SCREENSHOT
+                    ====================================================== -->
+
+                    <rect class="map-entrance-box"
+                          x="10" y="689" width="145" height="92" rx="15"></rect>
+
+                    <text class="map-entrance-text"
+                          x="82.5" y="741"
+                          text-anchor="middle">
+                        Entrance
+                    </text>
+
+
+                    <rect class="map-entrance-box"
+                          x="168" y="780" width="246" height="49" rx="15"></rect>
+
+                    <text class="map-entrance-text"
+                          x="291" y="810"
+                          text-anchor="middle">
+                        Entrance
+                    </text>
+
+
+                    <!-- =====================================================
+                         DYNAMIC ROUTES
+                    ====================================================== -->
+                    <g id="routeLayer"></g>
+                    <g id="destinationLayer"></g>
+                </svg>
+            </div>
+        </section>
+    </main>
+
+
+    <!-- =========================================================
+         BUILDING FRONT VIEW
+    ========================================================== -->
+
+    <div class="building-overlay" id="buildingOverlay" aria-hidden="true">
+
+        <article
+            class="building-card"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="buildingTitle"
+        >
+
+            <div class="building-card-header">
+
+                <div>
+                    <h2 id="buildingTitle">Building</h2>
+                    <p id="buildingSubtitle"></p>
+                </div>
+
+                <button
+                    type="button"
+                    class="close-building"
+                    id="closeBuildingBtn"
+                    aria-label="Back to school map"
+                    title="Back to school map"
+                >
+                    ×
+                </button>
+
+            </div>
+
+            <div class="building-body">
+
+                <div class="building-front" id="buildingFront"></div>
+
+                <p class="building-hint">
+                    Click a room to make it the destination. Room numbers are permanent;
+                    room names and descriptions are editable in the JavaScript data section.
+                </p>
+
+            </div>
+
+        </article>
+    </div>
+
+
+    <script>
+        /* =========================================================
+           IMPORTANT: EDITABLE SCHOOL DATA
+           =========================================================
+
+           ROOM NUMBERS ARE PERMANENT.
+
+           When a classroom changes, edit only its NAME / DESCRIPTION
+           below. Do NOT change the room number unless the physical
+           school numbering itself changes.
+
+           The Year 9 room can be changed by editing:
+               YEAR9_ROOM_NUMBER
+
+           The default school gate can be changed by editing:
+               MAIN_GATE_NODE
+        ========================================================= */
+
+        const YEAR9_ROOM_NUMBER = "B1-2-01";
+        const MAIN_GATE_NODE = "gateSide";
+
+
+        /* =========================================================
+           EDIT ROOM NAMES HERE
+           Empty names automatically display the permanent room number.
+        ========================================================= */
+
+        const ROOM_NAMES = {
+
+            // BUILDING 1 — 2 floors / 4 classrooms per floor
+            "B1-1-01": "",
+            "B1-1-02": "",
+            "B1-1-03": "",
+            "B1-1-04": "",
+
+            "B1-2-01": "Year 9 Classroom",
+            "B1-2-02": "",
+            "B1-2-03": "",
+            "B1-2-04": "",
+
+            // BUILDING 2 — 4 floors / 3 rooms per floor
+            "B2-1-01": "",
+            "B2-1-02": "",
+            "B2-1-03": "",
+
+            "B2-2-01": "",
+            "B2-2-02": "",
+            "B2-2-03": "",
+
+            "B2-3-01": "",
+            "B2-3-02": "",
+            "B2-3-03": "",
+
+            "B2-4-01": "",
+            "B2-4-02": "",
+            "B2-4-03": "",
+
+            // BUILDING 3 — 5 floors
+            // Floor 1: 1 big room
+            "B3-1-01": "",
+
+            // Floors 2–4: 5 rooms per floor
+            "B3-2-01": "",
+            "B3-2-02": "",
+            "B3-2-03": "",
+            "B3-2-04": "",
+            "B3-2-05": "",
+
+            "B3-3-01": "",
+            "B3-3-02": "",
+            "B3-3-03": "",
+            "B3-3-04": "",
+            "B3-3-05": "",
+
+            "B3-4-01": "",
+            "B3-4-02": "",
+            "B3-4-03": "",
+            "B3-4-04": "",
+            "B3-4-05": "",
+
+            // Floor 5: 1 big room
+            "B3-5-01": "",
+
+            // HOUSE — permanent rooms
+            "H-1-01": "Library",
+            "H-2-01": "Music Room"
+        };
+
+
+        /* =========================================================
+           EDIT ROOM DESCRIPTIONS HERE
+           Add whatever text you want later.
+        ========================================================= */
+
+        const ROOM_DESCRIPTIONS = {
+            "B1-1-01": "",
+            "B1-1-02": "",
+            "B1-1-03": "",
+            "B1-1-04": "",
+
+            "B1-2-01": "",
+            "B1-2-02": "",
+            "B1-2-03": "",
+            "B1-2-04": "",
+
+            "B2-1-01": "",
+            "B2-1-02": "",
+            "B2-1-03": "",
+            "B2-2-01": "",
+            "B2-2-02": "",
+            "B2-2-03": "",
+            "B2-3-01": "",
+            "B2-3-02": "",
+            "B2-3-03": "",
+            "B2-4-01": "",
+            "B2-4-02": "",
+            "B2-4-03": "",
+
+            "B3-1-01": "",
+
+            "B3-2-01": "",
+            "B3-2-02": "",
+            "B3-2-03": "",
+            "B3-2-04": "",
+            "B3-2-05": "",
+
+            "B3-3-01": "",
+            "B3-3-02": "",
+            "B3-3-03": "",
+            "B3-3-04": "",
+            "B3-3-05": "",
+
+            "B3-4-01": "",
+            "B3-4-02": "",
+            "B3-4-03": "",
+            "B3-4-04": "",
+            "B3-4-05": "",
+
+            "B3-5-01": "",
+
+            "H-1-01": "",
+            "H-2-01": ""
+        };
+
+
+        /* =========================================================
+           PERMANENT PHYSICAL BUILDING LAYOUT
+        ========================================================= */
+
+        const BUILDINGS = {
+
+            B1: {
+                name: "Building 1",
+                subtitle: "2 floors • 4 classrooms per floor",
+                routeNode: "b1EntranceLeft",
+
+                levels: [
+                    {
+                        type: "floor",
+                        level: "2",
+                        rooms: [
+                            "B1-2-01",
+                            "B1-2-02",
+                            "B1-2-03",
+                            "B1-2-04"
+                        ],
+                        specials: [
+                            {
+                                id: "B1-GIRLS-WC",
+                                name: "Girls Bathroom",
+                                description: "Directly above the boys bathroom."
+                            }
+                        ]
+                    },
+
+                    {
+                        type: "floor",
+                        level: "1",
+                        rooms: [
+                            "B1-1-01",
+                            "B1-1-02",
+                            "B1-1-03",
+                            "B1-1-04"
+                        ],
+                        specials: [
+                            {
+                                id: "B1-BOYS-WC",
+                                name: "Boys Bathroom",
+                                description: "Near the building entrance."
+                            },
+                            {
+                                id: "B1-STAFF",
+                                name: "Staff Room",
+                                description: "",
+                                routeNode: "b1Staff"
+                            },
+                            {
+                                id: "B1-NURSE",
+                                name: "Nurse Room",
+                                description: "",
+                                routeNode: "b1Nurse"
+                            },
+                            {
+                                id: "B1-CANTEEN",
+                                name: "Canteen",
+                                description: "",
+                                routeNode: "b1Canteen"
+                            }
+                        ]
+                    }
+                ],
+
+                entrances: [
+                    "Main Entrance",
+                    "Staff Entrance",
+                    "Canteen Entrance"
+                ]
+            },
+
+
+            B2: {
+                name: "Building 2",
+                subtitle: "4 floors • 3 permanent classrooms per floor",
+                routeNode: "b2EntranceLeft",
+
+                levels: [
+                    {
+                        type: "floor",
+                        level: "4",
+                        rooms: ["B2-4-01", "B2-4-02", "B2-4-03"],
+                        specials: []
+                    },
+
+                    {
+                        type: "landing",
+                        level: "3.5",
+                        specials: [
+                            {
+                                id: "B2-STORAGE",
+                                name: "Storage Room",
+                                description: "Off limits to students.",
+                                restricted: true
+                            }
+                        ]
+                    },
+
+                    {
+                        type: "floor",
+                        level: "3",
+                        rooms: ["B2-3-01", "B2-3-02", "B2-3-03"],
+                        specials: []
+                    },
+
+                    {
+                        type: "landing",
+                        level: "2.5",
+                        specials: [
+                            {
+                                id: "B2-GIRLS-WC",
+                                name: "Girls Bathroom",
+                                description: "Half-floor stair landing."
+                            }
+                        ]
+                    },
+
+                    {
+                        type: "floor",
+                        level: "2",
+                        rooms: ["B2-2-01", "B2-2-02", "B2-2-03"],
+                        specials: []
+                    },
+
+                    {
+                        type: "landing",
+                        level: "1.5",
+                        specials: [
+                            {
+                                id: "B2-BOYS-WC",
+                                name: "Boys Bathroom",
+                                description: "Half-floor stair landing."
+                            }
+                        ]
+                    },
+
+                    {
+                        type: "floor",
+                        level: "1",
+                        rooms: ["B2-1-01", "B2-1-02", "B2-1-03"],
+                        specials: []
+                    }
+                ],
+
+                entrances: [
+                    "Left Entrance",
+                    "Right Entrance",
+                    "Bridge — every floor"
+                ]
+            },
+
+
+            B3: {
+                name: "Building 3",
+                subtitle: "5 floors • Floors 1 and 5 are single large rooms",
+                routeNode: "b3Entrance",
+
+                levels: [
+                    {
+                        type: "floor",
+                        level: "5",
+                        rooms: ["B3-5-01"],
+                        specials: []
+                    },
+
+                    {
+                        type: "floor",
+                        level: "4",
+                        rooms: [
+                            "B3-4-01",
+                            "B3-4-02",
+                            "B3-4-03",
+                            "B3-4-04",
+                            "B3-4-05"
+                        ],
+                        specials: []
+                    },
+
+                    {
+                        type: "floor",
+                        level: "3",
+                        rooms: [
+                            "B3-3-01",
+                            "B3-3-02",
+                            "B3-3-03",
+                            "B3-3-04",
+                            "B3-3-05"
+                        ],
+                        specials: [
+                            {
+                                id: "B3-BOYS-WC",
+                                name: "Boys Bathroom",
+                                description: ""
+                            }
+                        ]
+                    },
+
+                    {
+                        type: "floor",
+                        level: "2",
+                        rooms: [
+                            "B3-2-01",
+                            "B3-2-02",
+                            "B3-2-03",
+                            "B3-2-04",
+                            "B3-2-05"
+                        ],
+                        specials: [
+                            {
+                                id: "B3-GIRLS-WC",
+                                name: "Girls Bathroom",
+                                description: ""
+                            }
+                        ]
+                    },
+
+                    {
+                        type: "floor",
+                        level: "1",
+                        rooms: ["B3-1-01"],
+                        specials: []
+                    }
+                ],
+
+                entrances: [
+                    "Main Entrance",
+                    "Bridge",
+                    "Staff Entrance"
+                ]
+            },
+
+            H: {
+                name: "The House",
+                subtitle: "2 floors • Library + Music Room • No bathroom",
+                routeNode: "houseEntrance",
+
+                levels: [
+                    {
+                        type: "floor",
+                        level: "2",
+                        rooms: ["H-2-01"],
+                        specials: []
+                    },
+
+                    {
+                        type: "floor",
+                        level: "1",
+                        rooms: ["H-1-01"],
+                        specials: []
+                    }
+                ],
+
+                entrances: [
+                    "House Entrance"
+                ]
+            }
+        };
+
+
+        /* =========================================================
+           WALKABLE ROUTE GRAPH
+
+           These are campus walkway points, not classroom numbers.
+           Dijkstra chooses the shortest route through this walkable graph.
+           The left side of the court is walkable, but there is NO walkway
+           continuing up the left side of Building 1. Routes to Buildings 2
+           and 3 must go around the RIGHT side of Building 1.
+        ========================================================= */
+
+        const ROUTE_GRAPH = {
+
+            /* =====================================================
+               SCHOOL ENTRANCES
+            ====================================================== */
+
+            gateSide: {
+                x: 83,
+                y: 735,
+                links: ["courtBottomLeft", "b1LeftCourtLower"]
+            },
+
+            gateMain: {
+                x: 291,
+                y: 805,
+                links: ["courtBottom"]
+            },
+
+
+            /* =====================================================
+               BUILDING 1 LEFT-GATE SHORTCUT
+               ONLY for Building 1.
+
+               From the left school gate, walk straight up the LEFT
+               side of the court to Building 1's lower-left door.
+
+               This branch is deliberately isolated from the B2/B3
+               upper-campus route.
+            ====================================================== */
+
+            b1LeftCourtLower: {
+                x: 112,
+                y: 620,
+                links: ["gateSide", "b1LeftCourtUpper"]
+            },
+
+            b1LeftCourtUpper: {
+                x: 125,
+                y: 360,
+                links: ["b1LeftCourtLower", "b1EntranceLeft"]
+            },
+
+
+            /* =====================================================
+               BOTTOM + COURT WALKWAY
+               Based on the user's drawn route.
+            ====================================================== */
+
+            courtBottomLeft: {
+                x: 155,
+                y: 725,
+                links: ["gateSide", "courtBottomMiddle"]
+            },
+
+            courtBottomMiddle: {
+                x: 300,
+                y: 715,
+                links: ["courtBottomLeft", "courtBottomRight"]
+            },
+
+            courtBottomRight: {
+                x: 445,
+                y: 722,
+                links: ["courtBottomMiddle", "courtRightLower", "gateMain"]
+            },
+
+            courtBottom: {
+                x: 470,
+                y: 790,
+                links: ["gateMain", "courtBottomRight"]
+            },
+
+            courtRightLower: {
+                x: 550,
+                y: 710,
+                links: ["courtBottomRight", "courtRightMid"]
+            },
+
+            courtRightMid: {
+                x: 560,
+                y: 560,
+                links: ["courtRightLower", "courtRightUpper"]
+            },
+
+            courtRightUpper: {
+                x: 575,
+                y: 430,
+                links: ["courtRightMid", "houseWestLower", "houseApproach"]
+            },
+
+
+            /* =====================================================
+               OPEN WALKWAY BETWEEN COURT / HOUSE / BUILDING 1
+
+               House route enters directly through the white access
+               notch and ends at the House edge. No visible door is shown.
+            ====================================================== */
+
+            houseWestLower: {
+                x: 600,
+                y: 365,
+                links: ["courtRightUpper", "houseWestMid"]
+            },
+
+            houseWestMid: {
+                x: 665,
+                y: 325,
+                links: ["houseWestLower", "b1RightLower", "houseApproach"]
+            },
+
+            /*
+               HOUSE ACCESS:
+               From the court-side path, enter the white passage directly.
+               No need to climb toward Building 1 first.
+            */
+            houseApproach: {
+                x: 620,
+                y: 480,
+                links: ["houseWestMid", "houseSouth", "houseEntrance"]
+            },
+
+            houseEntrance: {
+                x: 739,
+                y: 480,
+                links: ["houseApproach"]
+            },
+
+            houseSouth: {
+                x: 620,
+                y: 700,
+                links: ["houseApproach", "courtRightLower"]
+            },
+
+
+            /* =====================================================
+               BUILDING 1 — ONLY VALID UPPER-CAMPUS ACCESS
+               Go around the RIGHT side of Building 1.
+            ====================================================== */
+
+            b1RightLower: {
+                x: 715,
+                y: 300,
+                links: ["houseWestMid", "b1RightMid", "b1Staff", "b1Nurse"]
+            },
+
+            b1Staff: {
+                x: 590,
+                y: 276,
+                links: ["b1RightLower", "b1Nurse"]
+            },
+
+            b1Nurse: {
+                x: 659,
+                y: 276,
+                links: ["b1RightLower", "b1Staff"]
+            },
+
+            b1RightMid: {
+                x: 720,
+                y: 220,
+                links: ["b1RightLower", "b1Canteen", "b1RightUpper"]
+            },
+
+            b1Canteen: {
+                x: 690,
+                y: 175,
+                links: ["b1RightMid"]
+            },
+
+            b1RightUpper: {
+                x: 710,
+                y: 130,
+                links: ["b1RightMid", "b1EntranceRight", "upperJunction"]
+            },
+
+            b1EntranceRight: {
+                x: 657,
+                y: 119,
+                links: ["b1RightUpper"]
+            },
+
+            /*
+               B1 lower-left entrance has its own direct path from
+               the LEFT school gate along the left side of the court.
+               It does NOT connect to Buildings 2/3.
+            */
+            b1EntranceLeft: {
+                x: 181,
+                y: 247,
+                links: ["b1LeftCourtUpper"]
+            },
+
+            /* =====================================================
+               UPPER JUNCTION
+               Pink drawing branches here:
+               LEFT -> Building 3
+               RIGHT -> Building 2
+
+               IMPORTANT:
+               Building 2's LEFT entrance is directly reachable from
+               this junction. Do not force normal B2 room routes around
+               the Old Canteen loop.
+            ====================================================== */
+
+            upperJunction: {
+                x: 705,
+                y: 110,
+                links: [
+                    "b1RightUpper",
+                    "b3East",
+                    "b2EntranceLeft",
+                    "b2SouthWest"
+                ]
+            },
+
+
+            /* =====================================================
+               BUILDING 3 BRANCH — LEFT
+            ====================================================== */
+
+            b3East: {
+                x: 650,
+                y: 112,
+                links: ["upperJunction", "b3Mid"]
+            },
+
+            b3Mid: {
+                x: 420,
+                y: 112,
+                links: ["b3East", "b3Entrance"]
+            },
+
+            b3Entrance: {
+                x: 142,
+                y: 116,
+                links: ["b3Mid"]
+            },
+
+
+            /* =====================================================
+               BUILDING 2 BRANCH — RIGHT
+               Route goes around Old Canteen/open area as drawn.
+            ====================================================== */
+
+            b2SouthWest: {
+                x: 730,
+                y: 220,
+                links: ["upperJunction", "b2SouthMid"]
+            },
+
+            b2SouthMid: {
+                x: 900,
+                y: 245,
+                links: ["b2SouthWest", "b2SouthEast"]
+            },
+
+            b2SouthEast: {
+                x: 1070,
+                y: 250,
+                links: ["b2SouthMid", "b2East"]
+            },
+
+            b2East: {
+                x: 1130,
+                y: 180,
+                links: ["b2SouthEast", "b2EntranceRight"]
+            },
+
+            b2EntranceRight: {
+                x: 1097,
+                y: 70,
+                links: ["b2East", "b2Top"]
+            },
+
+            b2Top: {
+                x: 910,
+                y: 82,
+                links: ["b2EntranceRight", "b2EntranceLeft"]
+            },
+
+            b2EntranceLeft: {
+                x: 745,
+                y: 70,
+                links: ["b2Top", "upperJunction"]
+            },
+
+
+            /* =====================================================
+               BRIDGE / OLD CANTEEN SEARCH DESTINATIONS
+            ====================================================== */
+
+            bridgeNode: {
+                x: 694,
+                y: 88,
+                links: ["upperJunction", "b2EntranceLeft", "b3East"]
+            },
+
+            oldCanteenSouth: {
+                x: 925,
+                y: 210,
+                links: ["b2SouthMid", "b2SouthEast"]
+            }
+        };
+
+
+        /* =========================================================
+           SEARCHABLE LOCATION LIST
+        ========================================================= */
+
+        function roomDisplayName(roomNumber) {
+            const name = (ROOM_NAMES[roomNumber] || "").trim();
+            return name || roomNumber;
+        }
+
+
+        function roomBuildingKey(roomNumber) {
+
+            if (roomNumber.startsWith("B1-")) return "B1";
+            if (roomNumber.startsWith("B2-")) return "B2";
+            if (roomNumber.startsWith("B3-")) return "B3";
+            if (roomNumber.startsWith("H-")) return "H";
+
+            return null;
+        }
+
+
+        function buildSearchLocations() {
+
+            const locations = [];
+
+
+            Object.keys(ROOM_NAMES).forEach(function (roomNumber) {
+
+                const buildingKey =
+                    roomBuildingKey(roomNumber);
+
+                const building =
+                    BUILDINGS[buildingKey];
+
+                if (!building) return;
+
+
+                locations.push({
+                    id: roomNumber,
+                    number: roomNumber,
+                    name: roomDisplayName(roomNumber),
+                    description: ROOM_DESCRIPTIONS[roomNumber] || "",
+                    building: buildingKey,
+                    routeNode: building.routeNode,
+                    mapLabel: roomDisplayName(roomNumber)
+                });
+
+            });
+
+
+            Object.entries(BUILDINGS).forEach(function ([buildingKey, building]) {
+
+                building.levels.forEach(function (level) {
+
+                    (level.specials || []).forEach(function (special) {
+
+                        locations.push({
+                            id: special.id,
+                            number: "",
+                            name: special.name,
+                            description: special.description || "",
+                            building: buildingKey,
+                            routeNode: special.routeNode || building.routeNode,
+                            mapLabel: special.name,
+                            restricted: special.restricted === true
+                        });
+
+                    });
+
+                });
+
+            });
+
+
+            locations.push(
+                {
+                    id: "OLD-CANTEEN",
+                    number: "",
+                    name: "Old Canteen",
+                    description: "",
+                    building: null,
+                    routeNode: "oldCanteenSouth",
+                    mapLabel: "Old Canteen"
+                },
+
+                {
+                    id: "SPORTS-COURT",
+                    number: "",
+                    name: "Sports Court",
+                    description: "Basketball / sports court.",
+                    building: null,
+                    routeNode: "courtRightLower",
+                    mapLabel: "Sports Court"
+                },
+
+                {
+                    id: "SCHOOL-GATE",
+                    number: "",
+                    name: "School Gate",
+                    description: "Left school gate.",
+                    building: null,
+                    routeNode: "gateSide",
+                    mapLabel: "School Gate"
+                },
+
+                {
+                    id: "LOWER-ENTRANCE",
+                    number: "",
+                    name: "Lower Entrance",
+                    description: "",
+                    building: null,
+                    routeNode: "gateMain",
+                    mapLabel: "Lower Entrance"
+                },
+
+                {
+                    id: "BRIDGE",
+                    number: "",
+                    name: "Bridge",
+                    description: "Connects Building 2 and Building 3 on every floor.",
+                    building: null,
+                    routeNode: "bridgeNode",
+                    mapLabel: "Bridge"
+                }
+            );
+
+
+            return locations;
+        }
+
+
+        const SEARCH_LOCATIONS =
+            buildSearchLocations();
+
+
+        /* =========================================================
+           ELEMENTS
+        ========================================================= */
+
+        const destinationInput =
+            document.getElementById("destinationInput");
+
+        const destinationSuggestions =
+            document.getElementById("destinationSuggestions");
+
+        const customStart =
+            document.getElementById("customStart");
+
+        const findRouteBtn =
+            document.getElementById("findRouteBtn");
+
+        const clearRouteBtn =
+            document.getElementById("clearRouteBtn");
+
+        const routeMessage =
+            document.getElementById("routeMessage");
+
+        const routeLayer =
+            document.getElementById("routeLayer");
+
+        const destinationLayer =
+            document.getElementById("destinationLayer");
+
+        const mapFrame =
+            document.getElementById("mapFrame");
+
+        const buildingOverlay =
+            document.getElementById("buildingOverlay");
+
+        const buildingFront =
+            document.getElementById("buildingFront");
+
+        const buildingTitle =
+            document.getElementById("buildingTitle");
+
+        const buildingSubtitle =
+            document.getElementById("buildingSubtitle");
+
+        const closeBuildingBtn =
+            document.getElementById("closeBuildingBtn");
+
+
+        /* =========================================================
+           SEARCH OPTIONS
+        ========================================================= */
+
+        function locationOptionText(location) {
+
+            if (
+                location.number &&
+                location.name !== location.number
+            ) {
+                return (
+                    location.number +
+                    " — " +
+                    location.name
+                );
+            }
+
+
+            return (
+                location.number ||
+                location.name
+            );
+        }
+
+
+        function populateSearchControls() {
+
+            const sorted =
+                [...SEARCH_LOCATIONS]
+                    .filter(location => !location.restricted)
+                    .sort(
+                        (a, b) =>
+                            locationOptionText(a)
+                                .localeCompare(
+                                    locationOptionText(b)
+                                )
+                    );
+
+
+            destinationSuggestions.innerHTML =
+                "";
+
+
+            customStart.innerHTML =
+                '<option value="">No custom start</option>';
+
+
+            sorted.forEach(function (location) {
+
+                const option =
+                    document.createElement("option");
+
+                option.value =
+                    locationOptionText(location);
+
+                destinationSuggestions.appendChild(
+                    option
+                );
+
+
+                const startOption =
+                    document.createElement("option");
+
+                startOption.value =
+                    location.id;
+
+                startOption.textContent =
+                    locationOptionText(location);
+
+                customStart.appendChild(
+                    startOption
+                );
+
+            });
+
+        }
+
+
+        /* =========================================================
+           MATCH SEARCH TEXT TO A LOCATION
+        ========================================================= */
+
+        function normalize(value) {
+
+            return String(value || "")
+                .trim()
+                .toLowerCase();
+
+        }
+
+
+        function findLocationByInput(value) {
+
+            const query =
+                normalize(value);
+
+            if (!query) {
+                return null;
+            }
+
+
+            let result =
+                SEARCH_LOCATIONS.find(function (location) {
+
+                    return (
+                        normalize(location.id) === query ||
+                        normalize(location.number) === query ||
+                        normalize(location.name) === query ||
+                        normalize(locationOptionText(location)) === query
+                    );
+
+                });
+
+
+            if (result) {
+                return result;
+            }
+
+
+            result =
+                SEARCH_LOCATIONS.find(function (location) {
+
+                    return (
+                        normalize(location.number).includes(query) ||
+                        normalize(location.name).includes(query) ||
+                        normalize(locationOptionText(location)).includes(query)
+                    );
+
+                });
+
+
+            return result || null;
+        }
+
+
+        function getLocationById(id) {
+
+            return (
+                SEARCH_LOCATIONS.find(
+                    location => location.id === id
+                ) ||
+                null
+            );
+
+        }
+
+
+        /* =========================================================
+           ROUTE FINDING
+        ========================================================= */
+
+        function distanceBetween(nodeA, nodeB) {
+
+            const dx =
+                nodeA.x - nodeB.x;
+
+            const dy =
+                nodeA.y - nodeB.y;
+
+            return Math.sqrt(
+                dx * dx +
+                dy * dy
+            );
+
+        }
+
+
+        function shortestPath(startId, endId) {
+
+            if (
+                !ROUTE_GRAPH[startId] ||
+                !ROUTE_GRAPH[endId]
+            ) {
+                return [];
+            }
+
+
+            if (startId === endId) {
+                return [startId];
+            }
+
+
+            const distances = {};
+            const previous = {};
+            const unvisited =
+                new Set(
+                    Object.keys(ROUTE_GRAPH)
+                );
+
+
+            Object.keys(ROUTE_GRAPH)
+                .forEach(function (nodeId) {
+
+                    distances[nodeId] =
+                        Infinity;
+
+                });
+
+
+            distances[startId] =
+                0;
+
+
+            while (unvisited.size > 0) {
+
+                let current =
+                    null;
+
+                let currentDistance =
+                    Infinity;
+
+
+                unvisited.forEach(function (nodeId) {
+
+                    if (
+                        distances[nodeId] <
+                        currentDistance
+                    ) {
+
+                        current =
+                            nodeId;
+
+                        currentDistance =
+                            distances[nodeId];
+
+                    }
+
+                });
+
+
+                if (
+                    current === null ||
+                    currentDistance === Infinity
+                ) {
+                    break;
+                }
+
+
+                if (current === endId) {
+                    break;
+                }
+
+
+                unvisited.delete(current);
+
+
+                ROUTE_GRAPH[current].links
+                    .forEach(function (neighborId) {
+
+                        if (
+                            !unvisited.has(neighborId)
+                        ) {
+                            return;
+                        }
+
+
+                        const candidate =
+                            distances[current] +
+                            distanceBetween(
+                                ROUTE_GRAPH[current],
+                                ROUTE_GRAPH[neighborId]
+                            );
+
+
+                        if (
+                            candidate <
+                            distances[neighborId]
+                        ) {
+
+                            distances[neighborId] =
+                                candidate;
+
+                            previous[neighborId] =
+                                current;
+
+                        }
+
+                    });
+
+            }
+
+
+            const path = [];
+
+            let current =
+                endId;
+
+
+            while (current) {
+
+                path.unshift(current);
+
+                if (current === startId) {
+                    break;
+                }
+
+                current =
+                    previous[current];
+
+            }
+
+
+            if (path[0] !== startId) {
+                return [];
+            }
+
+
+            return path;
+        }
+
+
+        /* =========================================================
+           SVG ROUTE DRAWING
+        ========================================================= */
+
+        const SVG_NS =
+            "http://www.w3.org/2000/svg";
+
+
+        function pathPoints(nodeIds) {
+
+            return nodeIds
+                .map(function (nodeId) {
+
+                    const node =
+                        ROUTE_GRAPH[nodeId];
+
+                    return (
+                        node.x +
+                        "," +
+                        node.y
+                    );
+
+                })
+                .join(" ");
+
+        }
+
+
+        function drawPolyline(nodeIds, className, isAlternative = false) {
+
+            if (!nodeIds || nodeIds.length < 2) {
+                return;
+            }
+
+
+            const points =
+                pathPoints(nodeIds);
+
+
+            const underlay =
+                document.createElementNS(
+                    SVG_NS,
+                    "polyline"
+                );
+
+            underlay.setAttribute(
+                "points",
+                points
+            );
+
+            underlay.setAttribute(
+                "class",
+                "route-underlay"
+            );
+
+
+            const route =
+                document.createElementNS(
+                    SVG_NS,
+                    "polyline"
+                );
+
+            route.setAttribute(
+                "points",
+                points
+            );
+
+            route.setAttribute(
+                "class",
+                "route-line " +
+                className
+            );
+
+
+            routeLayer.appendChild(
+                underlay
+            );
+
+            routeLayer.appendChild(
+                route
+            );
+
+        }
+
+
+        function drawDestination(location) {
+
+            destinationLayer.innerHTML =
+                "";
+
+
+            const node =
+                ROUTE_GRAPH[
+                    location.routeNode
+                ];
+
+
+            if (!node) {
+                return;
+            }
+
+
+            const pulse =
+                document.createElementNS(
+                    SVG_NS,
+                    "circle"
+                );
+
+            pulse.setAttribute(
+                "cx",
+                node.x
+            );
+
+            pulse.setAttribute(
+                "cy",
+                node.y
+            );
+
+            pulse.setAttribute(
+                "r",
+                "17"
+            );
+
+            pulse.setAttribute(
+                "class",
+                "destination-pulse"
+            );
+
+
+            const dot =
+                document.createElementNS(
+                    SVG_NS,
+                    "circle"
+                );
+
+            dot.setAttribute(
+                "cx",
+                node.x
+            );
+
+            dot.setAttribute(
+                "cy",
+                node.y
+            );
+
+            dot.setAttribute(
+                "r",
+                "8"
+            );
+
+            dot.setAttribute(
+                "class",
+                "destination-dot"
+            );
+
+
+            destinationLayer.appendChild(
+                pulse
+            );
+
+            destinationLayer.appendChild(
+                dot
+            );
+
+
+            const group =
+                document.createElementNS(
+                    SVG_NS,
+                    "g"
+                );
+
+            group.setAttribute(
+                "class",
+                "destination-tag"
+            );
+
+
+            const label =
+                (
+                    location.number
+                        ? location.number
+                        : location.mapLabel
+                );
+
+
+            const width =
+                Math.min(
+                    220,
+                    Math.max(
+                        78,
+                        label.length * 7.6 + 22
+                    )
+                );
+
+
+            const x =
+                Math.min(
+                    1100 - width - 8,
+                    Math.max(
+                        8,
+                        node.x - width / 2
+                    )
+                );
+
+            const y =
+                Math.max(
+                    8,
+                    node.y - 54
+                );
+
+
+            const rect =
+                document.createElementNS(
+                    SVG_NS,
+                    "rect"
+                );
+
+            rect.setAttribute(
+                "x",
+                x
+            );
+
+            rect.setAttribute(
+                "y",
+                y
+            );
+
+            rect.setAttribute(
+                "width",
+                width
+            );
+
+            rect.setAttribute(
+                "height",
+                "30"
+            );
+
+            rect.setAttribute(
+                "rx",
+                "8"
+            );
+
+
+            const text =
+                document.createElementNS(
+                    SVG_NS,
+                    "text"
+                );
+
+            text.setAttribute(
+                "x",
+                x + width / 2
+            );
+
+            text.setAttribute(
+                "y",
+                y + 20
+            );
+
+            text.setAttribute(
+                "text-anchor",
+                "middle"
+            );
+
+            text.textContent =
+                label;
+
+
+            group.appendChild(
+                rect
+            );
+
+            group.appendChild(
+                text
+            );
+
+            destinationLayer.appendChild(
+                group
+            );
+
+        }
+
+
+        function getYear9Location() {
+
+            return (
+                getLocationById(
+                    YEAR9_ROOM_NUMBER
+                ) ||
+                null
+            );
+
+        }
+
+
+        /* =========================================================
+           BUILDING 1 SMART ENTRANCE SELECTION
+
+           Building 1 is special because it has a usable exit on
+           both the left and right.
+
+           When STARTING inside Building 1:
+             - destination is left -> use the left exit
+             - destination is right -> use the right exit
+
+           We do not hard-code "left" or "right" by destination name.
+           We compare the real walkable graph distance from BOTH exits
+           and use whichever route is actually shorter.
+        ========================================================= */
+
+        function routeLength(nodeIds) {
+
+            if (!nodeIds || nodeIds.length < 2) {
+                return 0;
+            }
+
+
+            let total =
+                0;
+
+
+            for (
+                let i = 0;
+                i < nodeIds.length - 1;
+                i++
+            ) {
+
+                const a =
+                    ROUTE_GRAPH[
+                        nodeIds[i]
+                    ];
+
+                const b =
+                    ROUTE_GRAPH[
+                        nodeIds[i + 1]
+                    ];
+
+
+                if (!a || !b) {
+                    return Infinity;
+                }
+
+
+                total +=
+                    distanceBetween(
+                        a,
+                        b
+                    );
+
+            }
+
+
+            return total;
+        }
+
+
+        function chooseBuilding1Exit(targetNode) {
+
+            const leftPath =
+                shortestPath(
+                    "b1EntranceLeft",
+                    targetNode
+                );
+
+            const rightPath =
+                shortestPath(
+                    "b1EntranceRight",
+                    targetNode
+                );
+
+
+            const leftDistance =
+                leftPath.length > 0
+                    ? routeLength(leftPath)
+                    : Infinity;
+
+            const rightDistance =
+                rightPath.length > 0
+                    ? routeLength(rightPath)
+                    : Infinity;
+
+
+            return (
+                rightDistance <
+                leftDistance
+                    ? "b1EntranceRight"
+                    : "b1EntranceLeft"
+            );
+        }
+
+
+        function chooseBuilding1DestinationEntrance(startNode) {
+
+            const leftPath =
+                shortestPath(
+                    startNode,
+                    "b1EntranceLeft"
+                );
+
+            const rightPath =
+                shortestPath(
+                    startNode,
+                    "b1EntranceRight"
+                );
+
+
+            const leftDistance =
+                leftPath.length > 0
+                    ? routeLength(leftPath)
+                    : Infinity;
+
+            const rightDistance =
+                rightPath.length > 0
+                    ? routeLength(rightPath)
+                    : Infinity;
+
+
+            return (
+                rightDistance <
+                leftDistance
+                    ? "b1EntranceRight"
+                    : "b1EntranceLeft"
+            );
+        }
+
+
+        function isBuilding1GenericLocation(location) {
+
+            if (
+                !location ||
+                location.building !== "B1"
+            ) {
+                return false;
+            }
+
+
+            /*
+               These have exact physical map destinations,
+               so don't replace them with a generic entrance.
+            */
+            const exactLocations = [
+                "B1-STAFF",
+                "B1-NURSE",
+                "B1-CANTEEN"
+            ];
+
+
+            return (
+                !exactLocations.includes(
+                    location.id
+                )
+            );
+        }
+
+
+        function resolveStartNode(
+            startLocation,
+            destinationNode
+        ) {
+
+            if (!startLocation) {
+                return null;
+            }
+
+
+            /*
+               If the user starts in a normal B1 room (including Year 9),
+               choose the B1 exit that is shortest toward the destination.
+            */
+            if (
+                isBuilding1GenericLocation(
+                    startLocation
+                )
+            ) {
+
+                return chooseBuilding1Exit(
+                    destinationNode
+                );
+            }
+
+
+            return startLocation.routeNode;
+        }
+
+
+        function resolveDestinationNode(
+            destinationLocation,
+            startNode
+        ) {
+
+            if (!destinationLocation) {
+                return null;
+            }
+
+
+            /*
+               When GOING TO a normal B1 room from outside, approach
+               Building 1 using whichever entrance is shortest from
+               that particular starting point.
+            */
+            if (
+                isBuilding1GenericLocation(
+                    destinationLocation
+                ) &&
+                startNode
+            ) {
+
+                return chooseBuilding1DestinationEntrance(
+                    startNode
+                );
+            }
+
+
+            return destinationLocation.routeNode;
+        }
+
+
+        function showRoutesTo(location) {
+
+            routeLayer.innerHTML =
+                "";
+
+            destinationLayer.innerHTML =
+                "";
+
+
+            if (!location) {
+
+                routeMessage.className =
+                    "route-message error";
+
+                routeMessage.textContent =
+                    "I couldn't find that room or location.";
+
+                return;
+
+            }
+
+
+            if (location.restricted) {
+
+                routeMessage.className =
+                    "route-message error";
+
+                routeMessage.textContent =
+                    "That location is marked as off limits to students.";
+
+                return;
+
+            }
+
+
+            const selectedCustomStart =
+                customStart.value;
+
+            const year9 =
+                getYear9Location();
+
+
+            /*
+               MAIN ROUTE:
+               - custom start = green
+               - otherwise Year 9 = yellow
+            */
+
+            let mainStartLocation =
+                null;
+
+            let mainClass =
+                "route-yellow";
+
+            let mainLabel =
+                "Year 9 classroom";
+
+
+            if (selectedCustomStart) {
+
+                const customLocation =
+                    getLocationById(
+                        selectedCustomStart
+                    );
+
+
+                if (customLocation) {
+
+                    mainStartLocation =
+                        customLocation;
+
+                    mainClass =
+                        "route-green";
+
+                    mainLabel =
+                        locationOptionText(
+                            customLocation
+                        );
+
+                }
+
+            }
+
+
+            if (
+                !mainStartLocation &&
+                year9
+            ) {
+
+                mainStartLocation =
+                    year9;
+
+            }
+
+
+            /*
+               Resolve the destination separately for each route.
+               This matters for Building 1 because an approach from
+               the right should use the right door, while an approach
+               from the left should use the left door.
+            */
+
+            let mainStartNode =
+                null;
+
+            let mainDestinationNode =
+                location.routeNode;
+
+
+            if (mainStartLocation) {
+
+                /*
+                   First use the raw destination to decide which way
+                   to EXIT Building 1, if the start is inside B1.
+                */
+                mainStartNode =
+                    resolveStartNode(
+                        mainStartLocation,
+                        location.routeNode
+                    );
+
+
+                /*
+                   If the destination itself is a normal B1 room,
+                   now choose the closest B1 entrance from this start.
+                */
+                mainDestinationNode =
+                    resolveDestinationNode(
+                        location,
+                        mainStartNode
+                    );
+
+
+                /*
+                   If BOTH start and destination are B1 locations,
+                   recalculate the B1 exit against the chosen approach.
+                */
+                if (
+                    isBuilding1GenericLocation(
+                        mainStartLocation
+                    ) &&
+                    location.building !== "B1"
+                ) {
+
+                    mainStartNode =
+                        chooseBuilding1Exit(
+                            mainDestinationNode
+                        );
+
+                }
+
+
+                drawPolyline(
+                    shortestPath(
+                        mainStartNode,
+                        mainDestinationNode
+                    ),
+                    mainClass,
+                    false
+                );
+
+            }
+
+
+            /*
+               PURPLE ALTERNATIVE:
+               always starts at the left school gate.
+               It independently chooses the best B1 entrance if the
+               destination is inside Building 1.
+            */
+
+            const purpleDestinationNode =
+                resolveDestinationNode(
+                    location,
+                    MAIN_GATE_NODE
+                );
+
+
+            drawPolyline(
+                shortestPath(
+                    MAIN_GATE_NODE,
+                    purpleDestinationNode
+                ),
+                "route-purple",
+                false
+            );
+
+
+            /*
+               Destination marker should appear at the exact special
+               location when one exists (Staff/Nurse/Canteen).
+               For normal B1 rooms it appears at the entrance chosen
+               for the main route.
+            */
+
+            const displayLocation =
+                {
+                    ...location,
+                    routeNode:
+                        mainDestinationNode ||
+                        purpleDestinationNode ||
+                        location.routeNode
+                };
+
+
+            drawDestination(
+                displayLocation
+            );
+
+
+            const destinationText =
+                locationOptionText(
+                    location
+                );
+
+
+            routeMessage.className =
+                "route-message";
+
+            routeMessage.textContent =
+                "Main route from " +
+                mainLabel +
+                " uses the shortest walkable path. Building 1 automatically uses its left or right entrance depending on which direction is shorter. The purple route starts from the left school gate.";
+
+
+            destinationInput.value =
+                destinationText;
+
+
+            mapFrame.scrollTo({
+                left: 0,
+                top: 0,
+                behavior: "smooth"
+            });
+
+        }
+
+
+        function clearRoutes() {
+
+            routeLayer.innerHTML =
+                "";
+
+            destinationLayer.innerHTML =
+                "";
+
+            routeMessage.className =
+                "route-message";
+
+            routeMessage.textContent =
+                "Search for a destination to draw the routes.";
+
+        }
+
+
+        /* =========================================================
+           BUILDING FRONT VIEW
+        ========================================================= */
+
+        function createRoomCard(roomNumber) {
+
+            const button =
+                document.createElement(
+                    "button"
+                );
+
+            button.type =
+                "button";
+
+            button.className =
+                "room-card";
+
+            button.dataset.locationId =
+                roomNumber;
+
+
+            const number =
+                document.createElement(
+                    "div"
+                );
+
+            number.className =
+                "room-number";
+
+            number.textContent =
+                roomNumber;
+
+
+            const name =
+                document.createElement(
+                    "div"
+                );
+
+            name.className =
+                "room-name";
+
+            name.textContent =
+                roomDisplayName(
+                    roomNumber
+                );
+
+
+            const description =
+                document.createElement(
+                    "div"
+                );
+
+            description.className =
+                "room-description";
+
+            description.textContent =
+                ROOM_DESCRIPTIONS[
+                    roomNumber
+                ] ||
+                "Room name / description can be edited in the data section.";
+
+
+            button.appendChild(
+                number
+            );
+
+            button.appendChild(
+                name
+            );
+
+            button.appendChild(
+                description
+            );
+
+
+            return button;
+        }
+
+
+        function createSpecialCard(special) {
+
+            const button =
+                document.createElement(
+                    special.restricted
+                        ? "div"
+                        : "button"
+                );
+
+
+            if (!special.restricted) {
+
+                button.type =
+                    "button";
+
+                button.dataset.locationId =
+                    special.id;
+
+            }
+
+
+            button.className =
+                "room-card special-card" +
+                (
+                    special.restricted
+                        ? " restricted-card"
+                        : ""
+                );
+
+
+            const number =
+                document.createElement(
+                    "div"
+                );
+
+            number.className =
+                "room-number";
+
+            number.textContent =
+                special.restricted
+                    ? "RESTRICTED"
+                    : "SPECIAL";
+
+
+            const name =
+                document.createElement(
+                    "div"
+                );
+
+            name.className =
+                "room-name";
+
+            name.textContent =
+                special.name;
+
+
+            const description =
+                document.createElement(
+                    "div"
+                );
+
+            description.className =
+                "room-description";
+
+            description.textContent =
+                special.description ||
+                "";
+
+
+            button.appendChild(
+                number
+            );
+
+            button.appendChild(
+                name
+            );
+
+            button.appendChild(
+                description
+            );
+
+
+            return button;
+        }
+
+
+        function renderBuildingFront(buildingKey) {
+
+            const building =
+                BUILDINGS[buildingKey];
+
+
+            if (!building) {
+                return;
+            }
+
+
+            buildingTitle.textContent =
+                building.name;
+
+            buildingSubtitle.textContent =
+                building.subtitle;
+
+
+            buildingFront.innerHTML =
+                "";
+
+
+            const roof =
+                document.createElement(
+                    "div"
+                );
+
+            roof.className =
+                "building-roof";
+
+            buildingFront.appendChild(
+                roof
+            );
+
+
+            building.levels.forEach(
+                function (level) {
+
+                    if (
+                        level.type ===
+                        "landing"
+                    ) {
+
+                        const row =
+                            document.createElement(
+                                "div"
+                            );
+
+                        row.className =
+                            "landing-row";
+
+
+                        const label =
+                            document.createElement(
+                                "div"
+                            );
+
+                        label.className =
+                            "floor-label";
+
+                        label.innerHTML =
+                            "Floor " +
+                            level.level +
+                            "<small>stair landing</small>";
+
+
+                        const content =
+                            document.createElement(
+                                "div"
+                            );
+
+                        content.className =
+                            "landing-content";
+
+
+                        (level.specials || [])
+                            .forEach(
+                                function (special) {
+
+                                    const pill =
+                                        document.createElement(
+                                            "div"
+                                        );
+
+                                    pill.className =
+                                        "landing-pill" +
+                                        (
+                                            special.restricted
+                                                ? " restricted"
+                                                : ""
+                                        );
+
+                                    pill.textContent =
+                                        special.name +
+                                        (
+                                            special.description
+                                                ? " — " +
+                                                  special.description
+                                                : ""
+                                        );
+
+                                    content.appendChild(
+                                        pill
+                                    );
+
+                                }
+                            );
+
+
+                        row.appendChild(
+                            label
+                        );
+
+                        row.appendChild(
+                            content
+                        );
+
+                        buildingFront.appendChild(
+                            row
+                        );
+
+
+                        return;
+                    }
+
+
+                    const row =
+                        document.createElement(
+                            "div"
+                        );
+
+                    row.className =
+                        "floor-row";
+
+
+                    const label =
+                        document.createElement(
+                            "div"
+                        );
+
+                    label.className =
+                        "floor-label";
+
+                    label.innerHTML =
+                        "Floor " +
+                        level.level;
+
+
+                    const content =
+                        document.createElement(
+                            "div"
+                        );
+
+
+                    const totalCards =
+                        (level.rooms || []).length +
+                        (level.specials || []).length;
+
+
+                    content.className =
+                        "floor-content" +
+                        (
+                            totalCards <= 2
+                                ? " two"
+                                : totalCards >= 5
+                                    ? " five"
+                                    : totalCards === 4
+                                        ? " four"
+                                        : ""
+                        );
+
+
+                    (level.rooms || [])
+                        .forEach(
+                            function (roomNumber) {
+
+                                content.appendChild(
+                                    createRoomCard(
+                                        roomNumber
+                                    )
+                                );
+
+                            }
+                        );
+
+
+                    (level.specials || [])
+                        .forEach(
+                            function (special) {
+
+                                content.appendChild(
+                                    createSpecialCard(
+                                        special
+                                    )
+                                );
+
+                            }
+                        );
+
+
+                    row.appendChild(
+                        label
+                    );
+
+                    row.appendChild(
+                        content
+                    );
+
+                    buildingFront.appendChild(
+                        row
+                    );
+
+                }
+            );
+
+
+            const entrances =
+                document.createElement(
+                    "div"
+                );
+
+            entrances.className =
+                "entrance-strip";
+
+
+            building.entrances
+                .forEach(
+                    function (entrance) {
+
+                        const chip =
+                            document.createElement(
+                                "span"
+                            );
+
+                        chip.className =
+                            "entrance-chip";
+
+                        chip.textContent =
+                            entrance;
+
+                        entrances.appendChild(
+                            chip
+                        );
+
+                    }
+                );
+
+
+            buildingFront.appendChild(
+                entrances
+            );
+
+
+            buildingOverlay.classList.add(
+                "open"
+            );
+
+            buildingOverlay.setAttribute(
+                "aria-hidden",
+                "false"
+            );
+
+
+            document.body.style.overflow =
+                "hidden";
+
+
+            setTimeout(
+                function () {
+
+                    closeBuildingBtn.focus();
+
+                },
+                80
+            );
+
+        }
+
+
+        function closeBuilding() {
+
+            buildingOverlay.classList.remove(
+                "open"
+            );
+
+            buildingOverlay.setAttribute(
+                "aria-hidden",
+                "true"
+            );
+
+            document.body.style.overflow =
+                "";
+
+        }
+
+
+        function selectDestinationFromBuilding(locationId) {
+
+            const location =
+                getLocationById(
+                    locationId
+                );
+
+
+            if (!location) {
+                return;
+            }
+
+
+            closeBuilding();
+
+            destinationInput.value =
+                locationOptionText(
+                    location
+                );
+
+            showRoutesTo(
+                location
+            );
+
+        }
+
+
+        /* =========================================================
+           EVENTS
+        ========================================================= */
+
+        findRouteBtn.addEventListener(
+            "click",
+            function () {
+
+                showRoutesTo(
+                    findLocationByInput(
+                        destinationInput.value
+                    )
+                );
+
+            }
+        );
+
+
+        destinationInput.addEventListener(
+            "keydown",
+            function (event) {
+
+                if (
+                    event.key === "Enter"
+                ) {
+
+                    event.preventDefault();
+
+                    findRouteBtn.click();
+
+                }
+
+            }
+        );
+
+
+        clearRouteBtn.addEventListener(
+            "click",
+            clearRoutes
+        );
+
+
+        /*
+           Click Staff Room / Nurse Room / Canteen directly on the map.
+        */
+        document.getElementById(
+            "schoolMap"
+        ).addEventListener(
+            "click",
+            function (event) {
+
+                const target =
+                    event.target.closest(
+                        "[data-location-id]"
+                    );
+
+
+                if (!target) {
+                    return;
+                }
+
+
+                const location =
+                    getLocationById(
+                        target.dataset.locationId
+                    );
+
+
+                if (!location) {
+                    return;
+                }
+
+
+                destinationInput.value =
+                    locationOptionText(
+                        location
+                    );
+
+                showRoutesTo(
+                    location
+                );
+
+            }
+        );
+
+
+        document.getElementById(
+            "schoolMap"
+        ).addEventListener(
+            "keydown",
+            function (event) {
+
+                if (
+                    event.key !== "Enter" &&
+                    event.key !== " "
+                ) {
+                    return;
+                }
+
+
+                const target =
+                    event.target.closest(
+                        "[data-location-id]"
+                    );
+
+
+                if (!target) {
+                    return;
+                }
+
+
+                event.preventDefault();
+
+
+                const location =
+                    getLocationById(
+                        target.dataset.locationId
+                    );
+
+
+                if (!location) {
+                    return;
+                }
+
+
+                destinationInput.value =
+                    locationOptionText(
+                        location
+                    );
+
+                showRoutesTo(
+                    location
+                );
+
+            }
+        );
+
+
+        document.querySelectorAll(
+            ".map-building"
+        )
+            .forEach(
+                function (buildingElement) {
+
+                    function open() {
+
+                        renderBuildingFront(
+                            buildingElement.dataset.building
+                        );
+
+                    }
+
+
+                    buildingElement.addEventListener(
+                        "click",
+                        open
+                    );
+
+
+                    buildingElement.addEventListener(
+                        "keydown",
+                        function (event) {
+
+                            if (
+                                event.key === "Enter" ||
+                                event.key === " "
+                            ) {
+
+                                event.preventDefault();
+
+                                open();
+
+                            }
+
+                        }
+                    );
+
+                }
+            );
+
+
+        buildingFront.addEventListener(
+            "click",
+            function (event) {
+
+                const target =
+                    event.target.closest(
+                        "[data-location-id]"
+                    );
+
+
+                if (!target) {
+                    return;
+                }
+
+
+                selectDestinationFromBuilding(
+                    target.dataset.locationId
+                );
+
+            }
+        );
+
+
+        closeBuildingBtn.addEventListener(
+            "click",
+            closeBuilding
+        );
+
+
+        buildingOverlay.addEventListener(
+            "click",
+            function (event) {
+
+                if (
+                    event.target ===
+                    buildingOverlay
+                ) {
+
+                    closeBuilding();
+
+                }
+
+            }
+        );
+
+
+        document.addEventListener(
+            "keydown",
+            function (event) {
+
+                if (
+                    event.key === "Escape" &&
+                    buildingOverlay.classList.contains(
+                        "open"
+                    )
+                ) {
+
+                    closeBuilding();
+
+                }
+
+            }
+        );
+
+
+        /* =========================================================
+           START
+        ========================================================= */
+
+        populateSearchControls();
+    </script>
+
+</body>
+</html>

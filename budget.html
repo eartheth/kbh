@@ -1,0 +1,1856 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Budget Tracker | KBH</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --purple: #A16BD3;
+            --purple-dark: #8450b5;
+            --purple-soft: rgba(161, 107, 211, 0.11);
+            --page: #f7f5fa;
+            --card: #ffffff;
+            --text: #302d33;
+            --muted: #77717c;
+            --border: rgba(103, 77, 126, 0.14);
+            --danger: #c84f5a;
+            --danger-soft: #fff0f1;
+            --success: #26945c;
+            --success-soft: #edf9f2;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: Arial, Helvetica, sans-serif;
+            background: var(--page);
+            color: var(--text);
+        }
+
+        button,
+        input,
+        select {
+            font: inherit;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        /* =========================================================
+           NAVBAR
+        ========================================================= */
+
+        .top-nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            box-shadow: 0 4px 18px rgba(56, 38, 72, 0.06);
+        }
+
+        .top-nav-inner {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+
+        .top-nav-inner::-webkit-scrollbar {
+            display: none;
+        }
+
+        .top-nav a {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            min-height: 58px;
+            padding: 0 16px;
+            color: #666;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 700;
+            white-space: nowrap;
+            transition: 0.2s ease;
+        }
+
+        .top-nav a:hover {
+            color: var(--purple-dark);
+            background: rgba(161, 107, 211, 0.06);
+        }
+
+        .top-nav a.active {
+            color: var(--purple-dark);
+        }
+
+        .top-nav a.active::after {
+            content: "";
+            position: absolute;
+            left: 16px;
+            right: 16px;
+            bottom: 0;
+            height: 3px;
+            border-radius: 3px 3px 0 0;
+            background: var(--purple);
+        }
+
+        /* =========================================================
+           HEADER
+        ========================================================= */
+
+        .page-header {
+            background:
+                radial-gradient(circle at 85% 15%, rgba(161, 107, 211, 0.18), transparent 27%),
+                linear-gradient(135deg, #221b2c, #372942);
+            color: white;
+            padding: 42px 22px 76px;
+        }
+
+        .page-header-inner {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .eyebrow {
+            margin-bottom: 8px;
+            color: #d9c1ec;
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 1.1px;
+            text-transform: uppercase;
+        }
+
+        .page-header h1 {
+            margin-bottom: 10px;
+            font-size: clamp(30px, 5vw, 46px);
+            line-height: 1.08;
+        }
+
+        .page-header h1 span {
+            color: #c28ce9;
+        }
+
+        .page-header p {
+            max-width: 700px;
+            color: rgba(255, 255, 255, 0.75);
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        /* =========================================================
+           MAIN
+        ========================================================= */
+
+        .main {
+            width: 100%;
+            max-width: 1200px;
+            margin: -46px auto 0;
+            padding: 0 20px 70px;
+        }
+
+        .panel {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            box-shadow: 0 10px 32px rgba(54, 37, 68, 0.08);
+        }
+
+        .setup-panel {
+            display: none;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .setup-panel.show {
+            display: block;
+        }
+
+        .setup-icon {
+            margin-bottom: 12px;
+            font-size: 45px;
+        }
+
+        .setup-panel h2 {
+            margin-bottom: 8px;
+            font-size: 25px;
+        }
+
+        .setup-panel p {
+            max-width: 560px;
+            margin: 0 auto 22px;
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.55;
+        }
+
+        .setup-form {
+            display: flex;
+            justify-content: center;
+            align-items: end;
+            gap: 10px;
+            max-width: 470px;
+            margin: 0 auto;
+        }
+
+        .field {
+            min-width: 0;
+            flex: 1;
+            text-align: left;
+        }
+
+        .field label {
+            display: block;
+            margin-bottom: 7px;
+            color: #6b646e;
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 0.35px;
+            text-transform: uppercase;
+        }
+
+        .field input,
+        .field select {
+            width: 100%;
+            min-height: 48px;
+            padding: 0 13px;
+            border: 1px solid #ddd7e2;
+            border-radius: 10px;
+            background: white;
+            color: var(--text);
+            outline: none;
+            transition: 0.2s ease;
+        }
+
+        .field input:focus,
+        .field select:focus {
+            border-color: var(--purple);
+            box-shadow: 0 0 0 4px rgba(161, 107, 211, 0.11);
+        }
+
+        .primary-btn {
+            min-height: 48px;
+            padding: 0 18px;
+            border: 0;
+            border-radius: 10px;
+            background: var(--purple);
+            color: white;
+            font-weight: 800;
+            box-shadow: 0 7px 17px rgba(161, 107, 211, 0.22);
+        }
+
+        .primary-btn:hover {
+            background: var(--purple-dark);
+        }
+
+        .budget-app {
+            display: none;
+        }
+
+        .budget-app.show {
+            display: block;
+        }
+
+        /* =========================================================
+           SUMMARY
+        ========================================================= */
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1.5fr) repeat(3, minmax(0, 0.75fr));
+            gap: 16px;
+            margin-bottom: 18px;
+        }
+
+        .summary-card {
+            min-width: 0;
+            padding: 22px;
+        }
+
+        .summary-card.balance-card {
+            position: relative;
+            overflow: hidden;
+            color: white;
+            background:
+                radial-gradient(circle at 90% 15%, rgba(255, 255, 255, 0.14), transparent 27%),
+                linear-gradient(135deg, #8f58c2, #6c3f97);
+        }
+
+        .summary-card.balance-card::after {
+            content: "฿";
+            position: absolute;
+            right: 18px;
+            bottom: -27px;
+            color: rgba(255, 255, 255, 0.08);
+            font-size: 150px;
+            font-weight: 900;
+            line-height: 1;
+        }
+
+        .summary-label {
+            position: relative;
+            z-index: 1;
+            margin-bottom: 10px;
+            color: var(--muted);
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 0.55px;
+            text-transform: uppercase;
+        }
+
+        .balance-card .summary-label {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .summary-value {
+            position: relative;
+            z-index: 1;
+            font-size: 27px;
+            font-weight: 900;
+            line-height: 1.1;
+            word-break: break-word;
+        }
+
+        .balance-card .summary-value {
+            font-size: clamp(34px, 5vw, 46px);
+        }
+
+        .summary-subtext {
+            position: relative;
+            z-index: 1;
+            margin-top: 8px;
+            color: #938d96;
+            font-size: 11px;
+            line-height: 1.4;
+        }
+
+        .balance-card .summary-subtext {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* =========================================================
+           CONTENT
+        ========================================================= */
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+            gap: 18px;
+        }
+
+        .section-card {
+            padding: 23px;
+        }
+
+        .section-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-size: 20px;
+        }
+
+        .section-description {
+            margin-top: 5px;
+            color: var(--muted);
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        .expense-form {
+            display: grid;
+            gap: 14px;
+        }
+
+        .expense-form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 11px;
+        }
+
+        .message {
+            display: none;
+            padding: 11px 12px;
+            border-radius: 9px;
+            font-size: 12px;
+            line-height: 1.4;
+        }
+
+        .message.show {
+            display: block;
+        }
+
+        .message.error {
+            background: var(--danger-soft);
+            color: var(--danger);
+        }
+
+        .message.success {
+            background: var(--success-soft);
+            color: var(--success);
+        }
+
+        .settings-box {
+            margin-top: 22px;
+            padding-top: 18px;
+            border-top: 1px solid #eee9f0;
+        }
+
+        .settings-title {
+            margin-bottom: 11px;
+            font-size: 13px;
+            font-weight: 800;
+        }
+
+        .weekly-setting-row {
+            display: flex;
+            gap: 9px;
+        }
+
+        .weekly-setting-row input {
+            min-width: 0;
+            flex: 1;
+        }
+
+        .secondary-btn {
+            min-height: 42px;
+            padding: 0 13px;
+            border: 1px solid #ddd6e1;
+            border-radius: 9px;
+            background: white;
+            color: #625a66;
+            font-size: 12px;
+            font-weight: 800;
+        }
+
+        .secondary-btn:hover {
+            color: var(--purple-dark);
+            background: #faf8fc;
+        }
+
+        .danger-btn {
+            color: var(--danger);
+        }
+
+        /* =========================================================
+           TRANSACTIONS
+        ========================================================= */
+
+        .transaction-list {
+            max-height: 540px;
+            overflow-y: auto;
+            padding-right: 4px;
+        }
+
+        .transaction-empty {
+            padding: 30px 10px;
+            color: #96909a;
+            font-size: 13px;
+            text-align: center;
+        }
+
+        .transaction {
+            display: grid;
+            grid-template-columns: 42px minmax(0, 1fr) auto;
+            gap: 12px;
+            align-items: center;
+            padding: 14px 0;
+            border-bottom: 1px solid #eeeaf0;
+        }
+
+        .transaction:last-child {
+            border-bottom: 0;
+        }
+
+        .transaction-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            background: #f4f1f6;
+            font-size: 18px;
+        }
+
+        .transaction.topup .transaction-icon {
+            background: var(--success-soft);
+        }
+
+        .transaction-main {
+            min-width: 0;
+        }
+
+        .transaction-title {
+            margin-bottom: 4px;
+            font-size: 13px;
+            font-weight: 800;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .transaction-meta {
+            color: #948e98;
+            font-size: 11px;
+            line-height: 1.35;
+        }
+
+        .transaction-amount {
+            font-size: 14px;
+            font-weight: 900;
+            white-space: nowrap;
+        }
+
+        .transaction.expense .transaction-amount {
+            color: var(--danger);
+        }
+
+        .transaction.topup .transaction-amount {
+            color: var(--success);
+        }
+
+        /* =========================================================
+           RESPONSIVE
+        ========================================================= */
+
+        @media (max-width: 920px) {
+            .summary-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .balance-card {
+                grid-column: 1 / -1;
+            }
+
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .top-nav-inner {
+                padding: 0 9px;
+            }
+
+            .top-nav a {
+                min-height: 52px;
+                padding: 0 12px;
+                font-size: 12px;
+            }
+
+            .main {
+                padding: 0 11px 50px;
+            }
+
+            .summary-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .balance-card {
+                grid-column: auto;
+            }
+
+            .setup-form,
+            .weekly-setting-row {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .expense-form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .primary-btn,
+            .secondary-btn {
+                width: 100%;
+            }
+
+            .section-card,
+            .summary-card,
+            .setup-panel {
+                padding: 19px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="top-nav" aria-label="Main navigation">
+        <div class="top-nav-inner">
+            <a href="portal.html">Home</a>
+            <a href="map.html">School Navigation</a>
+            <a href="budget.html" class="active" aria-current="page">Personal Budget Tracker</a>
+            <a href="planner.html">School Planner</a>
+        </div>
+    </nav>
+
+
+    <header class="page-header">
+        <div class="page-header-inner">
+            <div class="eyebrow">Knightsbridge House International School Nonthaburi</div>
+            <h1>Personal <span>Budget Tracker</span></h1>
+            <p>
+                Set your weekly allowance once, record what you spend, and your balance
+                will automatically receive the same top-up every 7 days.
+            </p>
+        </div>
+    </header>
+
+
+    <main class="main">
+
+        <!-- FIRST-TIME SETUP -->
+        <section class="panel setup-panel" id="setupPanel">
+
+            <div class="setup-icon">💰</div>
+
+            <h2>Set your weekly allowance</h2>
+
+            <p>
+                This amount will be added to your balance now, then automatically added
+                again every 7 days. Everything is saved only on this browser using
+                localStorage.
+            </p>
+
+            <form class="setup-form" id="setupForm">
+
+                <div class="field">
+                    <label for="setupAmount">Weekly top-up amount</label>
+                    <input
+                        id="setupAmount"
+                        type="number"
+                        min="1"
+                        step="1"
+                        inputmode="decimal"
+                        placeholder="Example: 500"
+                        required
+                    >
+                </div>
+
+                <button class="primary-btn" type="submit">
+                    Start budget
+                </button>
+
+            </form>
+
+        </section>
+
+
+        <!-- MAIN BUDGET APP -->
+        <div class="budget-app" id="budgetApp">
+
+            <section class="summary-grid">
+
+                <article class="panel summary-card balance-card">
+                    <div class="summary-label">Available balance</div>
+                    <div class="summary-value" id="balanceValue">฿0</div>
+                    <div class="summary-subtext" id="balanceSubtext">
+                        Your current money available to spend
+                    </div>
+                </article>
+
+                <article class="panel summary-card">
+                    <div class="summary-label">Weekly top-up</div>
+                    <div class="summary-value" id="weeklyValue">฿0</div>
+                    <div class="summary-subtext">Automatically added every 7 days</div>
+                </article>
+
+                <article class="panel summary-card">
+                    <div class="summary-label">Spent this week</div>
+                    <div class="summary-value" id="spentWeekValue">฿0</div>
+                    <div class="summary-subtext" id="weekRangeText">Current top-up week</div>
+                </article>
+
+                <article class="panel summary-card">
+                    <div class="summary-label">Next top-up</div>
+                    <div class="summary-value" id="nextTopupValue">—</div>
+                    <div class="summary-subtext" id="nextTopupCountdown">—</div>
+                </article>
+
+            </section>
+
+
+            <section class="content-grid">
+
+                <!-- ADD EXPENSE -->
+                <article class="panel section-card">
+
+                    <div class="section-head">
+                        <div>
+                            <h2 class="section-title">Add expense</h2>
+                            <p class="section-description">
+                                Record something you spent money on.
+                            </p>
+                        </div>
+                    </div>
+
+                    <form class="expense-form" id="expenseForm">
+
+                        <div class="field">
+                            <label for="expenseName">What did you buy?</label>
+                            <input
+                                id="expenseName"
+                                type="text"
+                                maxlength="60"
+                                placeholder="Example: Lunch"
+                                required
+                            >
+                        </div>
+
+                        <div class="expense-form-row">
+
+                            <div class="field">
+                                <label for="expenseAmount">Amount</label>
+                                <input
+                                    id="expenseAmount"
+                                    type="number"
+                                    min="0.01"
+                                    step="0.01"
+                                    inputmode="decimal"
+                                    placeholder="120"
+                                    required
+                                >
+                            </div>
+
+                            <div class="field">
+                                <label for="expenseCategory">Category</label>
+                                <select id="expenseCategory">
+                                    <option value="Food">Food</option>
+                                    <option value="Transport">Transport</option>
+                                    <option value="School">School</option>
+                                    <option value="Entertainment">Entertainment</option>
+                                    <option value="Shopping">Shopping</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+
+                        </div>
+
+                        <button class="primary-btn" type="submit">
+                            Add expense
+                        </button>
+
+                        <div class="message" id="expenseMessage" aria-live="polite"></div>
+
+                    </form>
+
+
+                    <div class="settings-box">
+
+                        <div class="settings-title">Weekly allowance settings</div>
+
+                        <div class="weekly-setting-row">
+
+                            <input
+                                id="weeklyAmountSetting"
+                                type="number"
+                                min="1"
+                                step="1"
+                                inputmode="decimal"
+                                aria-label="Weekly allowance amount"
+                            >
+
+                            <button
+                                type="button"
+                                class="secondary-btn"
+                                id="saveWeeklyBtn"
+                            >
+                                Update amount
+                            </button>
+
+                        </div>
+
+                        <p class="section-description" style="margin-top:9px;">
+                            Changing this does not immediately add money. The new amount
+                            will be used on the next automatic weekly top-up.
+                        </p>
+
+                        <div style="margin-top:16px;">
+                            <button
+                                type="button"
+                                class="secondary-btn danger-btn"
+                                id="resetBudgetBtn"
+                            >
+                                Reset budget
+                            </button>
+                        </div>
+
+                    </div>
+
+                </article>
+
+
+                <!-- HISTORY -->
+                <article class="panel section-card">
+
+                    <div class="section-head">
+                        <div>
+                            <h2 class="section-title">Transaction history</h2>
+                            <p class="section-description">
+                                Weekly top-ups and your spending are recorded here.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="transaction-list" id="transactionList"></div>
+
+                </article>
+
+            </section>
+
+        </div>
+
+    </main>
+
+
+    <script>
+        /* =========================================================
+           PERSONAL BUDGET TRACKER
+
+           Saved only in this browser via localStorage.
+        ========================================================= */
+
+        const STORAGE_KEY =
+            "kbh_personal_budget_v1";
+
+        const WEEK_MS =
+            7 * 24 * 60 * 60 * 1000;
+
+
+        const setupPanel =
+            document.getElementById("setupPanel");
+
+        const budgetApp =
+            document.getElementById("budgetApp");
+
+        const setupForm =
+            document.getElementById("setupForm");
+
+        const setupAmount =
+            document.getElementById("setupAmount");
+
+        const balanceValue =
+            document.getElementById("balanceValue");
+
+        const weeklyValue =
+            document.getElementById("weeklyValue");
+
+        const spentWeekValue =
+            document.getElementById("spentWeekValue");
+
+        const weekRangeText =
+            document.getElementById("weekRangeText");
+
+        const nextTopupValue =
+            document.getElementById("nextTopupValue");
+
+        const nextTopupCountdown =
+            document.getElementById("nextTopupCountdown");
+
+        const expenseForm =
+            document.getElementById("expenseForm");
+
+        const expenseName =
+            document.getElementById("expenseName");
+
+        const expenseAmount =
+            document.getElementById("expenseAmount");
+
+        const expenseCategory =
+            document.getElementById("expenseCategory");
+
+        const expenseMessage =
+            document.getElementById("expenseMessage");
+
+        const weeklyAmountSetting =
+            document.getElementById("weeklyAmountSetting");
+
+        const saveWeeklyBtn =
+            document.getElementById("saveWeeklyBtn");
+
+        const resetBudgetBtn =
+            document.getElementById("resetBudgetBtn");
+
+        const transactionList =
+            document.getElementById("transactionList");
+
+
+        let state =
+            loadState();
+
+
+        function loadState() {
+
+            try {
+
+                const raw =
+                    localStorage.getItem(
+                        STORAGE_KEY
+                    );
+
+
+                if (!raw) {
+                    return null;
+                }
+
+
+                const parsed =
+                    JSON.parse(raw);
+
+
+                if (
+                    !parsed ||
+                    !Number.isFinite(Number(parsed.weeklyAmount)) ||
+                    !Number.isFinite(Number(parsed.balance)) ||
+                    !Number.isFinite(Number(parsed.nextTopUp))
+                ) {
+                    return null;
+                }
+
+
+                parsed.weeklyAmount =
+                    Number(parsed.weeklyAmount);
+
+                parsed.balance =
+                    Number(parsed.balance);
+
+                parsed.nextTopUp =
+                    Number(parsed.nextTopUp);
+
+                parsed.currentWeekStart =
+                    Number(parsed.currentWeekStart) ||
+                    (
+                        parsed.nextTopUp -
+                        WEEK_MS
+                    );
+
+                parsed.transactions =
+                    Array.isArray(parsed.transactions)
+                        ? parsed.transactions
+                        : [];
+
+
+                return parsed;
+
+            }
+            catch (error) {
+
+                console.error(
+                    "Unable to load budget:",
+                    error
+                );
+
+                return null;
+
+            }
+
+        }
+
+
+        function saveState() {
+
+            if (!state) {
+                return;
+            }
+
+
+            localStorage.setItem(
+                STORAGE_KEY,
+                JSON.stringify(state)
+            );
+
+        }
+
+
+        function roundMoney(value) {
+
+            return (
+                Math.round(
+                    Number(value) * 100
+                ) / 100
+            );
+
+        }
+
+
+        function formatMoney(value) {
+
+            return (
+                "฿" +
+                Number(value)
+                    .toLocaleString(
+                        "en-US",
+                        {
+                            minimumFractionDigits:
+                                Number(value) % 1 === 0
+                                    ? 0
+                                    : 2,
+
+                            maximumFractionDigits: 2
+                        }
+                    )
+            );
+
+        }
+
+
+        function formatDate(timestamp) {
+
+            return new Date(
+                timestamp
+            ).toLocaleDateString(
+                "en-GB",
+                {
+                    day: "numeric",
+                    month: "short"
+                }
+            );
+
+        }
+
+
+        function formatDateTime(timestamp) {
+
+            return new Date(
+                timestamp
+            ).toLocaleString(
+                "en-GB",
+                {
+                    day: "numeric",
+                    month: "short",
+                    year: "numeric",
+                    hour: "2-digit",
+                    minute: "2-digit"
+                }
+            );
+
+        }
+
+
+        function categoryIcon(category) {
+
+            const icons = {
+                Food: "🍔",
+                Transport: "🚌",
+                School: "📚",
+                Entertainment: "🎮",
+                Shopping: "🛍️",
+                Other: "💸"
+            };
+
+
+            return (
+                icons[category] ||
+                "💸"
+            );
+
+        }
+
+
+        /* =========================================================
+           AUTOMATIC WEEKLY TOP-UP
+
+           This does NOT require the page to stay open.
+
+           Example:
+           If the student comes back after 3 weeks, the page checks
+           how many top-up dates were missed and applies all 3.
+        ========================================================= */
+
+        function applyAutomaticTopUps() {
+
+            if (!state) {
+                return;
+            }
+
+
+            const now =
+                Date.now();
+
+
+            let topUpsApplied =
+                0;
+
+
+            while (
+                now >= state.nextTopUp &&
+                topUpsApplied < 520
+            ) {
+
+                const topUpTime =
+                    state.nextTopUp;
+
+
+                state.balance =
+                    roundMoney(
+                        state.balance +
+                        state.weeklyAmount
+                    );
+
+
+                state.transactions.unshift({
+                    id:
+                        "topup-" +
+                        topUpTime,
+
+                    type:
+                        "topup",
+
+                    amount:
+                        state.weeklyAmount,
+
+                    title:
+                        "Weekly allowance",
+
+                    category:
+                        "Top-up",
+
+                    timestamp:
+                        topUpTime
+                });
+
+
+                state.currentWeekStart =
+                    topUpTime;
+
+
+                state.nextTopUp =
+                    topUpTime +
+                    WEEK_MS;
+
+
+                topUpsApplied++;
+
+            }
+
+
+            if (topUpsApplied > 0) {
+
+                /*
+                   Keep history from becoming enormous.
+                */
+                state.transactions =
+                    state.transactions.slice(
+                        0,
+                        300
+                    );
+
+
+                saveState();
+
+            }
+
+        }
+
+
+        /* =========================================================
+           CALCULATIONS
+        ========================================================= */
+
+        function getSpentThisWeek() {
+
+            if (!state) {
+                return 0;
+            }
+
+
+            return roundMoney(
+                state.transactions
+                    .filter(
+                        transaction =>
+                            transaction.type === "expense" &&
+                            transaction.timestamp >=
+                                state.currentWeekStart
+                    )
+                    .reduce(
+                        (total, transaction) =>
+                            total +
+                            Number(
+                                transaction.amount
+                            ),
+                        0
+                    )
+            );
+
+        }
+
+
+        function nextTopupCountdownText() {
+
+            if (!state) {
+                return "";
+            }
+
+
+            const remaining =
+                Math.max(
+                    0,
+                    state.nextTopUp -
+                    Date.now()
+                );
+
+
+            const totalHours =
+                Math.ceil(
+                    remaining /
+                    (
+                        60 *
+                        60 *
+                        1000
+                    )
+                );
+
+
+            const days =
+                Math.floor(
+                    totalHours / 24
+                );
+
+            const hours =
+                totalHours % 24;
+
+
+            if (days > 0) {
+
+                return (
+                    "In " +
+                    days +
+                    (
+                        days === 1
+                            ? " day"
+                            : " days"
+                    ) +
+                    (
+                        hours > 0
+                            ? " " +
+                              hours +
+                              "h"
+                            : ""
+                    )
+                );
+
+            }
+
+
+            if (hours > 0) {
+
+                return (
+                    "In " +
+                    hours +
+                    (
+                        hours === 1
+                            ? " hour"
+                            : " hours"
+                    )
+                );
+
+            }
+
+
+            return "Top-up due now";
+
+        }
+
+
+        /* =========================================================
+           RENDER
+        ========================================================= */
+
+        function render() {
+
+            if (!state) {
+
+                setupPanel.classList.add(
+                    "show"
+                );
+
+                budgetApp.classList.remove(
+                    "show"
+                );
+
+                return;
+
+            }
+
+
+            applyAutomaticTopUps();
+
+
+            setupPanel.classList.remove(
+                "show"
+            );
+
+            budgetApp.classList.add(
+                "show"
+            );
+
+
+            balanceValue.textContent =
+                formatMoney(
+                    state.balance
+                );
+
+
+            weeklyValue.textContent =
+                formatMoney(
+                    state.weeklyAmount
+                );
+
+
+            weeklyAmountSetting.value =
+                state.weeklyAmount;
+
+
+            spentWeekValue.textContent =
+                formatMoney(
+                    getSpentThisWeek()
+                );
+
+
+            weekRangeText.textContent =
+                formatDate(
+                    state.currentWeekStart
+                ) +
+                " – " +
+                formatDate(
+                    state.nextTopUp -
+                    1
+                );
+
+
+            nextTopupValue.textContent =
+                formatDate(
+                    state.nextTopUp
+                );
+
+
+            nextTopupCountdown.textContent =
+                nextTopupCountdownText();
+
+
+            renderTransactions();
+
+        }
+
+
+        function renderTransactions() {
+
+            transactionList.innerHTML =
+                "";
+
+
+            if (
+                !state ||
+                state.transactions.length === 0
+            ) {
+
+                transactionList.innerHTML =
+                    '<div class="transaction-empty">No transactions yet.</div>';
+
+                return;
+
+            }
+
+
+            state.transactions
+                .slice(0, 100)
+                .forEach(
+                    function (transaction) {
+
+                        const row =
+                            document.createElement(
+                                "div"
+                            );
+
+                        row.className =
+                            "transaction " +
+                            transaction.type;
+
+
+                        const icon =
+                            document.createElement(
+                                "div"
+                            );
+
+                        icon.className =
+                            "transaction-icon";
+
+                        icon.textContent =
+                            transaction.type ===
+                            "topup"
+                                ? "💰"
+                                : categoryIcon(
+                                    transaction.category
+                                );
+
+
+                        const main =
+                            document.createElement(
+                                "div"
+                            );
+
+                        main.className =
+                            "transaction-main";
+
+
+                        const title =
+                            document.createElement(
+                                "div"
+                            );
+
+                        title.className =
+                            "transaction-title";
+
+                        title.textContent =
+                            transaction.title;
+
+
+                        const meta =
+                            document.createElement(
+                                "div"
+                            );
+
+                        meta.className =
+                            "transaction-meta";
+
+                        meta.textContent =
+                            (
+                                transaction.type ===
+                                "expense"
+                                    ? transaction.category +
+                                      " • "
+                                    : ""
+                            ) +
+                            formatDateTime(
+                                transaction.timestamp
+                            );
+
+
+                        main.appendChild(
+                            title
+                        );
+
+                        main.appendChild(
+                            meta
+                        );
+
+
+                        const amount =
+                            document.createElement(
+                                "div"
+                            );
+
+                        amount.className =
+                            "transaction-amount";
+
+                        amount.textContent =
+                            (
+                                transaction.type ===
+                                "topup"
+                                    ? "+"
+                                    : "−"
+                            ) +
+                            formatMoney(
+                                transaction.amount
+                            );
+
+
+                        row.appendChild(
+                            icon
+                        );
+
+                        row.appendChild(
+                            main
+                        );
+
+                        row.appendChild(
+                            amount
+                        );
+
+
+                        transactionList.appendChild(
+                            row
+                        );
+
+                    }
+                );
+
+        }
+
+
+        /* =========================================================
+           FIRST SETUP
+        ========================================================= */
+
+        setupForm.addEventListener(
+            "submit",
+            function (event) {
+
+                event.preventDefault();
+
+
+                const amount =
+                    Number(
+                        setupAmount.value
+                    );
+
+
+                if (
+                    !Number.isFinite(amount) ||
+                    amount <= 0
+                ) {
+                    return;
+                }
+
+
+                const now =
+                    Date.now();
+
+
+                state = {
+                    weeklyAmount:
+                        roundMoney(amount),
+
+                    balance:
+                        roundMoney(amount),
+
+                    currentWeekStart:
+                        now,
+
+                    nextTopUp:
+                        now +
+                        WEEK_MS,
+
+                    transactions: [
+                        {
+                            id:
+                                "initial-" +
+                                now,
+
+                            type:
+                                "topup",
+
+                            amount:
+                                roundMoney(amount),
+
+                            title:
+                                "Starting weekly allowance",
+
+                            category:
+                                "Top-up",
+
+                            timestamp:
+                                now
+                        }
+                    ]
+                };
+
+
+                saveState();
+
+                render();
+
+            }
+        );
+
+
+        /* =========================================================
+           ADD EXPENSE
+        ========================================================= */
+
+        expenseForm.addEventListener(
+            "submit",
+            function (event) {
+
+                event.preventDefault();
+
+
+                if (!state) {
+                    return;
+                }
+
+
+                applyAutomaticTopUps();
+
+
+                const title =
+                    expenseName.value.trim();
+
+                const amount =
+                    roundMoney(
+                        Number(
+                            expenseAmount.value
+                        )
+                    );
+
+
+                if (
+                    !title ||
+                    !Number.isFinite(amount) ||
+                    amount <= 0
+                ) {
+
+                    showExpenseMessage(
+                        "Please enter a valid expense.",
+                        "error"
+                    );
+
+                    return;
+
+                }
+
+
+                if (
+                    amount >
+                    state.balance
+                ) {
+
+                    showExpenseMessage(
+                        "You don't have enough money for this expense.",
+                        "error"
+                    );
+
+                    return;
+
+                }
+
+
+                state.balance =
+                    roundMoney(
+                        state.balance -
+                        amount
+                    );
+
+
+                state.transactions.unshift({
+                    id:
+                        "expense-" +
+                        Date.now(),
+
+                    type:
+                        "expense",
+
+                    amount:
+                        amount,
+
+                    title:
+                        title,
+
+                    category:
+                        expenseCategory.value,
+
+                    timestamp:
+                        Date.now()
+                });
+
+
+                state.transactions =
+                    state.transactions.slice(
+                        0,
+                        300
+                    );
+
+
+                saveState();
+
+
+                expenseForm.reset();
+
+                expenseCategory.value =
+                    "Food";
+
+
+                showExpenseMessage(
+                    "Expense added.",
+                    "success"
+                );
+
+
+                render();
+
+            }
+        );
+
+
+        function showExpenseMessage(
+            text,
+            type
+        ) {
+
+            expenseMessage.textContent =
+                text;
+
+            expenseMessage.className =
+                "message show " +
+                type;
+
+
+            window.setTimeout(
+                function () {
+
+                    expenseMessage.className =
+                        "message";
+
+                },
+                2500
+            );
+
+        }
+
+
+        /* =========================================================
+           CHANGE WEEKLY AMOUNT
+        ========================================================= */
+
+        saveWeeklyBtn.addEventListener(
+            "click",
+            function () {
+
+                if (!state) {
+                    return;
+                }
+
+
+                const amount =
+                    roundMoney(
+                        Number(
+                            weeklyAmountSetting.value
+                        )
+                    );
+
+
+                if (
+                    !Number.isFinite(amount) ||
+                    amount <= 0
+                ) {
+
+                    weeklyAmountSetting.value =
+                        state.weeklyAmount;
+
+                    return;
+
+                }
+
+
+                state.weeklyAmount =
+                    amount;
+
+
+                saveState();
+
+                render();
+
+            }
+        );
+
+
+        /* =========================================================
+           RESET
+        ========================================================= */
+
+        resetBudgetBtn.addEventListener(
+            "click",
+            function () {
+
+                const confirmed =
+                    window.confirm(
+                        "Reset your budget? This will delete the balance and all transaction history on this browser."
+                    );
+
+
+                if (!confirmed) {
+                    return;
+                }
+
+
+                localStorage.removeItem(
+                    STORAGE_KEY
+                );
+
+
+                state =
+                    null;
+
+
+                setupAmount.value =
+                    "";
+
+                render();
+
+            }
+        );
+
+
+        /* =========================================================
+           KEEP TOP-UP / COUNTDOWN CURRENT WHILE PAGE IS OPEN
+        ========================================================= */
+
+        function refreshTimeSensitiveData() {
+
+            if (!state) {
+                return;
+            }
+
+
+            const previousNextTopUp =
+                state.nextTopUp;
+
+
+            applyAutomaticTopUps();
+
+
+            if (
+                state.nextTopUp !==
+                previousNextTopUp
+            ) {
+
+                render();
+
+                return;
+
+            }
+
+
+            nextTopupCountdown.textContent =
+                nextTopupCountdownText();
+
+        }
+
+
+        /* =========================================================
+           START
+        ========================================================= */
+
+        render();
+
+
+        setInterval(
+            refreshTimeSensitiveData,
+            60000
+        );
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>KBH Website</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f7f5fa;
+    color: #333;
+}
+
+
+/* HERO */
+
+.container {
+    min-height: 320px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 100px 25px;
+
+    text-align: center;
+
+    background:
+        linear-gradient(
+            rgba(25, 20, 35, 0.35),
+            rgba(25, 20, 35, 0.55)
+        ),
+        url("bg.png");
+
+    background-size: cover;
+    background-position: center;
+
+    color: white;
+}
+
+.container h1 {
+    max-width: 1000px;
+
+    font-size: 46px;
+    line-height: 1.2;
+
+    font-weight: normal;
+
+    text-shadow:
+        0 3px 15px rgba(0, 0, 0, 0.3);
+}
+
+.container span {
+    color: #A16BD3;
+    font-weight: bold;
+}
+
+
+/* CONTACT SECTION */
+
+.contact-section {
+    padding: 0 20px 45px;
+}
+
+.contact-card {
+    width: 100%;
+    max-width: 650px;
+
+    margin: -65px auto 0;
+
+    position: relative;
+
+    background: white;
+
+    padding: 45px;
+
+    border-radius: 20px;
+
+    box-shadow:
+        0 15px 45px rgba(56, 38, 72, 0.12);
+
+    border:
+        1px solid rgba(161, 107, 211, 0.12);
+}
+
+
+/* CONTACT TITLE */
+
+.contact-header {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.contact-header h2 {
+    font-size: 30px;
+    font-weight: 600;
+
+    color: #333;
+
+    margin-bottom: 10px;
+}
+
+.contact-header h2 span {
+    color: #A16BD3;
+}
+
+.contact-header p {
+    color: #777;
+
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+
+/* FORM */
+
+.form-group {
+    margin-bottom: 22px;
+}
+
+.form-group label {
+    display: block;
+
+    margin-bottom: 8px;
+
+    color: #444;
+
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+
+    padding: 14px 16px;
+
+    border: 2px solid #eee;
+    border-radius: 10px;
+
+    background: #fafafa;
+
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+
+    outline: none;
+
+    transition: all 0.2s ease;
+}
+
+.form-group textarea {
+    min-height: 140px;
+    resize: vertical;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: #A16BD3;
+
+    background: white;
+
+    box-shadow:
+        0 0 0 4px rgba(161, 107, 211, 0.10);
+}
+
+
+/* CONTACT BUTTON */
+
+.submit-btn {
+    width: 100%;
+
+    padding: 15px 20px;
+
+    border: none;
+    border-radius: 10px;
+
+    background: #A16BD3;
+    color: white;
+
+    font-size: 16px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: all 0.2s ease;
+
+    box-shadow:
+        0 7px 20px rgba(161, 107, 211, 0.25);
+}
+
+.submit-btn:hover {
+    background: #915BC7;
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 10px 25px rgba(161, 107, 211, 0.35);
+}
+
+.submit-btn:active {
+    transform: translateY(0);
+}
+
+
+/* PORTAL SECTION */
+
+.portal {
+    padding: 10px 20px 70px;
+    text-align: center;
+}
+
+.year9-card {
+    width: 100%;
+    max-width: 720px;
+
+    margin: 0 auto;
+
+    background: white;
+
+    padding: 30px 35px;
+
+    border-radius: 18px;
+
+    border:
+        1px solid rgba(161, 107, 211, 0.15);
+
+    box-shadow:
+        0 12px 35px rgba(56, 38, 72, 0.10);
+}
+
+.year9-card > p {
+    font-size: 22px;
+    color: #333;
+
+    margin-bottom: 18px;
+}
+
+.year9-card span {
+    color: #A16BD3;
+    font-weight: bold;
+}
+
+.portal-btn {
+    display: inline-block;
+
+    min-width: 180px;
+
+    padding: 13px 30px;
+
+    background: #A16BD3;
+    color: white;
+
+    text-decoration: none;
+
+    border-radius: 10px;
+
+    font-size: 15px;
+    font-weight: bold;
+
+    box-shadow:
+        0 7px 20px rgba(161, 107, 211, 0.25);
+
+    transition: all 0.2s ease;
+}
+
+.portal-btn:hover {
+    background: #915BC7;
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 10px 25px rgba(161, 107, 211, 0.35);
+}
+
+.portal-btn:active {
+    transform: translateY(0);
+}
+
+
+/* MOBILE */
+
+@media (max-width: 700px) {
+
+    .container {
+        min-height: 280px;
+        padding: 50px 20px 80px;
+    }
+
+    .container h1 {
+        font-size: 32px;
+    }
+
+    .contact-card {
+        margin-top: -55px;
+        padding: 30px 22px;
+    }
+
+    .contact-header h2 {
+        font-size: 26px;
+    }
+
+    .year9-card {
+        padding: 25px 20px;
+    }
+
+    .year9-card > p {
+        font-size: 19px;
+    }
+
+    .portal-btn {
+        width: 100%;
+    }
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- HERO -->
+
+<div class="container">
+
+    <h1>
+        Knightsbridge House International School
+        <span>Nonthaburi</span>
+    </h1>
+
+</div>
+
+
+<!-- CONTACT -->
+
+<section class="contact-section">
+
+    <div class="contact-card">
+
+        <div class="contact-header">
+
+            <h2>
+                Get in <span>Touch</span>
+            </h2>
+
+            <p>
+                Have a question? Send us a message and our team
+                will be happy to help.
+            </p>
+
+        </div>
+
+
+        <form id="contactForm">
+
+            <div class="form-group">
+
+                <label for="name">
+                    Name
+                </label>
+
+                <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    placeholder="Enter your name"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="email">
+                    Email
+                </label>
+
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="Enter your email address"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="message">
+                    Message
+                </label>
+
+                <textarea
+                    id="message"
+                    name="message"
+                    placeholder="How can we help you?"
+                    required
+                ></textarea>
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="submit-btn"
+            >
+                Send Message
+            </button>
+
+        </form>
+
+    </div>
+
+</section>
+
+
+<!-- YEAR 9 PORTAL -->
+
+<section class="portal">
+
+    <div class="year9-card">
+
+        <p>
+            Enter the <span>Year 9</span> portal
+        </p>
+
+        <a href="login.html" class="portal-btn">
+            Click here
+        </a>
+
+    </div>
+
+</section>
+
+
+
+<script>
+
+/* CONTACT FORM */
+
+const contactForm = document.getElementById("contactForm");
+
+contactForm.addEventListener("submit", function(event) {
+
+    event.preventDefault();
+
+
+    const name =
+        document.getElementById("name").value.trim();
+
+    const email =
+        document.getElementById("email").value.trim();
+
+    const message =
+        document.getElementById("message").value.trim();
+
+
+    /* CREATE URL PARAMETERS */
+
+    const params = new URLSearchParams();
+
+    params.set("name", name);
+    params.set("email", email);
+    params.set("message", message);
+
+
+    /* GO TO CONTACT PAGE */
+
+    window.location.href =
+        "contact.html?" + params.toString();
+
+});
+
+</script>
+
+
+</body>
+
+</html>

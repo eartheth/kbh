@@ -1,0 +1,426 @@
+{
+    "timetable": {
+        "Monday": [
+            {
+                "start": "08:00",
+                "end": "08:10",
+                "subject": "Assembly",
+                "teacher": "Shaun Peters",
+                "room": "Basketball Court"
+            },
+            {
+                "start": "08:10",
+                "end": "09:00",
+                "subject": "Global Perspectives",
+                "teacher": "Art Rudenko",
+                "room": "9A Classroom"
+            },
+            {
+                "start": "09:00",
+                "end": "09:50",
+                "subject": "English",
+                "teacher": "Shaun Peters",
+                "room": "9A Classroom"
+            },
+            {
+                "start": "09:50",
+                "end": "10:20",
+                "subject": "Break",
+                "teacher": "",
+                "room": ""
+            },
+            {
+                "start": "10:20",
+                "end": "11:10",
+                "subject": "Thai Year 7-9",
+                "teacher": "Siriwan",
+                "room": "9A Classroom"
+            },
+            {
+                "start": "11:10",
+                "end": "12:00",
+                "subject": "Art & Design",
+                "teacher": "Kate Reed",
+                "room": "Art Room"
+            },
+            {
+                "start": "12:00",
+                "end": "12:50",
+                "subject": "Art & Design",
+                "teacher": "Kate Reed",
+                "room": "Art Room"
+            },
+            {
+                "start": "12:50",
+                "end": "13:40",
+                "subject": "Secondary School Lunch",
+                "teacher": "",
+                "room": "Canteen"
+            },
+            {
+                "start": "13:40",
+                "end": "14:30",
+                "subject": "Chinese Year 7-9",
+                "teacher": "Tang",
+                "room": "9A Classroom"
+            },
+            {
+                "start": "14:30",
+                "end": "15:20",
+                "subject": "Mathematics",
+                "teacher": "Tamaryn Sass",
+                "room": "9A Classroom"
+            },
+            {
+                "start": "15:20",
+                "end": "16:00",
+                "subject": "PSHE / Homeroom",
+                "teacher": "Shaun Peters",
+                "room": "9A Classroom"
+            }
+        ],
+        "Tuesday": [
+            {
+                "start": "08:00",
+                "end": "08:10",
+                "subject": "Assembly",
+                "teacher": "Shaun Peters",
+                "room": "Basketball Court"
+            },
+            {
+                "start": "08:10",
+                "end": "09:00",
+                "subject": "Science",
+                "teacher": "Christian",
+                "room": "9A Classroom"
+            },
+            {
+                "start": "09:00",
+                "end": "09:50",
+                "subject": "Physical Education",
+                "teacher": "Michael Soliven",
+                "room": "Basketball Court"
+            },
+            {
+                "start": "09:50",
+                "end": "10:20",
+                "subject": "Break",
+                "teacher": "",
+                "room": ""
+            },
+            {
+                "start": "10:20",
+                "end": "11:10",
+                "subject": "Global Perspectives",
+                "teacher": "Art Rudenko",
+                "room": "9A Classroom"
+            },
+            {
+                "start": "11:10",
+                "end": "12:00",
+                "subject": "English",
+                "teacher": "Shaun Peters",
+                "room": "9A Classroom"
+            },
+            {
+                "start": "12:00",
+                "end": "12:50",
+                "subject": "Mathematics",
+                "teacher": "Tamaryn Sass",
+                "room": "9A Classroom"
+            },
+            {
+                "start": "12:50",
+                "end": "13:40",
+                "subject": "Secondary School Lunch",
+                "teacher": "",
+                "room": "Canteen"
+            },
+            {
+                "start": "13:40",
+                "end": "14:30",
+                "subject": "Chinese Year 7-9",
+                "teacher": "Tang",
+                "room": "9A Classroom"
+            },
+            {
+                "start": "14:30",
+                "end": "15:20",
+                "subject": "Thai Year 7-9",
+                "teacher": "Siriwan",
+                "room": "9A Classroom"
+            },
+            {
+                "start": "15:20",
+                "end": "16:00",
+                "subject": "PSHE / Homeroom",
+                "teacher": "Shaun Peters",
+                "room": "9A Classroom"
+            }
+        ],
+        "Wednesday": [
+            {
+                "start": "08:00",
+                "end": "08:10",
+                "subject": "Assembly",
+                "teacher": "Shaun Peters",
+                "room": "Basketball Court"
+            },
+            {
+                "start": "08:10",
+                "end": "09:00",
+                "subject": "Digital Literacy and Computing",
+                "teacher": "Tomas Jursys",
+                "room": "DLC Room"
+            },
+            {
+                "start": "09:00",
+                "end": "09:50",
+                "subject": "Digital Literacy and Computing",
+                "teacher": "Tomas Jursys",
+                "room": "DLC Room"
+            },
+            {
+                "start": "09:50",
+                "end": "10:20",
+                "subject": "Break",
+                "teacher": "",
+                "room": ""
+            },
+            {
+                "start": "10:20",
+                "end": "11:10",
+                "subject": "English",
+                "teacher": "Shaun Peters",
+                "room": "9A Classroom"
+            },
+            {
+                "start": "11:10",
+                "end": "12:00",
+                "subject": "Mathematics",
+                "teacher": "Tamaryn Sass",
+                "room": "9A Classroom"
+            },
+            {
+                "start": "12:00",
+                "end": "12:50",
+                "subject": "Science",
+                "teacher": "Christian",
+                "room": "9A Classroom"
+            },
+            {
+                "start": "12:50",
+                "end": "13:40",
+                "subject": "Secondary School Lunch",
+                "teacher": "",
+                "room": "Canteen"
+            },
+            {
+                "start": "13:40",
+                "end": "14:30",
+                "subject": "Thai Year 7-9",
+                "teacher": "Siriwan",
+                "room": "9A Classroom"
+            },
+            {
+                "start": "14:30",
+                "end": "15:20",
+                "subject": "Chinese Year 7-9",
+                "teacher": "Tang",
+                "room": "9A Classroom"
+            },
+            {
+                "start": "15:20",
+                "end": "16:00",
+                "subject": "PSHE / Homeroom",
+                "teacher": "Shaun Peters",
+                "room": "9A Classroom"
+            }
+        ],
+        "Thursday": [
+            {
+                "start": "08:00",
+                "end": "08:10",
+                "subject": "Assembly",
+                "teacher": "Shaun Peters",
+                "room": "Basketball Court"
+            },
+            {
+                "start": "08:10",
+                "end": "09:00",
+                "subject": "English",
+                "teacher": "Shaun Peters",
+                "room": "9A Classroom"
+            },
+            {
+                "start": "09:00",
+                "end": "09:50",
+                "subject": "Music",
+                "teacher": "Thamonwan",
+                "room": "Music Room"
+            },
+            {
+                "start": "09:50",
+                "end": "10:20",
+                "subject": "Break",
+                "teacher": "",
+                "room": ""
+            },
+            {
+                "start": "10:20",
+                "end": "11:10",
+                "subject": "Mathematics",
+                "teacher": "Tamaryn Sass",
+                "room": "9A Classroom"
+            },
+            {
+                "start": "11:10",
+                "end": "12:00",
+                "subject": "Science Lab",
+                "teacher": "Christian",
+                "room": "Science LAB"
+            },
+            {
+                "start": "12:00",
+                "end": "12:50",
+                "subject": "Science Lab",
+                "teacher": "Christian",
+                "room": "Science LAB"
+            },
+            {
+                "start": "12:50",
+                "end": "13:40",
+                "subject": "Secondary School Lunch",
+                "teacher": "",
+                "room": "Canteen"
+            },
+            {
+                "start": "13:40",
+                "end": "14:30",
+                "subject": "Thai Year 7-9",
+                "teacher": "Siriwan",
+                "room": "9A Classroom"
+            },
+            {
+                "start": "14:30",
+                "end": "15:20",
+                "subject": "Chinese Year 7-9",
+                "teacher": "Tang",
+                "room": "9A Classroom"
+            },
+            {
+                "start": "15:20",
+                "end": "16:00",
+                "subject": "PSHE / Homeroom",
+                "teacher": "Shaun Peters",
+                "room": "9A Classroom"
+            }
+        ],
+        "Friday": [
+            {
+                "start": "08:00",
+                "end": "08:10",
+                "subject": "Assembly",
+                "teacher": "Shaun Peters",
+                "room": "Basketball Court"
+            },
+            {
+                "start": "08:10",
+                "end": "09:00",
+                "subject": "House Activities",
+                "teacher": "Shaun Peters",
+                "room": "9A Classroom"
+            },
+            {
+                "start": "09:00",
+                "end": "09:50",
+                "subject": "English",
+                "teacher": "Shaun Peters",
+                "room": "9A Classroom"
+            },
+            {
+                "start": "09:50",
+                "end": "10:20",
+                "subject": "Break",
+                "teacher": "",
+                "room": ""
+            },
+            {
+                "start": "10:20",
+                "end": "11:10",
+                "subject": "Mathematics",
+                "teacher": "Tamaryn Sass",
+                "room": "9A Classroom"
+            },
+            {
+                "start": "11:10",
+                "end": "12:00",
+                "subject": "Physical Education",
+                "teacher": "Michael Soliven",
+                "room": "Basketball Court"
+            },
+            {
+                "start": "12:00",
+                "end": "12:50",
+                "subject": "Science",
+                "teacher": "Christian",
+                "room": "9A Classroom"
+            },
+            {
+                "start": "12:50",
+                "end": "13:40",
+                "subject": "Secondary School Lunch",
+                "teacher": "",
+                "room": "Canteen"
+            },
+            {
+                "start": "13:40",
+                "end": "14:30",
+                "subject": "Thai Year 7-9",
+                "teacher": "Siriwan",
+                "room": "9A Classroom"
+            },
+            {
+                "start": "14:30",
+                "end": "15:20",
+                "subject": "Chinese Year 7-9",
+                "teacher": "Tang",
+                "room": "9A Classroom"
+            },
+            {
+                "start": "15:20",
+                "end": "16:00",
+                "subject": "PSHE / Homeroom",
+                "teacher": "Shaun Peters",
+                "room": "9A Classroom"
+            }
+        ]
+    },
+    "uniforms": {
+        "Monday": {
+            "icon": "👔",
+            "name": "School Uniform",
+            "detail": "Regular school uniform"
+        },
+        "Tuesday": {
+            "icon": "🎽",
+            "name": "PE Uniform",
+            "detail": "House Uniform / Old PE Uniform"
+        },
+        "Wednesday": {
+            "icon": "👔",
+            "name": "School Uniform",
+            "detail": "Regular school uniform"
+        },
+        "Thursday": {
+            "icon": "👔",
+            "name": "School Uniform",
+            "detail": "Regular school uniform"
+        },
+        "Friday": {
+            "icon": "🎽",
+            "name": "House Uniform",
+            "detail": "House Uniform"
+        }
+    }
+}

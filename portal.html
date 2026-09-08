@@ -1,0 +1,2095 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Year 9 Portal | KBH</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f7f5fa;
+            color: #333;
+        }
+
+
+        /* =========================
+   HEADER
+========================= */
+
+        .header {
+            background:
+                linear-gradient(rgba(25, 20, 35, 0.45),
+                    rgba(25, 20, 35, 0.65)),
+                url("bg.png");
+
+            background-size: cover;
+            background-position: center;
+
+            color: white;
+
+            padding: 45px 25px 80px;
+        }
+
+        .header-inner {
+            width: 100%;
+            max-width: 1200px;
+
+            margin: 0 auto;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            gap: 20px;
+        }
+
+        .school-name {
+            font-size: 14px;
+            opacity: 0.85;
+            margin-bottom: 8px;
+        }
+
+        .header h1 {
+            font-size: 38px;
+            font-weight: normal;
+        }
+
+        .header h1 span {
+            color: #A16BD3;
+            font-weight: bold;
+        }
+
+        .logout-btn {
+            padding: 11px 18px;
+
+            border-radius: 10px;
+
+            border: 1px solid rgba(255, 255, 255, 0.35);
+
+            background: rgba(255, 255, 255, 0.12);
+            color: white;
+
+            font-size: 14px;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+        }
+
+        .logout-btn:hover {
+            background: rgba(255, 255, 255, 0.22);
+        }
+
+
+        /* =========================
+   MAIN
+========================= */
+
+        .main {
+            width: 100%;
+            max-width: 1200px;
+
+            margin: -45px auto 0;
+
+            padding: 0 20px 70px;
+        }
+
+
+        /* =========================
+   WELCOME
+========================= */
+
+        .welcome-card {
+            background: white;
+
+            border-radius: 18px;
+
+            padding: 25px 28px;
+
+            border: 1px solid rgba(161, 107, 211, 0.12);
+
+            box-shadow:
+                0 12px 35px rgba(56, 38, 72, 0.10);
+
+            margin-bottom: 22px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            gap: 20px;
+        }
+
+        .welcome-card h2 {
+            font-size: 25px;
+            margin-bottom: 6px;
+        }
+
+        .welcome-card h2 span {
+            color: #A16BD3;
+        }
+
+        .date-text {
+            color: #777;
+            font-size: 14px;
+        }
+
+        .clock {
+            color: #A16BD3;
+
+            font-size: 27px;
+            font-weight: bold;
+        }
+
+
+        /* =========================
+   CARDS
+========================= */
+
+        .card {
+            background: white;
+
+            border-radius: 18px;
+
+            padding: 25px;
+
+            border: 1px solid rgba(161, 107, 211, 0.12);
+
+            box-shadow:
+                0 8px 25px rgba(56, 38, 72, 0.07);
+        }
+
+        .card-label {
+            margin-bottom: 12px;
+
+            color: #888;
+
+            font-size: 13px;
+            font-weight: bold;
+
+            text-transform: uppercase;
+
+            letter-spacing: 0.5px;
+        }
+
+
+        /* =========================
+   TOP GRID
+========================= */
+
+        .top-grid {
+            display: grid;
+
+            grid-template-columns:
+                minmax(0, 1.4fr) minmax(0, 1fr) minmax(0, 0.85fr);
+
+            gap: 20px;
+
+            margin-bottom: 22px;
+        }
+
+
+        /* =========================
+   CURRENT LESSON
+========================= */
+
+        .current-card {
+            border-top: 4px solid #A16BD3;
+        }
+
+        .subject {
+            margin-bottom: 9px;
+
+            font-size: 30px;
+            font-weight: bold;
+        }
+
+        .lesson-info {
+            color: #777;
+
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        .lesson-time {
+            display: inline-block;
+
+            margin-top: 15px;
+
+            padding: 7px 12px;
+
+            border-radius: 8px;
+
+            background: rgba(161, 107, 211, 0.10);
+
+            color: #915BC7;
+
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+
+        /* =========================
+   PROGRESS
+========================= */
+
+        .progress-wrapper {
+            margin-top: 20px;
+        }
+
+        .progress-track {
+            width: 100%;
+            height: 8px;
+
+            background: #eee;
+
+            border-radius: 10px;
+
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            width: 0%;
+            height: 100%;
+
+            background: #A16BD3;
+
+            border-radius: 10px;
+
+            transition: width 0.4s ease;
+        }
+
+        .progress-text {
+            margin-top: 7px;
+
+            color: #999;
+
+            font-size: 12px;
+        }
+
+
+        /* =========================
+   NEXT
+========================= */
+
+        .next-subject {
+            margin-bottom: 8px;
+
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .next-time {
+            margin-top: 12px;
+
+            color: #A16BD3;
+
+            font-weight: bold;
+        }
+
+
+        /* =========================
+   UNIFORM
+========================= */
+
+        .uniform-card {
+            text-align: center;
+        }
+
+        .uniform-icon {
+            margin-bottom: 12px;
+            font-size: 45px;
+        }
+
+        .uniform-name {
+            color: #A16BD3;
+
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .uniform-detail {
+            margin-top: 8px;
+
+            color: #777;
+
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+
+        /* =========================
+   CONTENT GRID
+========================= */
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            margin-bottom: 22px;
+        }
+
+        .section-title {
+            margin-bottom: 20px;
+
+            font-size: 21px;
+        }
+
+        .section-title span {
+            color: #A16BD3;
+        }
+
+
+        /* =========================
+   HOMEWORK
+========================= */
+
+        .homework-item {
+            display: flex;
+            align-items: flex-start;
+
+            gap: 14px;
+
+            padding: 16px 0;
+
+            border-bottom: 1px solid #eee;
+        }
+
+        .homework-item:first-child {
+            padding-top: 0;
+        }
+
+        .homework-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .homework-dot {
+            width: 9px;
+            height: 9px;
+
+            margin-top: 7px;
+
+            border-radius: 50%;
+
+            background: #A16BD3;
+
+            flex-shrink: 0;
+        }
+
+        .homework-subject {
+            margin-bottom: 4px;
+            font-weight: bold;
+        }
+
+        .homework-task {
+            color: #666;
+
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .homework-due {
+            margin-top: 6px;
+
+            color: #A16BD3;
+
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+
+        /* =========================
+   EVENTS
+========================= */
+
+        .event {
+            display: flex;
+
+            gap: 15px;
+
+            padding: 14px 0;
+
+            border-bottom: 1px solid #eee;
+        }
+
+        .event:first-child {
+            padding-top: 0;
+        }
+
+        .event:last-child {
+            border-bottom: none;
+        }
+
+        .event-date {
+            width: 50px;
+            height: 50px;
+
+            border-radius: 10px;
+
+            background: rgba(161, 107, 211, 0.10);
+
+            color: #A16BD3;
+
+            flex-shrink: 0;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .event-day {
+            font-size: 19px;
+            font-weight: bold;
+        }
+
+        .event-month {
+            font-size: 10px;
+            font-weight: bold;
+        }
+
+        .event-title {
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .event-description {
+            color: #777;
+
+            font-size: 13px;
+            line-height: 1.4;
+        }
+
+
+        /* =========================
+   TIMETABLE
+========================= */
+
+        .timetable-card {
+            margin-bottom: 20px;
+        }
+
+        .timetable-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            min-width: 850px;
+
+            border-collapse: collapse;
+        }
+
+        th {
+            padding: 14px 12px;
+
+            background: #faf8fc;
+
+            color: #555;
+
+            border-bottom: 2px solid #eee;
+
+            text-align: left;
+
+            font-size: 13px;
+        }
+
+        td {
+            padding: 14px 12px;
+
+            border-bottom: 1px solid #eee;
+
+            font-size: 13px;
+
+            vertical-align: top;
+        }
+
+        td:first-child {
+            color: #A16BD3;
+
+            font-weight: bold;
+
+            white-space: nowrap;
+        }
+
+        .today-column {
+            background: rgba(161, 107, 211, 0.055);
+        }
+
+        .current-lesson-cell {
+            background: rgba(161, 107, 211, 0.16) !important;
+        }
+
+        .period-subject {
+            margin-bottom: 3px;
+            font-weight: bold;
+        }
+
+        .period-room {
+            color: #999;
+            font-size: 11px;
+        }
+
+
+        /* =========================
+   EMPTY / ERROR
+========================= */
+
+        .empty {
+            color: #999;
+            font-style: italic;
+        }
+
+        .load-error {
+            padding: 15px;
+
+            border-radius: 10px;
+
+            background: #fff2f2;
+
+            color: #b84c4c;
+
+            font-size: 14px;
+        }
+
+
+        /* =========================
+   MOBILE
+========================= */
+
+        @media (max-width: 900px) {
+
+            .top-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .current-card {
+                grid-column: 1 / -1;
+            }
+
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+        @media (max-width: 600px) {
+
+            .header {
+                padding: 35px 20px 75px;
+            }
+
+            .header-inner {
+                align-items: flex-start;
+            }
+
+            .header h1 {
+                font-size: 29px;
+            }
+
+            .school-name {
+                font-size: 12px;
+            }
+
+            .logout-btn {
+                padding: 9px 12px;
+            }
+
+            .main {
+                padding: 0 14px 50px;
+            }
+
+            .welcome-card {
+                flex-direction: column;
+                align-items: flex-start;
+
+                padding: 22px;
+            }
+
+            .clock {
+                font-size: 23px;
+            }
+
+            .top-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .current-card {
+                grid-column: auto;
+            }
+
+            .card {
+                padding: 21px;
+            }
+
+            .subject {
+                font-size: 26px;
+            }
+
+        }
+
+        /* =========================
+           TOP NAVIGATION
+        ========================= */
+
+        .top-nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(161, 107, 211, 0.14);
+            box-shadow: 0 4px 18px rgba(56, 38, 72, 0.06);
+        }
+
+        .top-nav-inner {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+
+        .top-nav-inner::-webkit-scrollbar {
+            display: none;
+        }
+
+        .top-nav a {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            min-height: 58px;
+            padding: 0 16px;
+            color: #666;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            white-space: nowrap;
+            transition: color 0.2s ease, background 0.2s ease;
+        }
+
+        .top-nav a:hover {
+            color: #915BC7;
+            background: rgba(161, 107, 211, 0.06);
+        }
+
+        .top-nav a.active {
+            color: #915BC7;
+        }
+
+        .top-nav a.active::after {
+            content: "";
+            position: absolute;
+            left: 16px;
+            right: 16px;
+            bottom: 0;
+            height: 3px;
+            border-radius: 3px 3px 0 0;
+            background: #A16BD3;
+        }
+
+        @media (max-width: 600px) {
+            .top-nav-inner {
+                padding: 0 10px;
+            }
+
+            .top-nav a {
+                min-height: 52px;
+                padding: 0 13px;
+                font-size: 13px;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <nav class="top-nav" aria-label="Main navigation">
+        <div class="top-nav-inner">
+            <a href="portal.html" class="active" aria-current="page">Home</a>
+            <a href="navigation.html">School Navigation</a>
+            <a href="budget.html">Personal Budget Tracker</a>
+            <a href="planner.html">School Planner</a>
+        </div>
+    </nav>
+
+
+
+
+    <header class="header">
+
+        <div class="header-inner">
+
+            <div>
+
+                <div class="school-name">
+                    Knightsbridge House International School Nonthaburi
+                </div>
+
+                <h1>
+                    Year 9 <span>Portal</span>
+                </h1>
+
+            </div>
+
+            <button type="button" class="logout-btn" id="logoutBtn">
+                Logout
+            </button>
+
+        </div>
+
+    </header>
+
+
+
+    <main class="main">
+
+
+        <!-- WELCOME -->
+
+        <div class="welcome-card">
+
+            <div>
+
+                <h2 id="greeting">
+                    Welcome, <span>Year 9</span> 👋
+                </h2>
+
+                <div class="date-text" id="currentDate">
+                    Loading...
+                </div>
+
+            </div>
+
+            <div class="clock" id="clock">
+                --:--
+            </div>
+
+        </div>
+
+
+
+        <!-- CURRENT / NEXT / UNIFORM -->
+
+        <div class="top-grid">
+
+
+            <section class="card current-card">
+
+                <div class="card-label">
+                    Class right now
+                </div>
+
+                <div class="subject" id="currentSubject">
+                    Loading...
+                </div>
+
+                <div class="lesson-info" id="currentInfo"></div>
+
+                <div class="lesson-time" id="currentTime"></div>
+
+
+                <div class="progress-wrapper" id="progressWrapper">
+
+                    <div class="progress-track">
+
+                        <div class="progress-bar" id="progressBar"></div>
+
+                    </div>
+
+                    <div class="progress-text" id="progressText"></div>
+
+                </div>
+
+            </section>
+
+
+
+            <section class="card">
+
+                <div class="card-label">
+                    Up next
+                </div>
+
+                <div class="next-subject" id="nextSubject">
+                    Loading...
+                </div>
+
+                <div class="lesson-info" id="nextInfo"></div>
+
+                <div class="next-time" id="nextTime"></div>
+
+            </section>
+
+
+
+            <section class="card uniform-card">
+
+                <div class="card-label">
+                    What to wear today
+                </div>
+
+                <div class="uniform-icon" id="uniformIcon">
+                    👔
+                </div>
+
+                <div class="uniform-name" id="uniformName">
+                    Loading...
+                </div>
+
+                <div class="uniform-detail" id="uniformDetail"></div>
+
+            </section>
+
+        </div>
+
+
+
+        <!-- EVENTS -->
+
+        <div class="content-grid">
+
+
+            <section class="card">
+
+                <h2 class="section-title">
+                    Upcoming <span>Events</span>
+                </h2>
+
+                <div id="eventsList"></div>
+
+            </section>
+
+        </div>
+
+
+
+        <!-- TIMETABLE -->
+
+        <section class="card timetable-card">
+
+            <h2 class="section-title">
+                Weekly <span>Timetable</span>
+            </h2>
+
+            <div id="scheduleError" style="display:none;"></div>
+
+            <div class="timetable-wrapper">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>Time</th>
+                            <th>Monday</th>
+                            <th>Tuesday</th>
+                            <th>Wednesday</th>
+                            <th>Thursday</th>
+                            <th>Friday</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="timetableBody"></tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+
+    <script>
+
+        /* =====================================================
+           LOGIN CHECK
+        ===================================================== */
+
+        if (sessionStorage.getItem("loggedIn") !== "true") {
+
+            window.location.href = "login.html";
+
+        }
+
+
+        /* =====================================================
+           DATA FROM schedule.json
+        ===================================================== */
+
+        let timetable = {};
+        let uniforms = {};
+
+
+        /* =====================================================
+           EVENTS
+        
+           EDIT THIS WHEN YOU HAVE NEW EVENTS
+        ===================================================== */
+
+        let events = [];
+
+
+        /* =====================================================
+           LOAD EVENTS.JSON
+        ===================================================== */
+
+        async function loadEvents() {
+
+            const container =
+                document.getElementById(
+                    "eventsList"
+                );
+
+            try {
+
+                const response =
+                    await fetch(
+                        "events.json",
+                        {
+                            cache: "no-store"
+                        }
+                    );
+
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        "events.json returned HTTP " +
+                        response.status
+                    );
+
+                }
+
+
+                const data =
+                    await response.json();
+
+
+                /*
+                   events.json can either be:
+                   1) a plain array: [ ... ]
+                   2) { "events": [ ... ] }
+                */
+                events =
+                    Array.isArray(data)
+                        ? data
+                        : (
+                            Array.isArray(data.events)
+                                ? data.events
+                                : []
+                        );
+
+
+                displayEvents();
+
+            }
+            catch (error) {
+
+                console.error(
+                    "EVENTS ERROR:",
+                    error
+                );
+
+
+                events =
+                    [];
+
+
+                if (container) {
+
+                    container.innerHTML =
+                        '<div class="load-error">Unable to load events.json.</div>';
+
+                }
+
+            }
+
+        }
+
+
+        /* =====================================================
+           HELPERS
+        ===================================================== */
+
+        function timeToMinutes(time) {
+
+            const parts = time.split(":");
+
+            return (
+                Number(parts[0]) * 60 +
+                Number(parts[1])
+            );
+
+        }
+
+
+        function formatTime(time) {
+
+            const parts = time.split(":");
+
+            let hour = Number(parts[0]);
+
+            const minute = parts[1];
+
+            const suffix =
+                hour >= 12 ? "PM" : "AM";
+
+
+            hour = hour % 12;
+
+            if (hour === 0) {
+                hour = 12;
+            }
+
+
+            return `${hour}:${minute} ${suffix}`;
+
+        }
+
+
+        function getTodayName() {
+
+            return new Date().toLocaleDateString(
+                "en-US",
+                {
+                    weekday: "long"
+                }
+            );
+
+        }
+
+
+        function getTodayDate() {
+
+            const now = new Date();
+
+            const year =
+                now.getFullYear();
+
+            const month =
+                String(now.getMonth() + 1)
+                    .padStart(2, "0");
+
+            const day =
+                String(now.getDate())
+                    .padStart(2, "0");
+
+
+            return `${year}-${month}-${day}`;
+
+        }
+
+
+        /* =====================================================
+           LOAD SCHEDULE.JSON
+        ===================================================== */
+
+        async function loadSchedule() {
+
+            try {
+
+                const response =
+                    await fetch(
+                        "schedule.json",
+                        {
+                            cache: "no-store"
+                        }
+                    );
+
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        "schedule.json returned HTTP " +
+                        response.status
+                    );
+
+                }
+
+
+                const data =
+                    await response.json();
+
+
+                timetable =
+                    data.timetable || {};
+
+                uniforms =
+                    data.uniforms || {};
+
+
+                displayUniform();
+
+                buildTimetable();
+
+                updateClock();
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    "SCHEDULE ERROR:",
+                    error
+                );
+
+
+                document.getElementById(
+                    "currentSubject"
+                ).textContent =
+                    "Schedule unavailable";
+
+
+                document.getElementById(
+                    "nextSubject"
+                ).textContent =
+                    "Schedule unavailable";
+
+
+                document.getElementById(
+                    "uniformName"
+                ).textContent =
+                    "Unavailable";
+
+
+                const errorBox =
+                    document.getElementById(
+                        "scheduleError"
+                    );
+
+
+                errorBox.style.display =
+                    "block";
+
+                errorBox.className =
+                    "load-error";
+
+                errorBox.textContent =
+                    "Unable to load schedule.json.";
+
+            }
+
+        }
+
+
+        /* =====================================================
+           CLOCK + GREETING
+        ===================================================== */
+
+        function updateClock() {
+
+            const now =
+                new Date();
+
+
+            document.getElementById(
+                "clock"
+            ).textContent =
+                now.toLocaleTimeString(
+                    [],
+                    {
+                        hour: "2-digit",
+                        minute: "2-digit"
+                    }
+                );
+
+
+            document.getElementById(
+                "currentDate"
+            ).textContent =
+                now.toLocaleDateString(
+                    "en-GB",
+                    {
+                        weekday: "long",
+                        day: "numeric",
+                        month: "long",
+                        year: "numeric"
+                    }
+                );
+
+
+            updateGreeting();
+
+            updateCurrentLesson();
+
+        }
+
+
+        function updateGreeting() {
+
+            const hour =
+                new Date().getHours();
+
+
+            let greeting =
+                "Welcome";
+
+
+            if (hour < 12) {
+
+                greeting =
+                    "Good morning";
+
+            }
+
+            else if (hour < 17) {
+
+                greeting =
+                    "Good afternoon";
+
+            }
+
+            else {
+
+                greeting =
+                    "Good evening";
+
+            }
+
+
+            document.getElementById(
+                "greeting"
+            ).innerHTML =
+                `${greeting}, <span>Year 9</span> 👋`;
+
+        }
+
+
+        /* =====================================================
+           CURRENT + NEXT LESSON
+        ===================================================== */
+
+        function updateCurrentLesson() {
+
+            if (!timetable || Object.keys(timetable).length === 0) {
+                return;
+            }
+
+
+            const now =
+                new Date();
+
+
+            const day =
+                getTodayName();
+
+
+            const currentMinutes =
+                now.getHours() * 60 +
+                now.getMinutes();
+
+
+            const lessons =
+                timetable[day];
+
+
+            const currentSubject =
+                document.getElementById(
+                    "currentSubject"
+                );
+
+            const currentInfo =
+                document.getElementById(
+                    "currentInfo"
+                );
+
+            const currentTime =
+                document.getElementById(
+                    "currentTime"
+                );
+
+            const nextSubject =
+                document.getElementById(
+                    "nextSubject"
+                );
+
+            const nextInfo =
+                document.getElementById(
+                    "nextInfo"
+                );
+
+            const nextTime =
+                document.getElementById(
+                    "nextTime"
+                );
+
+            const progressWrapper =
+                document.getElementById(
+                    "progressWrapper"
+                );
+
+
+            /* WEEKEND */
+
+            if (!lessons || lessons.length === 0) {
+
+                currentSubject.textContent =
+                    "No School 🎉";
+
+                currentInfo.textContent =
+                    "Enjoy your day!";
+
+                currentTime.style.display =
+                    "none";
+
+                progressWrapper.style.display =
+                    "none";
+
+
+                const monday =
+                    timetable.Monday || [];
+
+
+                if (monday.length > 0) {
+
+                    nextSubject.textContent =
+                        monday[0].subject;
+
+                    nextInfo.textContent =
+                        "Monday" +
+                        (
+                            monday[0].room
+                                ? " • " + monday[0].room
+                                : ""
+                        );
+
+                    nextTime.textContent =
+                        formatTime(
+                            monday[0].start
+                        );
+
+                }
+
+                else {
+
+                    nextSubject.textContent =
+                        "No upcoming class";
+
+                    nextInfo.textContent =
+                        "";
+
+                    nextTime.textContent =
+                        "";
+
+                }
+
+
+                return;
+
+            }
+
+
+            let currentLesson =
+                null;
+
+            let nextLesson =
+                null;
+
+
+            for (
+                let i = 0;
+                i < lessons.length;
+                i++
+            ) {
+
+                const lesson =
+                    lessons[i];
+
+
+                const start =
+                    timeToMinutes(
+                        lesson.start
+                    );
+
+                const end =
+                    timeToMinutes(
+                        lesson.end
+                    );
+
+
+                if (
+                    currentMinutes >= start &&
+                    currentMinutes < end
+                ) {
+
+                    currentLesson =
+                        lesson;
+
+                    nextLesson =
+                        lessons[i + 1] || null;
+
+                    break;
+
+                }
+
+
+                if (
+                    currentMinutes < start
+                ) {
+
+                    nextLesson =
+                        lesson;
+
+                    break;
+
+                }
+
+            }
+
+
+            /* CURRENT */
+
+            if (currentLesson) {
+
+                currentSubject.textContent =
+                    currentLesson.subject;
+
+
+                currentInfo.textContent =
+                    currentLesson.room ||
+                    "";
+
+
+                currentTime.style.display =
+                    "inline-block";
+
+
+                currentTime.textContent =
+                    formatTime(
+                        currentLesson.start
+                    )
+                    +
+                    " – "
+                    +
+                    formatTime(
+                        currentLesson.end
+                    );
+
+
+                const start =
+                    timeToMinutes(
+                        currentLesson.start
+                    );
+
+                const end =
+                    timeToMinutes(
+                        currentLesson.end
+                    );
+
+
+                const progress =
+                    Math.max(
+                        0,
+                        Math.min(
+                            100,
+                            (
+                                (
+                                    currentMinutes -
+                                    start
+                                )
+                                /
+                                (
+                                    end -
+                                    start
+                                )
+                            )
+                            * 100
+                        )
+                    );
+
+
+                document.getElementById(
+                    "progressBar"
+                ).style.width =
+                    progress + "%";
+
+
+                const remaining =
+                    end -
+                    currentMinutes;
+
+
+                document.getElementById(
+                    "progressText"
+                ).textContent =
+                    remaining +
+                    (
+                        remaining === 1
+                            ? " minute remaining"
+                            : " minutes remaining"
+                    );
+
+
+                progressWrapper.style.display =
+                    "block";
+
+            }
+
+            else {
+
+                progressWrapper.style.display =
+                    "none";
+
+                currentTime.style.display =
+                    "none";
+
+
+                const firstLesson =
+                    lessons[0];
+
+
+                if (
+                    currentMinutes <
+                    timeToMinutes(
+                        firstLesson.start
+                    )
+                ) {
+
+                    currentSubject.textContent =
+                        "School hasn't started";
+
+                    currentInfo.textContent =
+                        "First lesson: " +
+                        firstLesson.subject;
+
+                }
+
+                else {
+
+                    currentSubject.textContent =
+                        "School Finished 🎉";
+
+                    currentInfo.textContent =
+                        "You're done for today!";
+
+                }
+
+            }
+
+
+            /* NEXT */
+
+            if (nextLesson) {
+
+                nextSubject.textContent =
+                    nextLesson.subject;
+
+
+                nextInfo.textContent =
+                    nextLesson.room ||
+                    "";
+
+
+                nextTime.textContent =
+                    formatTime(
+                        nextLesson.start
+                    )
+                    +
+                    " – "
+                    +
+                    formatTime(
+                        nextLesson.end
+                    );
+
+            }
+
+            else {
+
+                nextSubject.textContent =
+                    "Nothing else today";
+
+                nextInfo.textContent =
+                    "School is finished.";
+
+                nextTime.textContent =
+                    "";
+
+            }
+
+        }
+
+
+        /* =====================================================
+           UNIFORM
+        ===================================================== */
+
+        function displayUniform() {
+
+            const day =
+                getTodayName();
+
+
+            const uniform =
+                uniforms[day];
+
+
+            if (!uniform) {
+
+                document.getElementById(
+                    "uniformIcon"
+                ).textContent =
+                    "😴";
+
+
+                document.getElementById(
+                    "uniformName"
+                ).textContent =
+                    "No School";
+
+
+                document.getElementById(
+                    "uniformDetail"
+                ).textContent =
+                    "Enjoy your day!";
+
+
+                return;
+
+            }
+
+
+            document.getElementById(
+                "uniformIcon"
+            ).textContent =
+                uniform.icon || "👔";
+
+
+            document.getElementById(
+                "uniformName"
+            ).textContent =
+                uniform.name || "School Uniform";
+
+
+            document.getElementById(
+                "uniformDetail"
+            ).textContent =
+                uniform.detail || "";
+
+        }
+
+
+        /* =====================================================
+           EVENTS
+        ===================================================== */
+
+        function displayEvents() {
+
+            const container =
+                document.getElementById(
+                    "eventsList"
+                );
+
+
+            container.innerHTML =
+                "";
+
+
+            const today =
+                getTodayDate();
+
+
+            const upcoming =
+                events
+                    .filter(
+                        event =>
+                            event.date >= today
+                    )
+                    .sort(
+                        (a, b) =>
+                            a.date.localeCompare(
+                                b.date
+                            )
+                    );
+
+
+            if (upcoming.length === 0) {
+
+                container.innerHTML =
+                    '<div class="empty">No upcoming events.</div>';
+
+                return;
+
+            }
+
+
+            upcoming
+                .slice(0, 5)
+                .forEach(
+                    function (event) {
+
+                        const parts =
+                            event.date.split("-");
+
+
+                        const date =
+                            new Date(
+                                Number(parts[0]),
+                                Number(parts[1]) - 1,
+                                Number(parts[2])
+                            );
+
+
+                        const element =
+                            document.createElement(
+                                "div"
+                            );
+
+
+                        element.className =
+                            "event";
+
+
+                        const month =
+                            date
+                                .toLocaleDateString(
+                                    "en-US",
+                                    {
+                                        month: "short"
+                                    }
+                                )
+                                .toUpperCase();
+
+
+                        element.innerHTML = `
+
+                    <div class="event-date">
+
+                        <div class="event-day">
+                            ${date.getDate()}
+                        </div>
+
+                        <div class="event-month">
+                            ${month}
+                        </div>
+
+                    </div>
+
+
+                    <div>
+
+                        <div class="event-title">
+                            ${event.title}
+                        </div>
+
+                        <div class="event-description">
+                            ${event.description}
+                        </div>
+
+                    </div>
+
+                `;
+
+
+                        container.appendChild(
+                            element
+                        );
+
+                    }
+                );
+
+        }
+
+
+        /* =====================================================
+           BUILD TIMETABLE
+        ===================================================== */
+
+        function buildTimetable() {
+
+            const days = [
+                "Monday",
+                "Tuesday",
+                "Wednesday",
+                "Thursday",
+                "Friday"
+            ];
+
+
+            const tbody =
+                document.getElementById(
+                    "timetableBody"
+                );
+
+
+            tbody.innerHTML =
+                "";
+
+
+            const today =
+                getTodayName();
+
+
+            const maxPeriods =
+                Math.max(
+                    0,
+                    ...days.map(
+                        day =>
+                            (
+                                timetable[day] ||
+                                []
+                            ).length
+                    )
+                );
+
+
+            for (
+                let i = 0;
+                i < maxPeriods;
+                i++
+            ) {
+
+                const row =
+                    document.createElement(
+                        "tr"
+                    );
+
+
+                let reference =
+                    null;
+
+
+                for (
+                    const day of days
+                ) {
+
+                    if (
+                        timetable[day] &&
+                        timetable[day][i]
+                    ) {
+
+                        reference =
+                            timetable[day][i];
+
+                        break;
+
+                    }
+
+                }
+
+
+                const timeCell =
+                    document.createElement(
+                        "td"
+                    );
+
+
+                if (reference) {
+
+                    timeCell.textContent =
+                        reference.start +
+                        " – " +
+                        reference.end;
+
+                }
+
+
+                row.appendChild(
+                    timeCell
+                );
+
+
+                days.forEach(
+                    function (day) {
+
+                        const lesson =
+                            timetable[day]
+                                ? timetable[day][i]
+                                : null;
+
+
+                        const cell =
+                            document.createElement(
+                                "td"
+                            );
+
+
+                        if (day === today) {
+
+                            cell.classList.add(
+                                "today-column"
+                            );
+
+                        }
+
+
+                        if (lesson) {
+
+                            cell.innerHTML = `
+
+                        <div class="period-subject">
+                            ${lesson.subject}
+                        </div>
+
+                        <div class="period-room">
+                            ${lesson.room || ""}
+                        </div>
+
+                    `;
+
+
+                            if (day === today) {
+
+                                const now =
+                                    new Date();
+
+
+                                const minutes =
+                                    now.getHours() * 60 +
+                                    now.getMinutes();
+
+
+                                const start =
+                                    timeToMinutes(
+                                        lesson.start
+                                    );
+
+                                const end =
+                                    timeToMinutes(
+                                        lesson.end
+                                    );
+
+
+                                if (
+                                    minutes >= start &&
+                                    minutes < end
+                                ) {
+
+                                    cell.classList.add(
+                                        "current-lesson-cell"
+                                    );
+
+                                }
+
+                            }
+
+                        }
+
+
+                        row.appendChild(
+                            cell
+                        );
+
+                    }
+                );
+
+
+                tbody.appendChild(
+                    row
+                );
+
+            }
+
+        }
+
+
+        /* =====================================================
+           LOGOUT
+        ===================================================== */
+
+        document.getElementById(
+            "logoutBtn"
+        ).addEventListener(
+            "click",
+            function () {
+
+                sessionStorage.removeItem(
+                    "loggedIn"
+                );
+
+
+                window.location.href =
+                    "login.html";
+
+            }
+        );
+
+
+        /* =====================================================
+           MIDNIGHT / DATE CHANGE CHECK
+        ===================================================== */
+
+        let lastDate =
+            getTodayDate();
+
+
+        function checkDateChange() {
+
+            const currentDate =
+                getTodayDate();
+
+
+            if (
+                currentDate !== lastDate
+            ) {
+
+                lastDate =
+                    currentDate;
+
+
+                displayUniform();
+
+                displayEvents();
+
+                buildTimetable();
+
+                updateClock();
+
+            }
+
+        }
+
+
+        /* =====================================================
+           START
+        ===================================================== */
+
+        loadEvents();
+
+        loadSchedule();
+
+
+        setInterval(
+            updateClock,
+            30000
+        );
+
+
+        setInterval(
+            checkDateChange,
+            30000
+        );
+
+    </script>
+
+
+</body>
+
+</html>
