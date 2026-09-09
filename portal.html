@@ -705,6 +705,22 @@
             background: #A16BD3;
         }
 
+
+        /* Hidden secret button */
+        #secret {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 48px;
+            height: 48px;
+            padding: 0;
+            border: 0;
+            background: transparent;
+            opacity: 0;
+            cursor: default;
+            z-index: 1100;
+        }
+
         @media (max-width: 600px) {
             .top-nav-inner {
                 padding: 0 10px;
@@ -731,6 +747,9 @@
             <a href="map.html">School Navigation</a>
             <a href="budget.html">Personal Budget Tracker</a>
             <a href="planner.html">School Planner</a>
+        </div>
+        <div class="top-nav-outer">
+            <button id="secret"></button>
         </div>
     </nav>
 
@@ -2031,6 +2050,21 @@
 
             }
         );
+
+
+        /* =====================================================
+           SECRET BUTTON - CLICK 3 TIMES
+        ===================================================== */
+
+        let secretClickCount = 0;
+
+        document.getElementById("secret").addEventListener("click", function () {
+            secretClickCount++;
+
+            if (secretClickCount >= 3) {
+                window.location.href = "secret.html";
+            }
+        });
 
 
         /* =====================================================
