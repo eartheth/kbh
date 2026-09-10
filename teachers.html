@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Knightsbridge House International School Nonthaburi" />
-  <title>Knightsbridge House International School Nonthaburi</title>
+  <meta name="description" content="Knightsbridge House International School Nonthaburi teachers" />
+  <title>Our Teachers | Knightsbridge House International School Nonthaburi</title>
 
   <style>
     :root {
@@ -48,10 +48,7 @@
       display: block;
     }
 
-    button,
-    input,
-    textarea,
-    select {
+    button {
       font: inherit;
     }
 
@@ -78,7 +75,7 @@
       font-size: clamp(34px, 4vw, 58px);
       line-height: 1.05;
       letter-spacing: -0.025em;
-      margin-bottom: 24px;
+      margin-bottom: 20px;
       font-weight: 500;
     }
 
@@ -126,7 +123,6 @@
 
     .site-header.scrolled .brand img,
     .site-header.menu-open .brand img {
-      /* Recolor the white logo to a lighter KBH purple when the header becomes white */
       filter: brightness(0) saturate(100%) invert(47%) sepia(27%) saturate(1320%) hue-rotate(239deg) brightness(92%) contrast(88%);
     }
 
@@ -143,6 +139,7 @@
     }
 
     .nav-link {
+      position: relative;
       display: inline-flex;
       align-items: center;
       gap: 6px;
@@ -160,7 +157,8 @@
       transition: width 0.2s ease;
     }
 
-    .nav-link:hover::after {
+    .nav-link:hover::after,
+    .nav-link.active::after {
       width: 100%;
     }
 
@@ -198,7 +196,8 @@
       font-size: 13px;
     }
 
-    .dropdown a:hover {
+    .dropdown a:hover,
+    .dropdown a.active {
       background: var(--purple-soft);
       color: var(--purple);
     }
@@ -238,32 +237,32 @@
       cursor: pointer;
     }
 
-    /* Hero */
-    .hero {
-      min-height: 92vh;
+    /* Teacher hero */
+    .teacher-hero {
+      min-height: 72vh;
       position: relative;
       display: grid;
       place-items: end start;
       color: #fff;
       background:
-        linear-gradient(180deg, rgba(28,12,41,0.08) 0%, rgba(28,12,41,0.24) 48%, rgba(28,12,41,0.78) 100%),
+        linear-gradient(180deg, rgba(28,12,41,0.08) 0%, rgba(28,12,41,0.28) 48%, rgba(28,12,41,0.84) 100%),
         url('https://images.squarespace-cdn.com/content/v1/6715841c733ae404b8220f77/c0eed97d-77d3-46a3-b774-0a060e4308bb/000_GROUPSHOT_13126.jpg');
       background-size: cover;
-      background-position: center;
+      background-position: center 38%;
     }
 
-    .hero::before {
+    .teacher-hero::before {
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(90deg, rgba(32,9,49,0.56) 0%, rgba(32,9,49,0.14) 58%, rgba(32,9,49,0.03) 100%);
+      background: linear-gradient(90deg, rgba(32,9,49,0.62) 0%, rgba(32,9,49,0.16) 58%, rgba(32,9,49,0.03) 100%);
     }
 
     .hero-content {
       position: relative;
       z-index: 2;
-      padding: 180px 0 86px;
-      max-width: 820px;
+      padding: 180px 0 76px;
+      max-width: 860px;
     }
 
     .hero-eyebrow {
@@ -275,28 +274,258 @@
       opacity: 0.95;
     }
 
-    .hero h1 {
+    .teacher-hero h1 {
       font-family: Georgia, 'Times New Roman', serif;
       font-weight: 500;
-      font-size: clamp(48px, 7vw, 92px);
+      font-size: clamp(52px, 7vw, 92px);
       line-height: 0.98;
       letter-spacing: -0.04em;
-      max-width: 790px;
+      max-width: 820px;
       text-wrap: balance;
     }
 
-    .hero p {
+    .teacher-hero p {
       max-width: 690px;
       font-size: clamp(17px, 2vw, 21px);
       margin-top: 22px;
       color: rgba(255,255,255,0.91);
     }
 
-    .hero-actions {
+    .hero-meta {
       display: flex;
-      gap: 12px;
       flex-wrap: wrap;
-      margin-top: 32px;
+      gap: 10px;
+      margin-top: 28px;
+    }
+
+    .hero-pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 42px;
+      padding: 0 16px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.42);
+      background: rgba(255,255,255,.10);
+      backdrop-filter: blur(6px);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    /* Filter */
+    .filter-section {
+      background: #faf8fc;
+      border-bottom: 1px solid rgba(93,45,145,.08);
+    }
+
+    .filter-wrap {
+      padding: 42px 0;
+    }
+
+    .filter-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 30px;
+      margin-bottom: 24px;
+    }
+
+    .filter-head h2 {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: clamp(28px, 3vw, 42px);
+      font-weight: 500;
+      line-height: 1.05;
+    }
+
+    .filter-head p {
+      color: var(--muted);
+      font-size: 14px;
+      max-width: 460px;
+    }
+
+    .subject-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+    }
+
+    .subject-btn {
+      border: 1px solid rgba(93,45,145,.17);
+      background: #fff;
+      color: #473b4f;
+      min-height: 42px;
+      padding: 0 15px;
+      border-radius: 999px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 800;
+      transition: .2s ease;
+    }
+
+    .subject-btn:hover {
+      color: var(--purple);
+      border-color: rgba(93,45,145,.45);
+      transform: translateY(-1px);
+    }
+
+    .subject-btn.active {
+      color: #fff;
+      background: var(--purple);
+      border-color: var(--purple);
+      box-shadow: 0 8px 24px rgba(93,45,145,.22);
+    }
+
+    /* Directory */
+    .directory {
+      background: #fff;
+    }
+
+    .directory-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 40px;
+      align-items: end;
+      margin-bottom: 48px;
+    }
+
+    .directory-heading {
+      max-width: 760px;
+    }
+
+    .teacher-count {
+      flex: 0 0 auto;
+      color: var(--purple);
+      background: var(--purple-soft);
+      padding: 10px 15px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .teacher-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .teacher-card {
+      position: relative;
+      background: #fff;
+      border: 1px solid rgba(93,45,145,0.08);
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 10px 32px rgba(33,19,49,0.06);
+      transition: transform .25s ease, box-shadow .25s ease;
+      cursor: zoom-in;
+      min-width: 0;
+    }
+
+    .teacher-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 18px 45px rgba(33,19,49,0.12);
+    }
+
+    .teacher-photo {
+      position: relative;
+      background: var(--purple-soft);
+      overflow: hidden;
+      aspect-ratio: 4 / 5;
+    }
+
+    .teacher-photo::after {
+      content: '';
+      position: absolute;
+      inset: auto 0 0;
+      height: 34%;
+      background: linear-gradient(transparent, rgba(39,14,58,.22));
+      pointer-events: none;
+    }
+
+    .teacher-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top;
+      transition: transform .35s ease;
+    }
+
+    .teacher-card:hover .teacher-photo img {
+      transform: scale(1.025);
+    }
+
+    .teacher-card-body {
+      padding: 22px 23px 24px;
+    }
+
+    .teacher-dept {
+      color: var(--purple);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .13em;
+      font-weight: 800;
+      margin-bottom: 7px;
+    }
+
+    .teacher-card h3 {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: 23px;
+      line-height: 1.15;
+      font-weight: 500;
+    }
+
+    .teacher-card .view-text {
+      color: var(--muted);
+      margin-top: 10px;
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .teacher-card:hover .view-text {
+      color: var(--purple);
+    }
+
+    .empty {
+      grid-column: 1 / -1;
+      padding: 70px 25px;
+      text-align: center;
+      color: var(--muted);
+      border: 1px dashed rgba(93,45,145,.24);
+      border-radius: 18px;
+      background: #faf8fc;
+    }
+
+    /* Contact strip */
+    .cta {
+      position: relative;
+      min-height: 430px;
+      display: flex;
+      align-items: center;
+      color: #fff;
+      background:
+        linear-gradient(90deg, rgba(43,16,66,0.86), rgba(43,16,66,0.18)),
+        url('https://images.squarespace-cdn.com/content/v1/6715841c733ae404b8220f77/3b2880d3-f1ea-409f-9857-0c9685e86854/KBH%2BPic_1.jpg');
+      background-size: cover;
+      background-position: center;
+    }
+
+    .cta-copy {
+      max-width: 640px;
+      padding: 72px 0;
+    }
+
+    .cta h2 {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-weight: 500;
+      font-size: clamp(40px, 5vw, 68px);
+      line-height: 1.03;
+      margin-bottom: 20px;
+    }
+
+    .cta p {
+      color: rgba(255,255,255,.88);
+      font-size: 18px;
+      max-width: 600px;
     }
 
     .btn {
@@ -309,6 +538,7 @@
       font-weight: 800;
       font-size: 14px;
       transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+      margin-top: 28px;
     }
 
     .btn:hover {
@@ -319,384 +549,6 @@
       background: #fff;
       color: var(--purple);
       box-shadow: 0 12px 30px rgba(0,0,0,0.12);
-    }
-
-    .btn-outline {
-      color: #fff;
-      border: 1px solid rgba(255,255,255,0.7);
-      background: rgba(255,255,255,0.08);
-      backdrop-filter: blur(6px);
-    }
-
-    /* Intro */
-    .intro-grid {
-      display: grid;
-      grid-template-columns: 1.02fr 0.98fr;
-      gap: 70px;
-      align-items: center;
-    }
-
-    .intro-photo {
-      border-radius: var(--radius);
-      overflow: hidden;
-      box-shadow: var(--shadow);
-      min-height: 520px;
-    }
-
-    .intro-photo img {
-      width: 100%;
-      height: 100%;
-      min-height: 520px;
-      object-fit: cover;
-    }
-
-    .intro-copy p + p {
-      margin-top: 18px;
-    }
-
-    .text-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 9px;
-      margin-top: 28px;
-      color: var(--purple);
-      font-weight: 800;
-      border-bottom: 1px solid rgba(93,45,145,0.35);
-      padding-bottom: 4px;
-    }
-
-    .text-link span {
-      transition: transform 0.2s ease;
-    }
-
-    .text-link:hover span {
-      transform: translateX(4px);
-    }
-
-    /* Offers */
-    .offers {
-      background: #faf8fc;
-    }
-
-    .offers-head {
-      display: flex;
-      justify-content: space-between;
-      gap: 40px;
-      align-items: end;
-      margin-bottom: 54px;
-    }
-
-    .offers-head .section-copy {
-      max-width: 460px;
-    }
-
-    .offer-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-    }
-
-    .offer-card {
-      position: relative;
-      min-height: 325px;
-      background: #fff;
-      border-radius: 18px;
-      padding: 32px;
-      border: 1px solid rgba(93,45,145,0.08);
-      box-shadow: 0 10px 32px rgba(33,19,49,0.06);
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
-      overflow: hidden;
-    }
-
-    .offer-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 18px 45px rgba(33,19,49,0.11);
-    }
-
-    .offer-card::after {
-      content: '';
-      position: absolute;
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      background: var(--purple-soft);
-      right: -45px;
-      bottom: -52px;
-    }
-
-    .offer-icon {
-      width: 56px;
-      height: 56px;
-      object-fit: contain;
-      margin-bottom: 27px;
-    }
-
-    .offer-card h3 {
-      font-family: Georgia, 'Times New Roman', serif;
-      font-size: 25px;
-      line-height: 1.12;
-      font-weight: 500;
-      margin-bottom: 14px;
-    }
-
-    .offer-card p {
-      color: var(--muted);
-      font-size: 15px;
-    }
-
-    /* Feature image strip */
-    .campus-strip {
-      position: relative;
-      min-height: 560px;
-      background:
-        linear-gradient(90deg, rgba(43,16,66,0.80), rgba(43,16,66,0.16)),
-        url('https://images.squarespace-cdn.com/content/v1/6715841c733ae404b8220f77/3b2880d3-f1ea-409f-9857-0c9685e86854/KBH%2BPic_1.jpg');
-      background-position: center;
-      background-size: cover;
-      display: flex;
-      align-items: center;
-      color: #fff;
-    }
-
-    .campus-strip .copy {
-      max-width: 610px;
-      padding: 72px 0;
-    }
-
-    .campus-strip h2 {
-      font-family: Georgia, 'Times New Roman', serif;
-      font-weight: 500;
-      font-size: clamp(40px, 5vw, 70px);
-      line-height: 1.03;
-      margin-bottom: 22px;
-    }
-
-    .campus-strip p {
-      color: rgba(255,255,255,0.9);
-      font-size: 18px;
-    }
-
-    /* Events */
-    .events-head {
-      display: flex;
-      align-items: end;
-      justify-content: space-between;
-      gap: 25px;
-      margin-bottom: 36px;
-    }
-
-    .carousel-controls {
-      display: flex;
-      gap: 10px;
-    }
-
-    .circle-btn {
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      border: 1px solid var(--line);
-      background: #fff;
-      color: var(--purple);
-      font-size: 22px;
-      cursor: pointer;
-      transition: 0.2s ease;
-    }
-
-    .circle-btn:hover {
-      background: var(--purple);
-      color: #fff;
-      border-color: var(--purple);
-    }
-
-    .event-viewport {
-      overflow: hidden;
-    }
-
-    .event-track {
-      display: flex;
-      gap: 20px;
-      transition: transform 0.4s cubic-bezier(.2,.8,.2,1);
-      will-change: transform;
-    }
-
-    .event-card {
-      flex: 0 0 calc((100% - 40px) / 3);
-      background: #fff;
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      overflow: hidden;
-      box-shadow: 0 12px 36px rgba(0,0,0,0.06);
-    }
-
-    .event-card img {
-      width: 100%;
-      aspect-ratio: 4/3;
-      object-fit: cover;
-    }
-
-    .event-body {
-      padding: 24px;
-    }
-
-    .event-meta {
-      color: var(--purple);
-      font-size: 12px;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: .13em;
-      margin-bottom: 8px;
-    }
-
-    .event-card h3 {
-      font-family: Georgia, 'Times New Roman', serif;
-      font-size: 23px;
-      line-height: 1.15;
-      font-weight: 500;
-      margin-bottom: 12px;
-    }
-
-    .event-card p {
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    /* Social */
-    .socials {
-      background: var(--purple-dark);
-      color: #fff;
-    }
-
-    .socials .section-copy {
-      color: rgba(255,255,255,0.72);
-    }
-
-    .social-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 20px;
-      margin-top: 38px;
-    }
-
-    .social-card {
-      position: relative;
-      min-height: 430px;
-      border-radius: 20px;
-      overflow: hidden;
-      display: flex;
-      align-items: end;
-      padding: 30px;
-      background-size: cover;
-      background-position: center;
-      isolation: isolate;
-    }
-
-    .social-card::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(180deg, rgba(26,9,41,0.02), rgba(26,9,41,0.84));
-      z-index: -1;
-    }
-
-    .social-card.facebook {
-      background-image: url('https://images.squarespace-cdn.com/content/v1/6715841c733ae404b8220f77/f29892a1-e247-4a28-ab14-38962a683cc8/KBH%2BPic_3.jpg');
-    }
-
-    .social-card.instagram {
-      background-image: url('https://images.squarespace-cdn.com/content/v1/6715841c733ae404b8220f77/3b2880d3-f1ea-409f-9857-0c9685e86854/KBH%2BPic_1.jpg');
-    }
-
-    .social-card .platform {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 12px;
-      font-weight: 800;
-      font-size: 14px;
-    }
-
-    .social-card h3 {
-      font-family: Georgia, 'Times New Roman', serif;
-      font-size: 33px;
-      font-weight: 500;
-      line-height: 1.1;
-      max-width: 430px;
-    }
-
-    /* Contact */
-    .contact-wrap {
-      display: grid;
-      grid-template-columns: 0.85fr 1.15fr;
-      gap: 55px;
-      align-items: stretch;
-    }
-
-    .contact-panel {
-      background: var(--purple-soft);
-      border-radius: var(--radius);
-      padding: 46px;
-    }
-
-    .contact-panel h2 {
-      font-family: Georgia, 'Times New Roman', serif;
-      font-size: 45px;
-      font-weight: 500;
-      line-height: 1.05;
-      margin-bottom: 28px;
-    }
-
-    .contact-list {
-      display: grid;
-      gap: 20px;
-    }
-
-    .contact-item small {
-      display: block;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: .12em;
-      font-weight: 800;
-      font-size: 11px;
-      margin-bottom: 4px;
-    }
-
-    .contact-item a,
-    .contact-item p {
-      font-size: 16px;
-      font-weight: 700;
-    }
-
-    .member-row {
-      border-top: 1px solid rgba(93,45,145,0.18);
-      margin-top: 32px;
-      padding-top: 24px;
-      display: flex;
-      align-items: center;
-      gap: 18px;
-    }
-
-    .member-row span {
-      color: var(--muted);
-      font-size: 13px;
-    }
-
-    .member-row img {
-      width: 105px;
-      height: auto;
-    }
-
-    .map {
-      border-radius: var(--radius);
-      overflow: hidden;
-      min-height: 560px;
-      box-shadow: var(--shadow);
-    }
-
-    .map iframe {
-      border: 0;
-      width: 100%;
-      height: 100%;
-      min-height: 560px;
     }
 
     /* Footer */
@@ -719,7 +571,51 @@
       opacity: 0.92;
     }
 
-    /* Mobile */
+    /* Lightbox */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 3000;
+      display: none;
+      place-items: center;
+      padding: 24px;
+      background: rgba(22, 8, 34, .92);
+      backdrop-filter: blur(7px);
+    }
+
+    .lightbox.open {
+      display: grid;
+    }
+
+    .lightbox-panel {
+      position: relative;
+      max-width: min(880px, 94vw);
+      max-height: 92vh;
+    }
+
+    .lightbox-img {
+      max-width: 100%;
+      max-height: 88vh;
+      width: auto;
+      border-radius: 18px;
+      box-shadow: 0 24px 70px rgba(0,0,0,.38);
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: -15px;
+      right: -15px;
+      width: 46px;
+      height: 46px;
+      border: 0;
+      border-radius: 50%;
+      color: var(--purple);
+      background: #fff;
+      box-shadow: 0 10px 30px rgba(0,0,0,.22);
+      font-size: 25px;
+      cursor: pointer;
+    }
+
     @media (max-width: 980px) {
       .nav {
         min-height: 78px;
@@ -793,27 +689,14 @@
         display: block;
       }
 
-      .hero {
-        min-height: 80vh;
-      }
-
-      .intro-grid,
-      .contact-wrap {
-        grid-template-columns: 1fr;
-      }
-
-      .offers-head,
-      .events-head {
-        align-items: start;
-        flex-direction: column;
-      }
-
-      .offer-grid {
+      .teacher-grid {
         grid-template-columns: repeat(2, 1fr);
       }
 
-      .event-card {
-        flex-basis: calc((100% - 20px) / 2);
+      .filter-head,
+      .directory-head {
+        align-items: start;
+        flex-direction: column;
       }
     }
 
@@ -830,56 +713,45 @@
         width: 220px;
       }
 
-      .hero {
-        min-height: 78svh;
-        background-position: 57% center;
+      .teacher-hero {
+        min-height: 66svh;
+        background-position: 58% center;
       }
 
       .hero-content {
-        padding: 142px 0 56px;
+        padding: 142px 0 54px;
       }
 
-      .hero h1 {
+      .teacher-hero h1 {
         font-size: clamp(44px, 14vw, 68px);
       }
 
-      .hero p {
+      .teacher-hero p {
         font-size: 16px;
       }
 
-      .intro-photo,
-      .intro-photo img {
-        min-height: 360px;
+      .filter-wrap {
+        padding: 32px 0;
       }
 
-      .intro-grid {
-        gap: 34px;
+      .subject-list {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        padding-bottom: 8px;
+        scrollbar-width: thin;
       }
 
-      .offer-grid,
-      .social-grid {
+      .subject-btn {
+        flex: 0 0 auto;
+        white-space: nowrap;
+      }
+
+      .teacher-grid {
         grid-template-columns: 1fr;
       }
 
-      .offer-card {
-        min-height: 0;
-      }
-
-      .campus-strip {
-        min-height: 510px;
-      }
-
-      .event-card {
-        flex-basis: 100%;
-      }
-
-      .contact-panel {
-        padding: 32px 24px;
-      }
-
-      .map,
-      .map iframe {
-        min-height: 430px;
+      .teacher-card-body {
+        padding: 20px;
       }
 
       .footer-row {
@@ -889,258 +761,105 @@
     }
   </style>
 </head>
+
 <body>
 
 <header class="site-header" id="header">
   <div class="container nav">
-    <a class="brand" href="#top" aria-label="Knightsbridge House home">
+    <a class="brand" href="index.html" aria-label="Knightsbridge House home">
       <img src="https://images.squarespace-cdn.com/content/v1/6715841c733ae404b8220f77/03e46c28-6601-45a0-a324-7e7121390e73/KBH_Nonthaburi_Social_FB_Template_Official%2BLogo%2BWhite.png" alt="Knightsbridge House International School Nonthaburi" />
     </a>
 
     <button class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false">☰</button>
 
     <nav class="nav-links" id="navLinks">
-      <a class="nav-link" href="#about">About</a>
-      <a class="nav-link" href="#offers">Our School</a>
+      <a class="nav-link" href="index.html#about">About</a>
+      <a class="nav-link" href="index.html#offers">Our School</a>
 
       <div class="nav-item" id="teacherMenu">
-        <a class="nav-link" href="#" id="teacherToggle">Our Teacher <span>⌄</span></a>
-        <div class="dropdown">
-          <a href="#">English</a>
-          <a href="#">Chinese</a>
-          <a href="#">Thai</a>
-          <a href="#">Digital Literacy &amp; Computing Teacher</a>
-          <a href="#">Art &amp; Design</a>
-          <a href="#">Founding Headmaster</a>
-          <a href="#">Global Perspectives</a>
-          <a href="#">Lower Primary</a>
-          <a href="#">Mathematics</a>
-          <a href="#">Music</a>
-          <a href="#">PE</a>
-          <a href="#">Science</a>
-          <a href="#">Teaching Assistant</a>
+        <a class="nav-link active" href="?subject=all" id="teacherToggle">Our Teacher <span>⌄</span></a>
+        <div class="dropdown" id="teacherDropdown">
+          <a href="?subject=english" data-subject-link="english">English</a>
+          <a href="?subject=chinese" data-subject-link="chinese">Chinese</a>
+          <a href="?subject=thai" data-subject-link="thai">Thai</a>
+          <a href="?subject=computing" data-subject-link="computing">Digital Literacy &amp; Computing Teacher</a>
+          <a href="?subject=art" data-subject-link="art">Art &amp; Design</a>
+          <a href="?subject=headmaster" data-subject-link="headmaster">Founding Headmaster</a>
+          <a href="?subject=global-perspectives" data-subject-link="global-perspectives">Global Perspectives</a>
+          <a href="?subject=lower-primary" data-subject-link="lower-primary">Lower Primary</a>
+          <a href="?subject=mathematics" data-subject-link="mathematics">Mathematics</a>
+          <a href="?subject=music" data-subject-link="music">Music</a>
+          <a href="?subject=pe" data-subject-link="pe">PE</a>
+          <a href="?subject=science" data-subject-link="science">Science</a>
+          <a href="?subject=teaching-assistant" data-subject-link="teaching-assistant">Teaching Assistant</a>
         </div>
       </div>
 
-      <a class="contact-btn" href="#contact">Contact Us</a>
+      <a class="contact-btn" href="index.html#contact">Contact Us</a>
     </nav>
   </div>
 </header>
 
 <main id="top">
-  <section class="hero">
+
+  <section class="teacher-hero">
     <div class="container hero-content">
-      <div class="hero-eyebrow">International School · Nonthaburi</div>
-      <h1>Quality international education for everyone.</h1>
-      <p>Cambridge education with Chinese, Thai and the Singapore approach to Mathematics and Science — in a fun, inspiring and caring school community.</p>
-      <div class="hero-actions">
-        <a class="btn btn-light" href="#contact">Contact Us</a>
-        <a class="btn btn-outline" href="#about">Discover KBH</a>
+      <div class="hero-eyebrow">Knightsbridge House · Nonthaburi</div>
+      <h1 id="heroTitle">Our Teachers</h1>
+      <p id="heroDescription">
+        Meet the inspiring international teaching team behind the learning experience at Knightsbridge House.
+      </p>
+      <div class="hero-meta">
+        <span class="hero-pill" id="heroSubject">All departments</span>
+        <span class="hero-pill" id="heroCount">Loading teachers…</span>
       </div>
     </div>
   </section>
 
-  <section class="section" id="about">
-    <div class="container intro-grid">
-      <div class="intro-photo">
-        <img src="https://images.squarespace-cdn.com/content/v1/6715841c733ae404b8220f77/3b2880d3-f1ea-409f-9857-0c9685e86854/KBH%2BPic_1.jpg" alt="Students at Knightsbridge House" />
-      </div>
-
-      <div class="intro-copy">
-        <div class="section-kicker">Knightsbridge House</div>
-        <h2 class="section-title">We Provide Quality International Education for Everyone</h2>
-        <p class="section-copy">Knightsbridge House (KBH), one of the fastest growing international schools from Singapore, established its first school campus in Nonthaburi, Thailand in Aug 2025. We deliver the UK Cambridge Curriculum, with the addition of Chinese, Thai, and the Singapore approach to teaching Math and Science.</p>
-        <p class="section-copy">Students grow in a fun and inspiring learning environment that fosters academic excellence while developing critical thinking, creativity and character. At KBH, every child can succeed.</p>
-        <a class="text-link" href="#contact">Contact Us <span>→</span></a>
-      </div>
-    </div>
-  </section>
-
-  <section class="section offers" id="offers">
-    <div class="container">
-      <div class="offers-head">
+  <section class="filter-section">
+    <div class="container filter-wrap">
+      <div class="filter-head">
         <div>
-          <div class="section-kicker">Why KBH</div>
-          <h2 class="section-title">What Knightsbridge House Offers</h2>
+          <div class="section-kicker">Our Teacher</div>
+          <h2>Browse by subject</h2>
         </div>
-        <p class="section-copy">An inspiring education built around academic strength, character, creativity, caring teachers and an engaging campus experience.</p>
+        <p>
+          All teacher categories now live on this single page. Choose a subject below
+          or use <strong>?subject=english</strong> directly in the URL.
+        </p>
       </div>
-
-      <div class="offer-grid">
-        <article class="offer-card">
-          <img class="offer-icon" src="https://images.squarespace-cdn.com/content/v1/6715841c733ae404b8220f77/2976eaff-a071-4882-9405-3a9f3c09b2bf/Screenshot%2B2025-01-12%2Bat%2B11.35.27%E2%80%AFPM%2B1.png" alt="" />
-          <h3>A positive learning environment</h3>
-          <p>We foster student success through simple and effective education that sparks curiosity and creativity in a safe and happy environment.</p>
-        </article>
-
-        <article class="offer-card">
-          <img class="offer-icon" src="https://images.squarespace-cdn.com/content/v1/6715841c733ae404b8220f77/f1159385-bd0e-422c-b7f1-8752ee0ae79e/Screenshot%2B2025-01-12%2Bat%2B11.38.20%E2%80%AFPM%2B1.png" alt="" />
-          <h3>A world-class international curriculum</h3>
-          <p>We deliver the Cambridge Curriculum from the UK, Mandarin Chinese, Thai, and the Singapore approach to Mathematics and Science.</p>
-        </article>
-
-        <article class="offer-card">
-          <img class="offer-icon" src="https://images.squarespace-cdn.com/content/v1/6715841c733ae404b8220f77/c288e5f9-bab4-4fab-b68d-b0ebda33a5f9/Screenshot%2B2025-01-12%2Bat%2B11.38.27%E2%80%AFPM%2B1.png" alt="" />
-          <h3>Holistic extra-curricular activities</h3>
-          <p>Sports, music, performing arts and academic interest groups help students grow beyond the classroom.</p>
-        </article>
-
-        <article class="offer-card">
-          <img class="offer-icon" src="https://images.squarespace-cdn.com/content/v1/6715841c733ae404b8220f77/6753d81a-39e9-447b-83b4-46f1eb84c71c/Screenshot%2B2025-01-12%2Bat%2B11.38.34%E2%80%AFPM%2B1.png" alt="" />
-          <h3>Inspiring international teaching staff</h3>
-          <p>Dedicated professional teachers bring international experience, expertise and personalized care to every child.</p>
-        </article>
-
-        <article class="offer-card">
-          <img class="offer-icon" src="https://images.squarespace-cdn.com/content/v1/6715841c733ae404b8220f77/e7d5b1e9-b72d-4acf-bc1a-4584d5ac61c3/Screenshot%2B2025-01-12%2Bat%2B11.38.43%E2%80%AFPM%2B1.png" alt="" />
-          <h3>Affordable tuition fee</h3>
-          <p>Quality international education at competitive rates through efficient operations and smart resource management.</p>
-        </article>
-
-        <article class="offer-card">
-          <img class="offer-icon" src="https://images.squarespace-cdn.com/content/v1/6715841c733ae404b8220f77/c9ee880b-40f5-4bcf-a013-b3f43b1a01f1/Screenshot%2B2025-01-12%2Bat%2B11.38.50%E2%80%AFPM%2B1.png" alt="" />
-          <h3>Modern Facilities</h3>
-          <p>Modern classrooms and labs are complemented by sports amenities including a swimming pool and multi-purpose court.</p>
-        </article>
-      </div>
+      <div class="subject-list" id="subjectList"></div>
     </div>
   </section>
 
-  <section class="campus-strip">
+  <section class="section directory">
     <div class="container">
-      <div class="copy">
-        <div class="section-kicker" style="color:#fff;opacity:.8">Learn · Create · Grow</div>
-        <h2>A school experience designed around every child.</h2>
-        <p>Academic excellence matters — but so do confidence, curiosity, friendships and character. KBH creates room for all of them.</p>
+      <div class="directory-head">
+        <div class="directory-heading">
+          <div class="section-kicker" id="pageKicker">Our Teachers</div>
+          <h2 class="section-title" id="pageHeading">All Teachers</h2>
+          <p class="section-copy" id="pageIntro">Browse teachers from every department in one directory.</p>
+        </div>
+        <div class="teacher-count" id="teacherCount">0 teachers</div>
       </div>
+
+      <div class="teacher-grid" id="teacherGrid"></div>
     </div>
   </section>
 
-  <section class="section" id="events">
+  <section class="cta">
     <div class="container">
-      <div class="events-head">
-        <div>
-          <div class="section-kicker">School Life</div>
-          <h2 class="section-title">Events</h2>
-        </div>
-        <div class="carousel-controls">
-          <button class="circle-btn" id="prevEvent" aria-label="Previous event">‹</button>
-          <button class="circle-btn" id="nextEvent" aria-label="Next event">›</button>
-        </div>
-      </div>
-
-      <div class="event-viewport">
-        <div class="event-track" id="eventTrack">
-          <article class="event-card">
-            <img src="https://images.squarespace-cdn.com/content/v1/6715841c733ae404b8220f77/3b2880d3-f1ea-409f-9857-0c9685e86854/KBH%2BPic_1.jpg" alt="KBH school event" />
-            <div class="event-body">
-              <div class="event-meta">KBH Nonthaburi</div>
-              <h3>Learning beyond the classroom</h3>
-              <p>Follow school life, student activities and special moments from our community.</p>
-            </div>
-          </article>
-
-          <article class="event-card">
-            <img src="https://images.squarespace-cdn.com/content/v1/6715841c733ae404b8220f77/f29892a1-e247-4a28-ab14-38962a683cc8/KBH%2BPic_3.jpg" alt="KBH event" />
-            <div class="event-body">
-              <div class="event-meta">Community</div>
-              <h3>Celebrating important milestones</h3>
-              <p>Moments that bring families, teachers and students together as one school community.</p>
-            </div>
-          </article>
-
-          <article class="event-card">
-            <img src="https://images.squarespace-cdn.com/content/v1/6715841c733ae404b8220f77/fb0e00e1-86b4-4479-97c1-33f6a4550d2d/KBH%2Bbuilding%2B1%2B%281%29.JPG" alt="KBH campus" />
-            <div class="event-body">
-              <div class="event-meta">Campus</div>
-              <h3>Discover our Nonthaburi campus</h3>
-              <p>A modern, green learning environment with spaces designed for study, play and discovery.</p>
-            </div>
-          </article>
-
-          <article class="event-card">
-            <img src="https://images.squarespace-cdn.com/content/v1/6715841c733ae404b8220f77/3b2880d3-f1ea-409f-9857-0c9685e86854/KBH%2BPic_1.jpg" alt="Students" />
-            <div class="event-body">
-              <div class="event-meta">Students</div>
-              <h3>Growing in confidence together</h3>
-              <p>Student experiences that combine learning, friendship, creativity and character.</p>
-            </div>
-          </article>
-        </div>
-      </div>
-
-      <a class="text-link" href="https://www.facebook.com/" target="_blank" rel="noopener">More detail <span>→</span></a>
-    </div>
-  </section>
-
-  <section class="section socials" id="socials">
-    <div class="container">
-      <div class="section-kicker" style="color:#c8a8e3">Stay Connected</div>
-      <h2 class="section-title">Our Socials</h2>
-      <p class="section-copy">Dive into moments from day-to-day activities, achievements and special events. Celebrate milestones, explore learning adventures and feel closer to the school journey.</p>
-
-      <div class="social-grid">
-        <a class="social-card facebook" href="https://www.facebook.com/" target="_blank" rel="noopener">
-          <div>
-            <div class="platform">Facebook ↗</div>
-            <h3>See the latest school updates and community moments.</h3>
-          </div>
-        </a>
-
-        <a class="social-card instagram" href="https://www.instagram.com/" target="_blank" rel="noopener">
-          <div>
-            <div class="platform">Instagram ↗</div>
-            <h3>Explore life at KBH through photos and stories.</h3>
-          </div>
-        </a>
+      <div class="cta-copy">
+        <div class="section-kicker" style="color:#fff;opacity:.8">Join our community</div>
+        <h2>Discover learning at Knightsbridge House.</h2>
+        <p>
+          Learn more about our curriculum, campus and caring international school community in Nonthaburi.
+        </p>
+        <a class="btn btn-light" href="index.html#contact">Contact Us</a>
       </div>
     </div>
   </section>
 
-  <section class="section" id="contact">
-    <div class="container contact-wrap">
-      <div class="contact-panel">
-        <div class="section-kicker">Get in touch</div>
-        <h2>Contact us.</h2>
-
-        <div class="contact-list">
-          <div class="contact-item">
-            <small>Email</small>
-            <a href="mailto:admission@kbh.ac.th">admission@kbh.ac.th</a>
-          </div>
-
-          <div class="contact-item">
-            <small>Phone</small>
-            <a href="tel:+66951699978">+66 (0) 95 169 9978</a>
-          </div>
-
-          <div class="contact-item">
-            <small>Address</small>
-            <p>94 / 9 Sukha Pracha San 3, Bang Phut Sub-district, Pak Kret District, Nonthaburi 11120</p>
-          </div>
-
-          <div class="contact-item">
-            <small>Hours</small>
-            <p>Monday - Friday<br />8 AM - 5 PM</p>
-          </div>
-        </div>
-
-        <div class="member-row">
-          <span>Member of:</span>
-          <img src="https://images.squarespace-cdn.com/content/v1/6715841c733ae404b8220f77/54b29714-693e-4ca6-a9c1-18f553153681/ISAT-Logo-590x417.png" alt="ISAT" />
-        </div>
-      </div>
-
-      <div class="map">
-        <iframe
-          loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade"
-          src="https://www.google.com/maps?q=94%2F9%20Sukha%20Pracha%20San%203%2C%20Bang%20Phut%2C%20Pak%20Kret%2C%20Nonthaburi%2011120&output=embed"
-          title="Knightsbridge House International School Nonthaburi map">
-        </iframe>
-      </div>
-    </div>
-  </section>
 </main>
 
 <footer>
@@ -1150,97 +869,447 @@
   </div>
 </footer>
 
-<script>
-  const header = document.getElementById('header');
-  const menuToggle = document.getElementById('menuToggle');
-  const navLinks = document.getElementById('navLinks');
-  const teacherMenu = document.getElementById('teacherMenu');
-  const teacherToggle = document.getElementById('teacherToggle');
+<div class="lightbox" id="lightbox" aria-hidden="true">
+  <div class="lightbox-panel">
+    <button class="lightbox-close" id="lightboxClose" aria-label="Close">✕</button>
+    <img class="lightbox-img" id="lightboxImg" src="" alt="" />
+  </div>
+</div>
 
-  function updateHeader() {
-    header.classList.toggle('scrolled', window.scrollY > 30);
+<script>
+const CDN = "https://images.squarespace-cdn.com/content/6715841c733ae404b8220f77/";
+
+const subjects = {
+    "english": {
+        label: "English",
+        intro: "English language and literacy teachers.",
+        teachers: [
+            ["Mr. Shaun Peters", CDN + "231847ec-c748-44fd-afb0-d8653d42e407/Shaun.jpg?content-type=image%2Fjpeg"],
+            ["Ms. Grace Pocknell", CDN + "a1bed850-eb9a-4ec7-944b-198a042808bd/Grace.jpg?content-type=image%2Fjpeg"],
+            ["Mr. Maxim McCain", CDN + "5437126b-8bd4-401b-a45d-82ddc8f6296c/Maxim.jpg?content-type=image%2Fjpeg"],
+            ["Ms. Lauryn Tyler", CDN + "0845a526-d0af-49d3-b063-ef708fb7e787/Lauryn.jpg?content-type=image%2Fjpeg"],
+            ["Mr. Mukesh", CDN + "b5200979-081e-4ec7-9ee3-761454f6ba0b/Mukesh.jpg?content-type=image%2Fjpeg"]
+        ]
+    },
+
+    "chinese": {
+        label: "Chinese",
+        intro: "Mandarin Chinese teachers.",
+        teachers: [
+            ["Ms. Yang Lan (Emilia)", CDN + "fe92461c-d2fd-4999-a1e0-025dff959623/Yang.jpg?content-type=image%2Fjpeg"],
+            ["Ms. Tang Yanzheng (Emma)", CDN + "e458389f-ae65-4f61-a639-6233836840cc/Tang.jpg?content-type=image%2Fjpeg"],
+            ["Ms. Wang Yuzhe", CDN + "853c4a5a-acec-410b-96c2-6116a50dd2ba/Wang.jpg?content-type=image%2Fjpeg"],
+            ["Ms. Wei Jie (Amy)", CDN + "7095602a-ce33-4cc6-907b-ffab80569b87/Wei.jpg?content-type=image%2Fjpeg"],
+            ["Ms. Zhang Biyun (Rhea)", CDN + "7c8fc07c-69e3-40ff-b983-664df41defac/Zhang.jpg?content-type=image%2Fjpeg"],
+            ["Ms. Liu Fengming (Sophie)", CDN + "6a5e8a7f-f33b-4c79-bd77-a8e6c83c7bd4/Liu.jpg?content-type=image%2Fjpeg"],
+            ["Ms. Huang Xiaoying (Rachel)", CDN + "e9a1e79b-4ed3-4236-bd22-7c46cd6e7721/Huang.jpg?content-type=image%2Fjpeg"]
+        ]
+    },
+
+    "thai": {
+        label: "Thai",
+        intro: "Thai language teachers.",
+        teachers: [
+            ["Dr. Siriwan Sirimangkanlawanit", CDN + "a2b12e85-50bf-45e0-9431-b3b969907b49/Siriwan.jpg?content-type=image%2Fjpeg"],
+            ["Ms. Pathararuthai Tubtim (Oh)", CDN + "0468bd9a-73f6-45c7-9c04-e3d8222fc039/Pathararuthai.jpg?content-type=image%2Fjpeg"],
+            ["Ms. Natsuda Ngamchad (Sax)", CDN + "b1ccf4b9-468e-4533-ab8d-7f42d6093c2c/Natsuda.jpg?content-type=image%2Fjpeg"],
+            ["Ms. Pitchayapak Prajuabklang", CDN + "53eaba34-a142-4439-bc7e-639fb8ba03a6/Pitchayapak.jpg?content-type=image%2Fjpeg"],
+            ["Ms. Piranun Luewiphan", CDN + "1000dcc7-21b7-4af3-a957-18fccc7717d6/Piranun.jpg?content-type=image%2Fjpeg"],
+            ["Ms. Nurulhuda Bawae (Vu)", CDN + "fc443b44-cd87-40e9-b9f8-8a4ab91cacad/Nurulhuda.jpg?content-type=image%2Fjpeg"]
+        ]
+    },
+
+    "computing": {
+        label: "Digital Literacy & Computing",
+        intro: "Digital literacy, computing and technology teachers.",
+        teachers: [
+            ["Mr. Dean Wilkins", CDN + "ca9ca250-8b6d-47cb-8e9e-350aa8446efd/Dean.jpg?content-type=image%2Fjpeg"],
+            ["Mr. Tomas Jursys", CDN + "9602df8a-8aea-4888-9b2e-f931e7c0d90d/Tomas.jpg?content-type=image%2Fjpeg"],
+            ["Ms. Sindhu Rangani", CDN + "d4225948-6a90-43ca-a3a1-cdde12d62a92/Sindhu.jpg?content-type=image%2Fjpeg"]
+        ]
+    },
+
+    "art": {
+        label: "Art & Design",
+        intro: "Art and design teachers.",
+        teachers: [
+            ["Ms. Patricia", CDN + "66d938e5-9c73-4024-ac34-f3d225b1b0a9/Patricia.jpg?content-type=image%2Fjpeg"]
+        ]
+    },
+
+    "headmaster": {
+        label: "Founding Headmaster",
+        intro: "School leadership.",
+        teachers: [
+            ["Mr. Michael Chan", CDN + "c8c1488b-9a4a-4ab7-aba2-50e901bd8b27/Michael.jpg?content-type=image%2Fjpeg"]
+        ]
+    },
+
+    "global-perspectives": {
+        label: "Global Perspectives",
+        intro: "Global Perspectives and society-focused learning.",
+        teachers: [
+            ["Mr. Artem Rudenko", CDN + "afa3faf7-24fd-485f-86a4-a935a441e732/Artem.jpg?content-type=image%2Fjpeg"],
+            ["Min Pyae", CDN + "125c1636-666e-4352-9097-2a1e8fca52a1/Min%2BPyae.jpg?content-type=image%2Fjpeg"]
+        ]
+    },
+
+    "lower-primary": {
+        label: "Lower Primary",
+        intro: "Lower Primary and homeroom teachers.",
+        teachers: [
+            ["Ms. Tayla Lee Hohls", CDN + "61ba1e44-77ae-4e57-bd5e-412bcc4949ec/Tayla.jpg?content-type=image%2Fjpeg"],
+            ["Ms. Michelle van Schalkwyk", CDN + "eb6af6b2-019c-4d9d-a1fe-02f9346cb415/Michelle.jpg?content-type=image%2Fjpeg"],
+            ["Ms. Nelli Sukiasyan", CDN + "2e7b9732-b1b6-406d-a0df-c581e29783fb/Nelli.jpg?content-type=image%2Fjpeg"],
+            ["Mr. Morgan Mcleary", CDN + "7de38e40-0c43-4de7-9758-74c6436fe270/Morgan.jpg?content-type=image%2Fjpeg"],
+            ["Dr. Mihret B. Mengistu", CDN + "810110d9-0b66-45c8-b8ee-05c6c7e58c9a/Mihret.jpg?content-type=image%2Fjpeg"],
+            ["Ms. Ani Ghazaryan", CDN + "bf111b4f-2a88-459e-80d5-0e60aae97d76/Ani.jpg?content-type=image%2Fjpeg"],
+            ["Emily", CDN + "1d27aa00-d660-49df-b20c-2b05b312d15a/Emily.jpg?content-type=image%2Fjpeg"]
+        ]
+    },
+
+    "music": {
+        label: "Music",
+        intro: "Music teachers.",
+        teachers: [
+            ["Ms. Thamonwan Chooklin (Eye)", CDN + "4dbff5dc-5a5b-41d9-baa1-85de7ff9d052/Thamonwan.jpg?content-type=image%2Fjpeg"]
+        ]
+    },
+
+    "mathematics": {
+        label: "Mathematics",
+        intro: "Mathematics teachers.",
+        teachers: [
+            ["Monyque", CDN + "bd711372-76ac-4b72-bb83-2b0ed6afc835/Monyque.jpg?content-type=image%2Fjpeg"],
+            ["Ms. Tamaryn Sass (Tammy)", CDN + "8d4cc576-7f74-4a52-93ba-cf820a4d718f/Tamaryn.jpg?content-type=image%2Fjpeg"],
+            ["Mr. Luis Suyam Jr.", CDN + "4ad92282-e77b-46f8-b44f-8d7c5204c26a/Luis.jpg?content-type=image%2Fjpeg"]
+        ]
+    },
+
+    "pe": {
+        label: "PE",
+        intro: "Physical Education teachers.",
+        teachers: [
+            ["Mr. Michael Soliven", CDN + "41742688-f65c-468c-ac5a-5ea03f7aae45/Michael.jpg?content-type=image%2Fjpeg"],
+            ["Ms. Beth Jiah Quino", CDN + "50c3c14d-3b78-47d8-bc6e-ec46de284467/Beth.jpg?content-type=image%2Fjpeg"],
+            ["Ms. Lorraine Amalia E. Aliguin", CDN + "b4691747-da12-4b23-b54a-cbbe18df3b85/Lorraine.jpg?content-type=image%2Fjpeg"]
+        ]
+    },
+
+    "science": {
+        label: "Science",
+        intro: "Science teachers.",
+        teachers: [
+            ["Mr. Christian Banasan", CDN + "bed58366-d229-483a-91e1-6302712c6cd2/Christian.jpg?content-type=image%2Fjpeg"],
+            ["Mrs. Angeline P. Soliven", CDN + "bad6e020-e76c-41d6-b4f8-b666bc78c1ea/Angeline.jpg?content-type=image%2Fjpeg"]
+        ]
+    },
+
+    "teaching-assistant": {
+        label: "Teaching Assistant",
+        intro: "Teaching assistants supporting students and classroom learning.",
+        teachers: [
+            ["Ms. Honey Oo", CDN + "26eab5b4-3455-4976-9cba-57fa03d8aa5d/Honey.jpg?content-type=image%2Fjpeg"],
+            ["Ms. Maria Melody Cadelina Tortola", CDN + "22e9b48c-16fb-4d2c-b820-93533e0fffd8/Maria.jpg?content-type=image%2Fjpeg"],
+            ["Ms. Anna Lou Moria", CDN + "0d7a69bb-0b8d-4042-b2e4-c5554529cba8/Anna.jpg?content-type=image%2Fjpeg"],
+            ["Ms. Nida Logatoc Pascua", CDN + "1c6943d6-122e-4ce2-9e96-171898d7be70/Nida.jpg?content-type=image%2Fjpeg"],
+            ["Ms. Adriana Quilantang", CDN + "999f3c7a-6593-41eb-bb3b-e28deeaa28b7/Adriana.jpg?content-type=image%2Fjpeg"],
+            ["Ms. Robelyn Raposas Ancheta", CDN + "743bda7a-8e9a-4313-ae4c-628cdb2c003e/Robelyn.jpg?content-type=image%2Fjpeg"],
+            ["Ms. Salima Mutesi", CDN + "e095a193-fdf8-493c-a4d4-0abe94f50b37/Salima.jpg?content-type=image%2Fjpeg"],
+            ["Ms. San Thiri Aung", CDN + "715b84f2-0127-41da-ba7b-7cd73d49d495/San.jpg?content-type=image%2Fjpeg"]
+        ]
+    }
+};
+
+const subjectOrder = [
+  "all",
+  "english",
+  "chinese",
+  "thai",
+  "computing",
+  "art",
+  "headmaster",
+  "global-perspectives",
+  "lower-primary",
+  "music",
+  "mathematics",
+  "pe",
+  "science",
+  "teaching-assistant"
+];
+
+const subjectAliases = {
+  "digital-literacy": "computing",
+  "digital-literacy-computing": "computing",
+  "computer": "computing",
+  "arts": "art",
+  "art-design": "art",
+  "founding-headmaster": "headmaster",
+  "global": "global-perspectives",
+  "lowerprimary": "lower-primary",
+  "math": "mathematics",
+  "maths": "mathematics",
+  "physical-education": "pe",
+  "teaching-assistants": "teaching-assistant",
+  "ta": "teaching-assistant"
+};
+
+const header = document.getElementById('header');
+const menuToggle = document.getElementById('menuToggle');
+const navLinks = document.getElementById('navLinks');
+const teacherMenu = document.getElementById('teacherMenu');
+const teacherToggle = document.getElementById('teacherToggle');
+
+const subjectList = document.getElementById('subjectList');
+const teacherGrid = document.getElementById('teacherGrid');
+const pageHeading = document.getElementById('pageHeading');
+const pageKicker = document.getElementById('pageKicker');
+const pageIntro = document.getElementById('pageIntro');
+const teacherCount = document.getElementById('teacherCount');
+const heroTitle = document.getElementById('heroTitle');
+const heroDescription = document.getElementById('heroDescription');
+const heroSubject = document.getElementById('heroSubject');
+const heroCount = document.getElementById('heroCount');
+
+const lightbox = document.getElementById('lightbox');
+const lightboxImg = document.getElementById('lightboxImg');
+const lightboxClose = document.getElementById('lightboxClose');
+
+function updateHeader() {
+  header.classList.toggle('scrolled', window.scrollY > 30);
+}
+
+window.addEventListener('scroll', updateHeader, { passive: true });
+updateHeader();
+
+menuToggle.addEventListener('click', () => {
+  const open = header.classList.toggle('menu-open');
+  menuToggle.setAttribute('aria-expanded', open);
+  menuToggle.textContent = open ? '✕' : '☰';
+});
+
+teacherToggle.addEventListener('click', (e) => {
+  if (window.innerWidth <= 980) {
+    e.preventDefault();
+    teacherMenu.classList.toggle('dropdown-open');
+  }
+});
+
+function normalizeSubject(value) {
+  if (!value) return 'all';
+  value = value.trim().toLowerCase().replace(/\s+/g, '-');
+  if (subjectAliases[value]) value = subjectAliases[value];
+  return subjectOrder.includes(value) ? value : 'all';
+}
+
+function getRequestedSubjects() {
+  const params = new URLSearchParams(location.search);
+  const raw = params.getAll('subject')
+    .flatMap(value => value.split(','))
+    .map(normalizeSubject)
+    .filter(Boolean);
+
+  if (!raw.length || raw.includes('all')) return ['all'];
+  return [...new Set(raw)];
+}
+
+function allTeachers() {
+  return Object.entries(subjects).flatMap(([slug, subject]) =>
+    subject.teachers.map(teacher => ({
+      name: teacher[0],
+      image: teacher[1],
+      department: subject.label,
+      slug
+    }))
+  );
+}
+
+function selectedTeachers(selected) {
+  if (selected.includes('all')) return allTeachers();
+
+  return selected.flatMap(slug =>
+    (subjects[slug]?.teachers || []).map(teacher => ({
+      name: teacher[0],
+      image: teacher[1],
+      department: subjects[slug].label,
+      slug
+    }))
+  );
+}
+
+function subjectLabel(selected) {
+  if (selected.includes('all')) return 'All departments';
+  return selected.map(slug => subjects[slug]?.label).filter(Boolean).join(' + ');
+}
+
+function createSubjectButtons() {
+  subjectList.innerHTML = '';
+
+  subjectOrder.forEach(slug => {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'subject-btn';
+    button.dataset.subject = slug;
+    button.textContent = slug === 'all' ? 'All Teachers' : subjects[slug].label;
+
+    button.addEventListener('click', () => {
+      const params = new URLSearchParams();
+      params.set('subject', slug);
+      history.pushState({}, '', location.pathname + '?' + params.toString());
+      render(true);
+    });
+
+    subjectList.appendChild(button);
+  });
+}
+
+function openLightbox(src, name) {
+  lightboxImg.src = src;
+  lightboxImg.alt = name;
+  lightbox.classList.add('open');
+  lightbox.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox() {
+  lightbox.classList.remove('open');
+  lightbox.setAttribute('aria-hidden', 'true');
+  lightboxImg.src = '';
+  document.body.style.overflow = '';
+}
+
+lightboxClose.addEventListener('click', closeLightbox);
+lightbox.addEventListener('click', e => {
+  if (e.target === lightbox) closeLightbox();
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeLightbox();
+});
+
+function render(scrollToDirectory = false) {
+  const selected = getRequestedSubjects();
+  const teachers = selectedTeachers(selected);
+
+  document.querySelectorAll('.subject-btn').forEach(btn => {
+    btn.classList.toggle(
+      'active',
+      selected.includes('all')
+        ? btn.dataset.subject === 'all'
+        : selected.includes(btn.dataset.subject)
+    );
+  });
+
+  document.querySelectorAll('[data-subject-link]').forEach(link => {
+    link.classList.toggle('active', selected.includes(link.dataset.subjectLink));
+  });
+
+  let heading;
+  let intro;
+
+  if (selected.includes('all')) {
+    heading = 'All Teachers';
+    intro = 'Meet our teaching team across languages, core academics, specialist subjects and primary learning.';
+  } else if (selected.length === 1) {
+    heading = subjects[selected[0]].label;
+    intro = subjects[selected[0]].intro;
+  } else {
+    heading = selected.map(slug => subjects[slug].label).join(' + ');
+    intro = 'Showing teachers from the selected departments.';
   }
 
-  window.addEventListener('scroll', updateHeader, { passive: true });
-  updateHeader();
+  const countText = `${teachers.length} ${teachers.length === 1 ? 'teacher' : 'teachers'}`;
 
-  menuToggle.addEventListener('click', () => {
-    const open = header.classList.toggle('menu-open');
-    menuToggle.setAttribute('aria-expanded', open);
-    menuToggle.textContent = open ? '✕' : '☰';
-  });
+  pageKicker.textContent = selected.includes('all') ? 'Our Teachers' : 'Our Teacher';
+  pageHeading.textContent = heading;
+  pageIntro.textContent = intro;
+  teacherCount.textContent = countText;
 
-  teacherToggle.addEventListener('click', (e) => {
-    if (window.innerWidth <= 980) {
-      e.preventDefault();
-      teacherMenu.classList.toggle('dropdown-open');
-    }
-  });
+  heroTitle.textContent = selected.includes('all') ? 'Our Teachers' : heading;
+  heroDescription.textContent = selected.includes('all')
+    ? 'Meet the inspiring international teaching team behind the learning experience at Knightsbridge House.'
+    : `Meet the ${heading} team at Knightsbridge House International School Nonthaburi.`;
+  heroSubject.textContent = subjectLabel(selected);
+  heroCount.textContent = countText;
 
-  navLinks.querySelectorAll('a[href^="#"]:not(#teacherToggle)').forEach(link => {
-    link.addEventListener('click', () => {
-      if (window.innerWidth <= 980) {
-        header.classList.remove('menu-open');
-        menuToggle.setAttribute('aria-expanded', 'false');
-        menuToggle.textContent = '☰';
+  document.title = `${heading} | Knightsbridge House International School Nonthaburi`;
+
+  teacherGrid.innerHTML = '';
+
+  if (!teachers.length) {
+    teacherGrid.innerHTML = '<div class="empty">No teachers found for this subject.</div>';
+    return;
+  }
+
+  teachers.forEach((teacher, index) => {
+    const card = document.createElement('article');
+    card.className = 'teacher-card';
+    card.tabIndex = 0;
+    card.setAttribute('aria-label', `Open ${teacher.name} profile`);
+
+    const photo = document.createElement('div');
+    photo.className = 'teacher-photo';
+
+    const img = document.createElement('img');
+    img.src = teacher.image;
+    img.alt = teacher.name;
+    img.loading = index < 6 ? 'eager' : 'lazy';
+    img.decoding = 'async';
+
+    const body = document.createElement('div');
+    body.className = 'teacher-card-body';
+    body.innerHTML = `
+      <div class="teacher-dept">${teacher.department}</div>
+      <h3>${teacher.name}</h3>
+      <div class="view-text">View teacher profile <span>→</span></div>
+    `;
+
+    const open = () => openLightbox(teacher.image, teacher.name);
+
+    card.addEventListener('click', open);
+    card.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        open();
       }
     });
+
+    img.addEventListener('error', () => {
+      photo.style.display = 'grid';
+      photo.style.placeItems = 'center';
+      photo.style.padding = '32px';
+      photo.innerHTML = `
+        <div style="text-align:center;color:#5d2d91">
+          <div style="font-family:Georgia,serif;font-size:28px;line-height:1.15">${teacher.name}</div>
+          <div style="margin-top:9px;font-size:13px;color:#6d6872">Profile image unavailable</div>
+        </div>
+      `;
+    });
+
+    photo.appendChild(img);
+    card.appendChild(photo);
+    card.appendChild(body);
+    teacherGrid.appendChild(card);
   });
 
-  // Simple responsive events carousel
-  const track = document.getElementById('eventTrack');
-  const prev = document.getElementById('prevEvent');
-  const next = document.getElementById('nextEvent');
-  const cards = [...track.children];
-  let index = 0;
-
-  function cardsPerView() {
-    if (window.innerWidth <= 680) return 1;
-    if (window.innerWidth <= 980) return 2;
-    return 3;
+  if (scrollToDirectory) {
+    document.querySelector('.filter-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
+}
 
-  function updateCarousel() {
-    const perView = cardsPerView();
-    const maxIndex = Math.max(0, cards.length - perView);
-    index = Math.min(index, maxIndex);
+window.addEventListener('popstate', () => render(false));
 
-    const firstCard = cards[0];
-    const gap = 20;
-    const step = firstCard.getBoundingClientRect().width + gap;
-    track.style.transform = `translateX(${-index * step}px)`;
+document.getElementById('year').textContent = new Date().getFullYear();
 
-    prev.disabled = index === 0;
-    next.disabled = index === maxIndex;
-    prev.style.opacity = prev.disabled ? '.35' : '1';
-    next.style.opacity = next.disabled ? '.35' : '1';
+let secretClickCount = 0;
+document.getElementById('secret').addEventListener('click', function () {
+  secretClickCount++;
+  if (secretClickCount >= 3) {
+    window.location.href = 'secret.html';
   }
+});
 
-  prev.addEventListener('click', () => {
-    if (index > 0) index--;
-    updateCarousel();
-  });
-
-  next.addEventListener('click', () => {
-    const maxIndex = Math.max(0, cards.length - cardsPerView());
-    if (index < maxIndex) index++;
-    updateCarousel();
-  });
-
-  window.addEventListener('resize', updateCarousel);
-  updateCarousel();
-
-  document.getElementById('year').textContent = new Date().getFullYear();
-
-        let secretClickCount = 0;
-
-        document.getElementById("secret").addEventListener("click", function () {
-            secretClickCount++;
-
-            if (secretClickCount >= 3) {
-                window.location.href = "secret.html";
-            }
-        });
+createSubjectButtons();
+render(false);
 </script>
 </body>
 </html>
