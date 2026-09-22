@@ -1,12 +1,27 @@
 [
     {
-        "date": "2026-09-18",
-        "title": "Cambridge MIDYIS Assessment",
-        "description": "Bring laptops, Prepare for English, Math, Science."
+        "date": "2026-09-24",
+        "title": "Mid-Autumn Festival",
+        "description": "Enjoy the event!"
     },
     {
         "date": "2026-11-06",
         "title": "Sports Day 2026",
         "description": "All students must wear sports attire and comfortable shoes."
+    },
+    {
+        "date":"2026-10-02"
+        "title":"SEAMO"
+        "description":"Competition"
+    },
+    {
+        "date":"2026-09-13"
+        "title":"JMMC"
+        "description":"Competition"
+    },
+    {
+        "date":"2026-09-22"
+        "title":"YCT"
+        "description":"Exam"
     }
 ]
